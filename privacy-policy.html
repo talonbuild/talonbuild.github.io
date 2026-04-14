@@ -12,7 +12,8 @@
     :root {
       --bg: #04060c; --surface: #0b1120; --border: rgba(255,255,255,0.07);
       --text: rgba(255,255,255,0.88); --muted: rgba(255,255,255,0.45);
-      --accent: #3B82F6; --cinzel: 'Cinzel', serif; --mono: 'IBM Plex Mono', monospace;
+      --accent: #818cf8; --accent-glow: rgba(129, 140, 248, 0.6);
+      --cinzel: 'Cinzel', serif; --mono: 'IBM Plex Mono', monospace;
     }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: var(--mono); font-weight: 300; font-size: 15px; line-height: 1.8; min-height: 100vh; }
@@ -31,13 +32,63 @@
         radial-gradient(1px 1px at 87% 78%, rgba(255,255,255,0.25) 0%, transparent 100%);
       pointer-events: none; z-index: 0;
     }
-    .wrap { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 80px 28px 100px; }
-    header { text-align: center; margin-bottom: 64px; }
+
+    /* NAV */
+    nav.top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 20;
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(4,6,12,0.92) 0%, rgba(4,6,12,0.5) 70%, transparent 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .wordmark-nav {
+      font-family: var(--cinzel);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a {
+      font-family: var(--cinzel);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 0;
+      position: relative;
+      transition: color 0.4s ease;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent-glow);
+      transition: width 0.4s ease;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+    .wrap { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 160px 28px 100px; }
+    header.page-header { text-align: center; margin-bottom: 64px; }
     .wordmark { font-family: var(--cinzel); font-size: 11px; font-weight: 600; letter-spacing: 0.35em; color: var(--muted); text-transform: uppercase; margin-bottom: 28px; }
     .wordmark span { display: inline-block; width: 32px; height: 1px; background: var(--muted); vertical-align: middle; margin: 0 10px; position: relative; top: -1px; }
     h1 { font-family: var(--cinzel); font-size: clamp(22px, 4vw, 30px); font-weight: 700; letter-spacing: 0.05em; color: #fff; margin-bottom: 14px; line-height: 1.25; }
     .meta { font-size: 11px; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; }
-    .divider { width: 48px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 32px auto 0; }
+    .divider { width: 48px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 32px auto 0; box-shadow: 0 0 12px var(--accent-glow); }
     section { margin-bottom: 48px; padding: 32px 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; animation: fadeUp 0.5s ease both; }
     section:nth-child(1) {animation-delay:0.05s} section:nth-child(2) {animation-delay:0.10s}
     section:nth-child(3) {animation-delay:0.13s} section:nth-child(4) {animation-delay:0.16s}
@@ -50,18 +101,32 @@
     h2 { font-family: var(--cinzel); font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
     p { color: var(--text); margin-bottom: 14px; }
     p:last-child { margin-bottom: 0; }
-    .ai-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.25); border-radius: 4px; padding: 4px 10px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .ai-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(129,140,248,0.1); border: 1px solid rgba(129,140,248,0.25); border-radius: 4px; padding: 4px 10px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
     .ai-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-    .contact-link { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(59,130,246,0.3); transition: border-color 0.2s; }
+    .contact-link { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(129,140,248,0.3); transition: border-color 0.2s; }
     .contact-link:hover { border-color: var(--accent); }
-    footer { text-align: center; margin-top: 64px; }
-    .footer-mark { font-family: var(--cinzel); font-size: 11px; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; }
-    @media (max-width: 560px) { .wrap{padding:52px 18px 80px} section{padding:24px 20px} }
+    footer.site-footer { text-align: center; padding: 36px 20px; border-top: 1px solid var(--border); position: relative; z-index: 1; }
+    .footer-mark { font-family: var(--cinzel); font-size: 10px; letter-spacing: 0.38em; color: var(--muted); text-transform: uppercase; }
+    @media (max-width: 720px) {
+      nav.top-nav { padding: 20px 24px; flex-direction: column; gap: 18px; }
+      .nav-links { gap: 28px; }
+      .wrap{padding: 200px 18px 80px}
+      section{padding:24px 20px}
+    }
   </style>
 </head>
 <body>
+  <nav class="top-nav">
+    <a href="index.html" class="wordmark-nav">Talon</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="privacy-policy.html" class="active">Privacy</a></li>
+    </ul>
+  </nav>
+
   <div class="wrap">
-    <header>
+    <header class="page-header">
       <div class="wordmark"><span></span>Talon<span></span></div>
       <h1>Terms &amp; Privacy Policy</h1>
       <p class="meta">Last Updated: April 9, 2026</p>
@@ -147,10 +212,10 @@
         <p>Questions about your data or these terms? Reach out to <a class="contact-link" href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
       </section>
     </main>
-
-    <footer>
-      <p class="footer-mark">Talon &nbsp;·&nbsp; Built to Win</p>
-    </footer>
   </div>
+
+  <footer class="site-footer">
+    <p class="footer-mark">Talon &nbsp;·&nbsp; © 2026</p>
+  </footer>
 </body>
 </html>
