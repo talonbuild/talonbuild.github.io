@@ -394,13 +394,13 @@
     }
 
     async function handleReset() {
-      const password = document.getElementById('password').value.trim();
-      const confirm  = document.getElementById('confirm').value.trim();
+      const password        = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirm').value.trim();
 
       // Clear previous errors
       document.getElementById('error-msg').className = 'message error';
 
-      if (!password || !confirm) {
+      if (!password || !confirmPassword) {
         showError('Please fill in both fields.');
         return;
       }
@@ -408,7 +408,7 @@
         showError('Password must be at least 8 characters.');
         return;
       }
-      if (password !== confirm) {
+      if (password !== confirmPassword) {
         showError('Passwords do not match.');
         return;
       }
@@ -416,7 +416,7 @@
       setLoading(true);
 
       try {
-        const res = await fetch(`${APPWRITE_ENDPOINT}/account/recovery/confirm`, {
+        const res = await fetch(`${APPWRITE_ENDPOINT}/account/recovery`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -426,7 +426,7 @@
             userId,
             secret,
             password,
-            passwordAgain: confirm,
+            passwordAgain: confirmPassword,
           }),
         });
 
