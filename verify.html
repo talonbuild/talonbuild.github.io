@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://nyc.cloud.appwrite.io; img-src 'self' data:;" />
+  <title>Verify Email — Talon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #04060c;
+      --surface: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --border-focus: rgba(255,60,60,0.5);
+      --accent: #ff3c3c;
+      --accent-glow: rgba(255,60,60,0.15);
+      --text: rgba(255,255,255,0.92);
+      --text-muted: rgba(255,255,255,0.4);
+      --error: #ff4d4d;
+      --success: #4dffb4;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    /* Stars background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 8%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 25%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 12%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 33% 90%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(2px 2px at 70% 90%, rgba(255,255,255,0.2) 0%, transparent 100%),
+        radial-gradient(2px 2px at 5% 50%, rgba(255,255,255,0.2) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Ambient glow */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(255,60,60,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 40px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .orb {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(255,180,180,0.9), rgba(255,60,60,0.7) 50%, rgba(200,0,0,0.3) 80%, transparent);
+      box-shadow:
+        0 0 20px rgba(255,60,60,0.4),
+        0 0 40px rgba(255,60,60,0.2),
+        0 0 80px rgba(200,0,0,0.1);
+      margin: 0 auto 24px;
+      overflow: hidden;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(255,60,60,0.4), 0 0 40px rgba(255,60,60,0.2), 0 0 80px rgba(200,0,0,0.1); }
+      50%       { box-shadow: 0 0 30px rgba(255,60,60,0.6), 0 0 60px rgba(255,60,60,0.3), 0 0 100px rgba(200,0,0,0.15); }
+    }
+
+    .logo {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-align: center;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      letter-spacing: 0.05em;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 8px;
+      padding: 16px;
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: #04060c;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+      text-transform: uppercase;
+    }
+
+    button:hover:not(:disabled) {
+      opacity: 0.9;
+      box-shadow: 0 0 24px rgba(255,153,51,0.4);
+    }
+
+    button:active:not(:disabled) { transform: scale(0.98); }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 20px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      line-height: 1.6;
+      letter-spacing: 0.05em;
+      text-align: center;
+      display: none;
+    }
+
+    .message.error {
+      background: rgba(255,77,77,0.08);
+      border: 1px solid rgba(255,77,77,0.2);
+      color: var(--error);
+    }
+
+    .message.show { display: block; animation: fadeUp 0.3s ease both; }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(4,6,12,0.3);
+      border-top-color: #04060c;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    .spinner-large {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(255,60,60,0.15);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .spinner-wrap {
+      text-align: center;
+      margin: 8px 0 24px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    /* Success state */
+    .success-state {
+      text-align: center;
+      display: none;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .success-state .check {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(77,255,180,0.08);
+      border: 1px solid rgba(77,255,180,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 24px;
+    }
+
+    .success-state h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      color: var(--success);
+      margin-bottom: 12px;
+    }
+
+    .success-state p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      letter-spacing: 0.05em;
+    }
+
+    /* Invalid link state */
+    .invalid-state {
+      text-align: center;
+      display: none;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .invalid-state .icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .invalid-state h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      letter-spacing: 0.1em;
+      color: var(--error);
+      margin-bottom: 12px;
+    }
+
+    .invalid-state p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="orb"></div>
+    <div class="logo">Talon</div>
+    <div class="tagline">Built to Win</div>
+
+    <!-- Verifying state (default on load) -->
+    <div id="verifying-state">
+      <h1>Verify Email</h1>
+      <p class="subtitle">Confirming your email address...</p>
+
+      <div class="spinner-wrap">
+        <div class="spinner-large"></div>
+      </div>
+
+      <div class="message error" id="error-msg"></div>
+
+      <button id="retry-btn" onclick="verifyEmail()" style="display: none;">Try Again</button>
+    </div>
+
+    <!-- Success state -->
+    <div class="success-state" id="success-state">
+      <div class="check">✓</div>
+      <h2>Email Verified</h2>
+      <p>Your email has been verified.<br/>Return to the Talon app to continue.</p>
+    </div>
+
+    <!-- Invalid link state -->
+    <div class="invalid-state" id="invalid-state">
+      <div class="icon">⚠</div>
+      <h2>Link Expired</h2>
+      <p>This verification link is invalid or has expired.<br/>Please request a new one from the app.</p>
+    </div>
+
+    <div class="footer">talonapp.co</div>
+  </div>
+
+  <script>
+    const APPWRITE_ENDPOINT = 'https://nyc.cloud.appwrite.io/v1';
+    const APPWRITE_PROJECT  = '69a8e18d0009fb3343b7';
+
+    // Parse userId and secret from URL
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('userId');
+    const secret = params.get('secret');
+
+    // If params are missing, show invalid state immediately
+    if (!userId || !secret) {
+      document.getElementById('verifying-state').style.display = 'none';
+      document.getElementById('invalid-state').style.display   = 'block';
+    } else {
+      // Auto-fire verification on page load
+      verifyEmail();
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('error-msg');
+      el.textContent = msg;
+      el.className   = 'message error show';
+      document.getElementById('retry-btn').style.display = 'block';
+    }
+
+    async function verifyEmail() {
+      // Clear previous error state
+      document.getElementById('error-msg').className = 'message error';
+      document.getElementById('retry-btn').style.display = 'none';
+
+      try {
+        const res = await fetch(`${APPWRITE_ENDPOINT}/account/verification`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Appwrite-Project': APPWRITE_PROJECT,
+          },
+          body: JSON.stringify({ userId, secret }),
+        });
+
+        if (res.ok) {
+          document.getElementById('verifying-state').style.display = 'none';
+          document.getElementById('success-state').style.display   = 'block';
+        } else {
+          const data = await res.json();
+          if (data.code === 401 || data.code === 404) {
+            document.getElementById('verifying-state').style.display = 'none';
+            document.getElementById('invalid-state').style.display   = 'block';
+          } else {
+            showError(data.message || 'Something went wrong. Please try again.');
+          }
+        }
+      } catch (err) {
+        showError('Network error. Please check your connection and try again.');
+      }
+    }
+  </script>
+</body>
+</html>
