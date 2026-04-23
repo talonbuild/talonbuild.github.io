@@ -1,371 +1,430 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Talon — About</title>
-  <meta name="description" content="Talon is a habit-building engine. It builds the systems that produce results — one action at a time." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #04060c;
-      --surface: #0b1120;
-      --border: rgba(255,255,255,0.07);
-      --text: rgba(255,255,255,0.88);
-      --muted: rgba(255,255,255,0.45);
-      --accent: #818cf8;
-      --accent-glow: rgba(129, 140, 248, 0.6);
-      --cinzel-dec: 'Cinzel Decorative', serif;
-      --cinzel: 'Cinzel', serif;
-      --mono: 'IBM Plex Mono', monospace;
-    }
-    html, body { height: 100%; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--mono);
-      font-weight: 300;
-      font-size: 15px;
-      line-height: 1.85;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Talon — About</title>
+<meta name="description" content="Talon builds the habit so the person doesn't have to plan it." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image:
-        radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.45), transparent),
-        radial-gradient(1px 1px at 34% 72%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(1.5px 1.5px at 56% 9%, rgba(255,255,255,0.55), transparent),
-        radial-gradient(1px 1px at 78% 55%, rgba(255,255,255,0.25), transparent),
-        radial-gradient(1px 1px at 91% 31%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1.5px 1.5px at 7% 85%, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1px 1px at 63% 44%, rgba(255,255,255,0.25), transparent),
-        radial-gradient(1px 1px at 45% 92%, rgba(255,255,255,0.2), transparent),
-        radial-gradient(1px 1px at 22% 61%, rgba(255,255,255,0.25), transparent),
-        radial-gradient(1.5px 1.5px at 87% 78%, rgba(255,255,255,0.35), transparent),
-        radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.25), transparent),
-        radial-gradient(1px 1px at 72% 22%, rgba(255,255,255,0.3), transparent);
-      pointer-events: none;
-      z-index: 0;
-    }
+:root {
+–bg: #030c20;
+–surface: #0a1628;
+–border: rgba(255,255,255,0.07);
+–text: rgba(255,255,255,0.88);
+–muted: rgba(255,255,255,0.45);
+–dim: rgba(255,255,255,0.32);
+–accent: #3B82F6;
+–accent-glow: rgba(59, 130, 246, 0.55);
+–cinzel-dec: ‘Cinzel Decorative’, serif;
+–cinzel: ‘Cinzel’, serif;
+–mono: ‘IBM Plex Mono’, monospace;
+}
 
-    nav.top-nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 20;
-      padding: 28px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(180deg, rgba(4,6,12,0.92) 0%, rgba(4,6,12,0.5) 70%, transparent 100%);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .wordmark {
-      font-family: var(--cinzel);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.45em;
-      text-transform: uppercase;
-      color: #fff;
-      text-decoration: none;
-    }
-    .nav-links { display: flex; gap: 40px; list-style: none; }
-    .nav-links a {
-      font-family: var(--cinzel);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 6px 0;
-      position: relative;
-      transition: color 0.4s ease;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 1px;
-      background: var(--accent);
-      box-shadow: 0 0 8px var(--accent-glow);
-      transition: width 0.4s ease;
-    }
-    .nav-links a:hover, .nav-links a.active { color: #fff; }
-    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+html, body { height: 100%; }
+body {
+background: var(–bg);
+color: var(–text);
+font-family: var(–mono);
+font-weight: 300;
+font-size: 15px;
+line-height: 1.85;
+min-height: 100vh;
+overflow-x: hidden;
+position: relative;
+}
 
-    .wrap {
-      position: relative;
-      z-index: 2;
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 160px 28px 120px;
-    }
+body::before {
+content: ‘’;
+position: fixed; inset: 0;
+background-image:
+radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.45), transparent),
+radial-gradient(1px 1px at 34% 72%, rgba(255,255,255,0.3), transparent),
+radial-gradient(1.5px 1.5px at 56% 9%, rgba(255,255,255,0.55), transparent),
+radial-gradient(1px 1px at 78% 55%, rgba(255,255,255,0.25), transparent),
+radial-gradient(1px 1px at 91% 31%, rgba(255,255,255,0.4), transparent),
+radial-gradient(1.5px 1.5px at 7% 85%, rgba(255,255,255,0.5), transparent),
+radial-gradient(1px 1px at 63% 44%, rgba(255,255,255,0.25), transparent),
+radial-gradient(1px 1px at 45% 92%, rgba(255,255,255,0.2), transparent),
+radial-gradient(1px 1px at 22% 61%, rgba(255,255,255,0.25), transparent),
+radial-gradient(1.5px 1.5px at 87% 78%, rgba(255,255,255,0.35), transparent),
+radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.25), transparent),
+radial-gradient(1px 1px at 72% 22%, rgba(255,255,255,0.3), transparent);
+pointer-events: none;
+z-index: 0;
+}
 
-    header.about-header {
-      text-align: center;
-      margin-bottom: 80px;
-      animation: fadeUp 0.8s ease 0.1s both;
-    }
-    .eyebrow {
-      font-family: var(--cinzel);
-      font-size: 10px;
-      letter-spacing: 0.45em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-    }
-    .eyebrow span.line {
-      display: inline-block;
-      width: 32px;
-      height: 1px;
-      background: var(--muted);
-    }
-    h1.title {
-      font-family: var(--cinzel-dec);
-      font-size: clamp(30px, 5vw, 46px);
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: #fff;
-      line-height: 1.2;
-      margin-bottom: 22px;
-      text-shadow: 0 0 30px rgba(129, 140, 248, 0.2);
-    }
-    .subtitle {
-      font-family: var(--cinzel);
-      font-size: 11px;
-      letter-spacing: 0.35em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-    .divider {
-      width: 56px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      margin: 40px auto 0;
-      box-shadow: 0 0 12px var(--accent-glow);
-    }
+/* NAV — same portal-dominant treatment */
+nav.top-nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 20;
+padding: 24px 44px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: linear-gradient(180deg, rgba(3,12,32,0.95) 0%, rgba(3,12,32,0.55) 70%, transparent 100%);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+}
 
-    section {
-      margin-bottom: 40px;
-      padding: 40px 44px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      animation: fadeUp 0.7s ease both;
-    }
-    section:nth-of-type(1) { animation-delay: 0.15s; }
-    section:nth-of-type(2) { animation-delay: 0.25s; }
-    section:nth-of-type(3) { animation-delay: 0.35s; }
-    section:nth-of-type(4) { animation-delay: 0.45s; }
+.wordmark {
+font-family: var(–cinzel);
+font-size: 14px;
+font-weight: 700;
+letter-spacing: 0.48em;
+text-transform: uppercase;
+color: #fff;
+text-decoration: none;
+text-shadow: 0 0 18px rgba(59, 130, 246, 0.25);
+transition: text-shadow 0.4s ease;
+}
+.wordmark:hover {
+text-shadow: 0 0 24px rgba(59, 130, 246, 0.5);
+}
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+.nav-links {
+display: flex;
+gap: 26px;
+list-style: none;
+}
+.nav-links a {
+font-family: var(–cinzel);
+font-size: 9px;
+font-weight: 500;
+letter-spacing: 0.32em;
+text-transform: uppercase;
+color: var(–dim);
+text-decoration: none;
+padding: 4px 0;
+position: relative;
+transition: color 0.4s ease;
+}
+.nav-links a::after {
+content: ‘’;
+position: absolute;
+bottom: 0; left: 50%;
+transform: translateX(-50%);
+width: 0;
+height: 1px;
+background: var(–accent);
+box-shadow: 0 0 8px var(–accent-glow);
+transition: width 0.4s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: rgba(255,255,255,0.85); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-    h2 {
-      font-family: var(--cinzel);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-    section p {
-      color: var(--text);
-      margin-bottom: 16px;
-    }
-    section p:last-child { margin-bottom: 0; }
-    section p.quote {
-      font-family: var(--cinzel);
-      font-size: 17px;
-      font-weight: 400;
-      color: #fff;
-      letter-spacing: 0.02em;
-      line-height: 1.6;
-      padding: 8px 0 14px 22px;
-      border-left: 2px solid var(--accent);
-      margin-bottom: 20px;
-    }
+/* CONTENT */
+.wrap {
+position: relative;
+z-index: 2;
+max-width: 760px;
+margin: 0 auto;
+padding: 150px 28px 110px;
+}
 
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-top: 22px;
-    }
-    .category {
-      padding: 18px 20px;
-      background: rgba(4, 6, 12, 0.55);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      transition: border-color 0.4s ease, transform 0.4s ease;
-    }
-    .category:hover {
-      border-color: rgba(129, 140, 248, 0.4);
-      transform: translateY(-2px);
-    }
-    .cat-label {
-      font-family: var(--cinzel);
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 6px;
-      display: block;
-    }
-    .cat-desc {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
+header.about-header {
+text-align: center;
+margin-bottom: 72px;
+animation: fadeUp 0.8s ease 0.1s both;
+}
 
-    .closing {
-      margin-top: 80px;
-      text-align: center;
-      animation: fadeUp 0.8s ease 0.6s both;
-    }
-    .closing-mark {
-      font-family: var(--cinzel-dec);
-      font-size: clamp(22px, 3.5vw, 30px);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: #fff;
-      margin-bottom: 18px;
-      text-shadow: 0 0 24px rgba(129, 140, 248, 0.2);
-    }
-    .closing-link {
-      display: inline-block;
-      font-family: var(--cinzel);
-      font-size: 10px;
-      letter-spacing: 0.38em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 14px 34px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      margin-top: 12px;
-      transition: all 0.4s ease;
-    }
-    .closing-link:hover {
-      color: #fff;
-      border-color: var(--accent);
-      box-shadow: 0 0 24px rgba(129, 140, 248, 0.3);
-    }
+.eyebrow {
+font-family: var(–cinzel);
+font-size: 10px;
+letter-spacing: 0.45em;
+color: var(–muted);
+text-transform: uppercase;
+margin-bottom: 28px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 14px;
+}
+.eyebrow span.line {
+display: inline-block;
+width: 32px;
+height: 1px;
+background: var(–muted);
+}
 
-    footer.site-footer {
-      position: relative;
-      z-index: 2;
-      padding: 36px 20px;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-    .footer-mark {
-      font-family: var(--cinzel);
-      font-size: 10px;
-      letter-spacing: 0.38em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
+h1.title {
+font-family: var(–cinzel-dec);
+font-size: clamp(30px, 5vw, 46px);
+font-weight: 700;
+letter-spacing: 0.06em;
+color: #fff;
+line-height: 1.2;
+margin-bottom: 22px;
+text-shadow: 0 0 30px rgba(59, 130, 246, 0.22);
+}
+.subtitle {
+font-family: var(–cinzel);
+font-size: 11px;
+letter-spacing: 0.35em;
+color: var(–muted);
+text-transform: uppercase;
+}
+.divider {
+width: 56px;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–accent), transparent);
+margin: 40px auto 0;
+box-shadow: 0 0 12px var(–accent-glow);
+}
 
-    @media (max-width: 720px) {
-      nav.top-nav { padding: 20px 24px; flex-direction: column; gap: 18px; }
-      .nav-links { gap: 28px; }
-      .wrap { padding: 200px 20px 90px; }
-      section { padding: 28px 24px; }
-      .categories { grid-template-columns: 1fr; }
-      header.about-header { margin-bottom: 56px; }
-      .closing { margin-top: 60px; }
-    }
-  </style>
+section {
+margin-bottom: 34px;
+padding: 40px 44px;
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 14px;
+animation: fadeUp 0.7s ease both;
+}
+section:nth-of-type(1) { animation-delay: 0.15s; }
+section:nth-of-type(2) { animation-delay: 0.22s; }
+section:nth-of-type(3) { animation-delay: 0.29s; }
+section:nth-of-type(4) { animation-delay: 0.36s; }
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(16px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+font-family: var(–cinzel);
+font-size: 12px;
+font-weight: 600;
+letter-spacing: 0.25em;
+text-transform: uppercase;
+color: var(–accent);
+margin-bottom: 20px;
+}
+
+section p {
+color: var(–text);
+margin-bottom: 16px;
+}
+section p:last-child { margin-bottom: 0; }
+
+/* FOUNDERS BLOCK */
+.founders-block {
+margin-top: 20px;
+padding: 18px 22px;
+background: rgba(3, 12, 32, 0.55);
+border: 1px solid var(–border);
+border-radius: 8px;
+}
+.founder-line {
+font-family: var(–mono);
+font-size: 13px;
+color: var(–muted);
+line-height: 1.7;
+margin-bottom: 4px;
+}
+.founder-line:last-child { margin-bottom: 0; }
+.founder-line .name {
+font-family: var(–cinzel);
+font-weight: 600;
+letter-spacing: 0.12em;
+color: rgba(255,255,255,0.9);
+font-size: 12px;
+text-transform: uppercase;
+margin-right: 8px;
+}
+.founder-line a {
+color: var(–muted);
+text-decoration: none;
+border-bottom: 1px solid rgba(255,255,255,0.12);
+transition: color 0.3s ease, border-color 0.3s ease;
+}
+.founder-line a:hover {
+color: #fff;
+border-color: var(–accent);
+}
+
+/* SOCIAL HANDLES */
+.social-block {
+margin-top: 22px;
+padding-top: 20px;
+border-top: 1px solid var(–border);
+font-family: var(–cinzel);
+font-size: 10px;
+letter-spacing: 0.3em;
+color: var(–muted);
+text-transform: uppercase;
+text-align: center;
+line-height: 2;
+}
+.social-block a {
+color: var(–muted);
+text-decoration: none;
+margin: 0 10px;
+transition: color 0.3s ease;
+}
+.social-block a:hover {
+color: var(–accent);
+}
+.social-label {
+display: block;
+margin-bottom: 10px;
+color: var(–dim);
+font-size: 9px;
+letter-spacing: 0.35em;
+}
+
+.closing {
+margin-top: 72px;
+text-align: center;
+animation: fadeUp 0.8s ease 0.5s both;
+}
+.closing-mark {
+font-family: var(–cinzel-dec);
+font-size: clamp(22px, 3.5vw, 30px);
+font-weight: 700;
+letter-spacing: 0.08em;
+color: #fff;
+margin-bottom: 8px;
+text-shadow: 0 0 24px rgba(59, 130, 246, 0.22);
+}
+.closing-meta {
+font-family: var(–cinzel);
+font-size: 10px;
+letter-spacing: 0.38em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 32px;
+}
+.closing-link {
+display: inline-block;
+font-family: var(–cinzel);
+font-size: 10px;
+letter-spacing: 0.38em;
+text-transform: uppercase;
+color: var(–muted);
+text-decoration: none;
+padding: 14px 34px;
+border: 1px solid var(–border);
+border-radius: 6px;
+transition: all 0.4s ease;
+}
+.closing-link:hover {
+color: #fff;
+border-color: var(–accent);
+box-shadow: 0 0 24px rgba(59, 130, 246, 0.3);
+}
+
+footer.site-footer {
+position: relative;
+z-index: 2;
+padding: 36px 20px;
+text-align: center;
+border-top: 1px solid var(–border);
+}
+.footer-mark {
+font-family: var(–cinzel);
+font-size: 10px;
+letter-spacing: 0.38em;
+color: var(–muted);
+text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+nav.top-nav { padding: 18px 20px; }
+.nav-links { gap: 18px; }
+.nav-links a { font-size: 8px; letter-spacing: 0.28em; }
+.wordmark { font-size: 12px; letter-spacing: 0.42em; }
+.wrap { padding: 140px 20px 80px; }
+section { padding: 28px 22px; }
+header.about-header { margin-bottom: 52px; }
+.closing { margin-top: 52px; }
+}
+</style>
+
 </head>
 <body>
-  <nav class="top-nav">
-    <a href="index.html" class="wordmark">Talon</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html" class="active">About</a></li>
-      <li><a href="privacy-policy.html">Privacy</a></li>
-    </ul>
-  </nav>
 
-  <div class="wrap">
-    <header class="about-header">
-      <p class="eyebrow"><span class="line"></span>About Talon<span class="line"></span></p>
-      <h1 class="title">A Habit-Building Engine</h1>
-      <p class="subtitle">Built for those who are done waiting</p>
-      <div class="divider"></div>
-    </header>
+<nav class="top-nav">
+  <a href="index.html" class="wordmark">Talon</a>
+  <ul class="nav-links">
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="privacy-policy.html">Privacy</a></li>
+  </ul>
+</nav>
 
-    <main>
-      <section>
-        <h2>The Philosophy</h2>
-        <p class="quote">Talon builds the habits and systems that produce results. It does not promise to achieve goals directly.</p>
-        <p>Most apps sell the outcome. Talon earns it. You share what you are working toward, and Talon delivers one precise action at a time — designed to build the consistency that makes the outcome inevitable.</p>
-        <p>No streaks to guilt-trip. No dashboards to decorate. No motivational clutter. Just the next action, and the next, until momentum becomes identity.</p>
-      </section>
+<div class="wrap">
 
-      <section>
-        <h2>How It Works</h2>
-        <p>You choose a category. You describe where you are and where you want to be. Talon listens, then issues the first action — short, concrete, executable right now.</p>
-        <p>You complete it. You reflect. Talon generates the next one, shaped by what you just did. Over time, actions build on each other. The system compounds. The habit forms. The result follows.</p>
-      </section>
+  <header class="about-header">
+    <p class="eyebrow"><span class="line"></span>About Talon<span class="line"></span></p>
+    <h1 class="title">Built to Win</h1>
+    <p class="subtitle">The habit is the point</p>
+    <div class="divider"></div>
+  </header>
 
-      <section>
-        <h2>The Four Territories</h2>
-        <p>Every goal belongs to one of four domains. Talon adapts its voice, pacing, and action design to the territory you're in.</p>
-        <div class="categories">
-          <div class="category">
-            <span class="cat-label">Physical</span>
-            <p class="cat-desc">Strength, endurance, discipline of the body</p>
-          </div>
-          <div class="category">
-            <span class="cat-label">Emotional</span>
-            <p class="cat-desc">Clarity, resilience, the inner game</p>
-          </div>
-          <div class="category">
-            <span class="cat-label">Financial</span>
-            <p class="cat-desc">Wealth, systems, long-term leverage</p>
-          </div>
-          <div class="category">
-            <span class="cat-label">Learning</span>
-            <p class="cat-desc">Skill, mastery, compounding knowledge</p>
-          </div>
-        </div>
-      </section>
+  <main>
 
-      <section>
-        <h2>The Ethos</h2>
-        <p>Talon is calm, premium, and demanding in equal measure. It does not cheerlead. It does not negotiate. It builds.</p>
-        <p>Every action is execution, not homework. Every word is chosen. Every interaction is designed to leave you one step closer to the person you set out to become.</p>
-      </section>
-    </main>
+```
+<section>
+  <h2>The problem is not information.</h2>
+  <p>The people who download habit apps already know what they should do. They have read the books. They have watched the videos. They can explain the two-minute rule to a friend at dinner. They have started the routine, stopped the routine, and started it again.</p>
+  <p>The problem is not knowing. The problem is that nobody is designing the next small action for them, every single day, as their life actually is. The planning is what they keep failing at &mdash; not the doing.</p>
+  <p>Talon builds the habit so the person doesn&rsquo;t have to plan it.</p>
+</section>
 
-    <div class="closing">
-      <p class="closing-mark">Built to Win</p>
-      <a href="index.html" class="closing-link">Return to the Orb</a>
-    </div>
+<section>
+  <h2>What Talon is.</h2>
+  <p>Talon is a habit-building app. Not a habit tracker &mdash; the distinction matters. A tracker records what already exists. Talon generates what comes next.</p>
+  <p>The user picks a goal. Talon delivers a small, specific, finishable action. The action changes as the user progresses. There are four categories and many sub-goals inside each. There are phases the user moves through as the habit takes hold. Completed goals become planets. Sustained practice becomes a universe.</p>
+  <p>The details are in the app. The experience is the point.</p>
+</section>
+
+<section>
+  <h2>The philosophy.</h2>
+  <p>Most habit products are loud. They gamify, they shout, they panic the user with streak-fire emojis the moment a day slips. Talon is the opposite. Quiet. Considered. Premium.</p>
+  <p>Talon&rsquo;s objective is to help the user see the paths and the actions that lead to becoming a better version of themselves. Results come from consistent, simple work &mdash; day in, day out. Talon is built to make that work visible, and to keep it in reach.</p>
+  <p>When you read something like <em>Atomic Habits</em> and find yourself nodding at every page but can&rsquo;t make the habits stick, the problem is rarely the theory. The theory is usually fine. What&rsquo;s missing is the thing that comes next &mdash; the plan that takes the theory off the page and puts it in the hand, every morning, as one small specific thing to do. Talon is built for the person who has already done the reading.</p>
+  <p>Talon does not promise outcomes. It will not say <em>lose twenty pounds</em> or <em>read fifty books</em>. It promises the habit. The doing. The outcomes are what happens to people who keep doing.</p>
+</section>
+
+<section>
+  <h2>The founders.</h2>
+  <p><strong style="color:#fff; font-weight:600;">Leo and Marcos</strong> designed this app with the intention to help people close the gap between knowing what they should do and actually doing it.</p>
+  <p>They built Talon because nothing on the market took the planning off their plates.</p>
+
+  <div class="founders-block">
+    <p class="founder-line"><span class="name">Marcos</span> <a href="mailto:marcos@talonapp.co">marcos@talonapp.co</a> &middot; <a href="https://x.com/marcostalon" target="_blank" rel="noopener">@marcostalon</a></p>
+    <p class="founder-line"><span class="name">Leo</span> <a href="mailto:leo@talonapp.co">leo@talonapp.co</a></p>
   </div>
 
-  <footer class="site-footer">
-    <p class="footer-mark">Talon &nbsp;·&nbsp; © 2026</p>
-  </footer>
+  <div class="social-block">
+    <span class="social-label">Follow Talon</span>
+    <a href="https://x.com/talonbuild" target="_blank" rel="noopener">X</a>
+    &middot;
+    <a href="https://instagram.com/talonbuild" target="_blank" rel="noopener">Instagram</a>
+    &middot;
+    <a href="https://tiktok.com/@talonbuild" target="_blank" rel="noopener">TikTok</a>
+  </div>
+</section>
+```
+
+  </main>
+
+  <div class="closing">
+    <p class="closing-mark">Built to Win</p>
+    <p class="closing-meta">Talon &middot; 2026</p>
+    <a href="index.html" class="closing-link">Return to the Orb</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <p class="footer-mark">Talon &nbsp;&middot;&nbsp; &copy; 2026</p>
+</footer>
+
 </body>
 </html>
