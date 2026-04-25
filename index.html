@@ -130,12 +130,26 @@
     min-height: 100vh;
     min-height: 100svh;
     min-height: 100dvh;
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    padding: 100px 24px 40px;
+  }
+  .hero-top {
+    align-self: end;
+    padding-bottom: var(--s4);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 120px 24px 60px;
+  }
+  .hero-bottom {
+    align-self: start;
+    padding-top: var(--s3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .eyebrow {
@@ -198,7 +212,7 @@
     position: relative;
     width: min(78vw, 360px);
     aspect-ratio: 1 / 1;
-    margin: var(--s5) auto var(--s3);
+    margin: 0 auto;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
@@ -296,19 +310,74 @@
 
   body.cta-open .orb-cta { opacity: 0; pointer-events: none; }
 
-  /* ========== CTA PANEL ========== */
-  .cta-panel {
-    width: min(94vw, 420px);
-    margin: var(--s3) auto 0;
-    height: 0;
-    overflow: hidden;
+  /* ========== CTA OVERLAY (fixed-position modal) ========== */
+  /* Replaces the inline-expanding panel. Form lives in a fixed overlay,
+     so opening/closing it never affects layout. Tap anywhere on the
+     dimmed backdrop to close. */
+  .cta-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
     opacity: 0;
     pointer-events: none;
-    transition: height 0.5s cubic-bezier(.2,.7,.2,1), opacity 0.35s ease 0.05s, margin-top 0.5s ease;
+    transition: opacity 0.3s ease;
   }
-  body.cta-open .cta-panel { opacity: 1; pointer-events: auto; }
+  body.cta-open .cta-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  /* Lock body scroll when overlay is open so the page underneath stays still */
+  body.cta-open {
+    overflow: hidden;
+  }
 
-  .cta-inner { padding: 4px; }
+  .cta-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 12, 32, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    cursor: pointer;
+  }
+
+  .cta-sheet {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+    transform: translateY(20px) scale(0.97);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(.2,.7,.2,1), opacity 0.3s ease 0.05s;
+  }
+  body.cta-open .cta-sheet {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  .cta-sheet-header {
+    text-align: center;
+    margin-bottom: var(--s3);
+  }
+  .cta-sheet-title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(20px, 5vw, 26px);
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin: 0 0 8px;
+  }
+  .cta-sheet-sub {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent-mid);
+  }
 
   .cta-form {
     display: flex;
@@ -384,33 +453,33 @@
   .cta-success {
     display: none;
     text-align: center;
-    padding: 14px 12px;
+    padding: 18px 12px 4px;
   }
   .cta-success.show { display: block; animation: fadeUp 0.6s ease both; }
   .cta-success .line {
     font-family: var(--display);
     font-weight: 700;
-    font-size: clamp(18px, 4.6vw, 22px);
+    font-size: clamp(20px, 5vw, 24px);
     letter-spacing: 0.02em;
     color: var(--text);
     margin: 0;
   }
   .cta-success .sub {
-    margin-top: 8px;
+    margin-top: 10px;
     font-family: var(--display);
     font-weight: 500;
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--accent-mid);
   }
 
   .cta-dismiss {
-    margin-top: 16px;
+    margin-top: var(--s3);
     font-family: var(--display);
     font-weight: 500;
     font-size: 9px;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: rgba(148, 163, 184, 0.5);
     text-align: center;
@@ -449,11 +518,11 @@
   }
 
   /* ========== WAITLIST PENDING STATE ========== */
-  /* When body.waitlist-pending is set, show "shortly" message and hide the form. */
+  /* When body.waitlist-pending is set, show "shortly" message and disable the overlay. */
   .orb-cta-pending { display: none; }
   body.waitlist-pending #orbCta { display: none; }
   body.waitlist-pending .orb-cta-pending { display: inline-flex; }
-  body.waitlist-pending .cta-panel { display: none !important; }
+  body.waitlist-pending .cta-overlay { display: none !important; }
 
   /* ========== REDUCED MOTION ========== */
   @media (prefers-reduced-motion: reduce) {
@@ -498,70 +567,82 @@
 <main>
   <section class="hero" aria-labelledby="hero-headline">
 
-    <p class="eyebrow">
-      <span class="rule"></span>
-      <span class="dot" aria-hidden="true"></span>
-      Coming Soon
-      <span class="rule"></span>
-    </p>
+    <div class="hero-top">
+      <p class="eyebrow">
+        <span class="rule"></span>
+        <span class="dot" aria-hidden="true"></span>
+        Coming Soon
+        <span class="rule"></span>
+      </p>
 
-    <h1 class="headline" id="hero-headline">Knowing isn't the problem.</h1>
+      <h1 class="headline" id="hero-headline">Knowing isn't the problem.</h1>
 
-    <p class="subtitle">
-      Talon builds the habit. One small action at a time.
-    </p>
+      <p class="subtitle">
+        Talon builds the habit. One small action at a time.
+      </p>
+    </div>
 
     <button
       class="orb-stage"
       id="orbBtn"
       type="button"
       aria-label="Tap the orb to join the waitlist"
-      aria-controls="ctaPanel"
+      aria-controls="ctaOverlay"
       aria-expanded="false">
       <span class="orb-glow" aria-hidden="true"></span>
       <img class="orb-img" src="assets/orb.png" alt="" />
       <span class="tap-ripple" aria-hidden="true"></span>
     </button>
 
-    <p class="orb-cta" id="orbCta">
-      Tap the orb to join
-    </p>
-    <p class="orb-cta orb-cta-pending" id="orbCtaPending">
-      Waitlist opens shortly
-    </p>
-
-    <div class="cta-panel" id="ctaPanel" role="region" aria-label="Waitlist signup">
-      <div class="cta-inner">
-        <form
-          class="cta-form"
-          id="waitlistForm"
-          action="https://app.kit.com/forms/9366718/subscriptions"
-          method="POST"
-          novalidate>
-          <input
-            id="waitlistEmail"
-            type="email"
-            name="email_address"
-            placeholder="your@email.com"
-            autocomplete="email"
-            spellcheck="false"
-            required
-            aria-label="Email address" />
-          <button type="submit" id="waitlistSubmit" aria-label="Join the waitlist">Join</button>
-        </form>
-        <div class="cta-error" id="ctaError" role="alert">Please enter a valid email.</div>
-
-        <div class="cta-success" id="ctaSuccess" aria-live="polite">
-          <p class="line">You're on the list.</p>
-          <p class="sub">— Talon launches soon</p>
-        </div>
-
-        <p class="cta-dismiss" aria-hidden="true">Press Esc or tap outside to close</p>
-      </div>
+    <div class="hero-bottom">
+      <p class="orb-cta" id="orbCta">
+        Tap the orb to join
+      </p>
+      <p class="orb-cta orb-cta-pending" id="orbCtaPending">
+        Waitlist opens shortly
+      </p>
     </div>
 
   </section>
 </main>
+
+<!-- Fixed-overlay waitlist modal. Lives outside <main> so it sits above all content. -->
+<div class="cta-overlay" id="ctaOverlay" role="dialog" aria-modal="true" aria-labelledby="ctaTitle" aria-hidden="true">
+  <div class="cta-backdrop" id="ctaBackdrop" aria-hidden="true"></div>
+
+  <div class="cta-sheet" id="ctaSheet">
+    <div class="cta-sheet-header">
+      <h2 class="cta-sheet-title" id="ctaTitle">Join the waitlist.</h2>
+      <p class="cta-sheet-sub">Be first when Talon launches</p>
+    </div>
+
+    <form
+      class="cta-form"
+      id="waitlistForm"
+      action="https://app.kit.com/forms/9366718/subscriptions"
+      method="POST"
+      novalidate>
+      <input
+        id="waitlistEmail"
+        type="email"
+        name="email_address"
+        placeholder="your@email.com"
+        autocomplete="email"
+        spellcheck="false"
+        required
+        aria-label="Email address" />
+      <button type="submit" id="waitlistSubmit" aria-label="Join the waitlist">Join</button>
+    </form>
+    <div class="cta-error" id="ctaError" role="alert">Please enter a valid email.</div>
+
+    <div class="cta-success" id="ctaSuccess" aria-live="polite">
+      <p class="line">You're on the list.</p>
+      <p class="sub">— Talon launches soon</p>
+    </div>
+
+    <p class="cta-dismiss">Tap anywhere to close</p>
+  </div>
+</div>
 
 <footer class="foot">
   <p class="closing-mark">Built to Win.</p>
@@ -771,8 +852,9 @@
 
   const body         = document.body;
   const orbBtn       = document.getElementById('orbBtn');
-  const panel        = document.getElementById('ctaPanel');
-  const inner        = panel.querySelector('.cta-inner');
+  const overlay      = document.getElementById('ctaOverlay');
+  const backdrop     = document.getElementById('ctaBackdrop');
+  const sheet        = document.getElementById('ctaSheet');
   const form         = document.getElementById('waitlistForm');
   const email        = document.getElementById('waitlistEmail');
   const submitBtn    = document.getElementById('waitlistSubmit');
@@ -780,7 +862,6 @@
   const okEl         = document.getElementById('ctaSuccess');
 
   // If the waitlist isn't open yet, mark the body and short-circuit.
-  // Orb still pulses on click for visual feedback.
   if (!WAITLIST_OPEN) {
     body.classList.add('waitlist-pending');
     orbBtn.setAttribute('aria-label', 'Talon orb — waitlist opens shortly');
@@ -797,16 +878,36 @@
 
   let isOpen      = false;
   let isSubmitted = false;
+  let scrollLockY = 0;
+
+  // iOS-safe body scroll lock: pin the body in place at its current scroll position
+  function lockScroll() {
+    scrollLockY = window.scrollY;
+    body.style.position = 'fixed';
+    body.style.top      = `-${scrollLockY}px`;
+    body.style.left     = '0';
+    body.style.right    = '0';
+    body.style.width    = '100%';
+  }
+  function unlockScroll() {
+    body.style.position = '';
+    body.style.top      = '';
+    body.style.left     = '';
+    body.style.right    = '';
+    body.style.width    = '';
+    window.scrollTo(0, scrollLockY);
+  }
 
   function openCTA() {
     if (isOpen) return;
     isOpen = true;
+    lockScroll();
     body.classList.add('cta-open');
+    overlay.setAttribute('aria-hidden', 'false');
     orbBtn.setAttribute('aria-expanded', 'true');
-    panel.style.height = inner.scrollHeight + 'px';
+
     // Auto-focus only on mouse-capable devices.
-    // On touch devices, auto-focus triggers iOS keyboard pop-up + viewport jump,
-    // so we let the user tap the input themselves.
+    // On touch devices, let the user tap the input themselves so iOS handles the keyboard naturally.
     const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     if (!isTouchDevice) {
       setTimeout(() => { if (!isSubmitted) email.focus({ preventScroll: true }); }, 320);
@@ -816,17 +917,26 @@
   function closeCTA() {
     if (!isOpen) return;
     isOpen = false;
+
+    // Drop focus first so the keyboard collapses on mobile before we unlock scroll
+    if (document.activeElement && document.activeElement.blur) {
+      document.activeElement.blur();
+    }
+
     body.classList.remove('cta-open');
+    overlay.setAttribute('aria-hidden', 'true');
     orbBtn.setAttribute('aria-expanded', 'false');
-    panel.style.height = '0px';
+    unlockScroll();
     errEl.classList.remove('show');
+
+    // Reset success state after the overlay animates out
     if (isSubmitted) {
       setTimeout(() => {
         okEl.classList.remove('show');
         form.style.display = '';
         email.value = '';
         isSubmitted = false;
-      }, 500);
+      }, 400);
     }
   }
 
@@ -834,41 +944,32 @@
     if (isOpen) closeCTA(); else openCTA();
   }
 
-  // Orb tap ripple
   function pulseOrb() {
     orbBtn.classList.remove('is-pulsing');
     void orbBtn.offsetWidth;
     orbBtn.classList.add('is-pulsing');
   }
 
+  // Orb tap → ripple + open/close
   orbBtn.addEventListener('click', (e) => {
     e.preventDefault();
     pulseOrb();
     toggleCTA();
   });
 
-  // Esc to close
+  // Tap anywhere on the dimmed backdrop → close
+  backdrop.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeCTA();
+  });
+
+  // Esc → close
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isOpen) {
       closeCTA();
       orbBtn.focus();
     }
   });
-
-  // Click outside to close.
-  // Using 'click' (not 'pointerdown') so that scroll gestures on mobile
-  // — which start with a touch but don't end in a click — don't accidentally close the panel.
-  document.addEventListener('click', (e) => {
-    if (!isOpen) return;
-    if (panel.contains(e.target)) return;
-    if (orbBtn.contains(e.target)) return;
-    closeCTA();
-  });
-
-  // Re-measure panel on resize
-  window.addEventListener('resize', () => {
-    if (isOpen) panel.style.height = inner.scrollHeight + 'px';
-  }, { passive: true });
 
   // Form submit
   form.addEventListener('submit', async (e) => {
@@ -886,20 +987,14 @@
     submitBtn.disabled = true;
     submitBtn.textContent = '...';
 
-    // KIT INTEGRATION
-    // Replace form action="KIT_FORM_ENDPOINT_PLACEHOLDER" above with your Kit form URL.
-    // Standard Kit URL format: https://app.kit.com/forms/{FORM_ID}/subscriptions
     try {
-      if (form.action && !form.action.includes('KIT_FORM_ENDPOINT_PLACEHOLDER')) {
-        const formData = new FormData(form);
-        await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors'
-        });
-      }
+      const formData = new FormData(form);
+      await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      });
     } catch (err) {
-      // Kit submissions may fail silently due to CORS — Kit still receives the data.
       console.log('Submission posted.');
     }
 
@@ -907,10 +1002,14 @@
     form.style.display = 'none';
     okEl.classList.add('show');
     pulseOrb();
-    panel.style.height = inner.scrollHeight + 'px';
 
     submitBtn.disabled = false;
     submitBtn.textContent = 'Join';
+
+    // Drop the keyboard on mobile after success
+    if (document.activeElement && document.activeElement.blur) {
+      document.activeElement.blur();
+    }
   });
 })();
 </script>
