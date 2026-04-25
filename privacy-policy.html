@@ -8,7 +8,7 @@
   <meta name="description" content="Talon's Terms of Service and Privacy Policy." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -19,9 +19,8 @@
       --muted: rgba(255,255,255,0.45);
       --accent: #818cf8;
       --accent-glow: rgba(129, 140, 248, 0.6);
-      --cinzel-dec: 'Cinzel Decorative', serif;
       --cinzel: 'Cinzel', serif;
-      --mono: 'IBM Plex Mono', monospace;
+      --mono: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, Monaco, monospace;
     }
     html, body { height: 100%; }
     body {
@@ -36,313 +35,311 @@
       position: relative;
     }
 
-```
-/* STAR FIELD */
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image:
-    radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.45), transparent),
-    radial-gradient(1px 1px at 34% 72%, rgba(255,255,255,0.3), transparent),
-    radial-gradient(1.5px 1.5px at 56% 9%, rgba(255,255,255,0.55), transparent),
-    radial-gradient(1px 1px at 78% 55%, rgba(255,255,255,0.25), transparent),
-    radial-gradient(1px 1px at 91% 31%, rgba(255,255,255,0.4), transparent),
-    radial-gradient(1.5px 1.5px at 7% 85%, rgba(255,255,255,0.5), transparent),
-    radial-gradient(1px 1px at 63% 44%, rgba(255,255,255,0.25), transparent),
-    radial-gradient(1px 1px at 45% 92%, rgba(255,255,255,0.2), transparent),
-    radial-gradient(1px 1px at 22% 61%, rgba(255,255,255,0.25), transparent),
-    radial-gradient(1.5px 1.5px at 87% 78%, rgba(255,255,255,0.35), transparent),
-    radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.25), transparent),
-    radial-gradient(1px 1px at 72% 22%, rgba(255,255,255,0.3), transparent);
-  pointer-events: none;
-  z-index: 0;
-}
+    /* STAR FIELD */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.45), transparent),
+        radial-gradient(1px 1px at 34% 72%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1.5px 1.5px at 56% 9%, rgba(255,255,255,0.55), transparent),
+        radial-gradient(1px 1px at 78% 55%, rgba(255,255,255,0.25), transparent),
+        radial-gradient(1px 1px at 91% 31%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 7% 85%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 63% 44%, rgba(255,255,255,0.25), transparent),
+        radial-gradient(1px 1px at 45% 92%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 22% 61%, rgba(255,255,255,0.25), transparent),
+        radial-gradient(1.5px 1.5px at 87% 78%, rgba(255,255,255,0.35), transparent),
+        radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.25), transparent),
+        radial-gradient(1px 1px at 72% 22%, rgba(255,255,255,0.3), transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-/* NAV */
-nav.top-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 20;
-  padding: 28px 48px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(180deg, rgba(4,6,12,0.92) 0%, rgba(4,6,12,0.5) 70%, transparent 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.wordmark {
-  font-family: var(--cinzel);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.45em;
-  text-transform: uppercase;
-  color: #fff;
-  text-decoration: none;
-}
-.nav-links { display: flex; gap: 40px; list-style: none; }
-.nav-links a {
-  font-family: var(--cinzel);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  padding: 6px 0;
-  position: relative;
-  transition: color 0.4s ease;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 1px;
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent-glow);
-  transition: width 0.4s ease;
-}
-.nav-links a:hover, .nav-links a.active { color: #fff; }
-.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    /* NAV */
+    nav.top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 20;
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(4,6,12,0.92) 0%, rgba(4,6,12,0.5) 70%, transparent 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .wordmark {
+      font-family: var(--cinzel);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a {
+      font-family: var(--cinzel);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 0;
+      position: relative;
+      transition: color 0.4s ease;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent-glow);
+      transition: width 0.4s ease;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-/* WRAP */
-.wrap {
-  position: relative;
-  z-index: 2;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 160px 28px 120px;
-}
+    /* WRAP */
+    .wrap {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 160px 28px 120px;
+    }
 
-/* HEADER */
-header.page-header {
-  text-align: center;
-  margin-bottom: 80px;
-  animation: fadeUp 0.8s ease 0.1s both;
-}
-.eyebrow {
-  font-family: var(--cinzel);
-  font-size: 10px;
-  letter-spacing: 0.45em;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-}
-.eyebrow span.line {
-  display: inline-block;
-  width: 32px;
-  height: 1px;
-  background: var(--muted);
-}
-h1.title {
-  font-family: var(--cinzel-dec);
-  font-size: clamp(30px, 5vw, 46px);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #fff;
-  line-height: 1.2;
-  margin-bottom: 22px;
-  text-shadow: 0 0 30px rgba(129, 140, 248, 0.2);
-}
-.subtitle {
-  font-family: var(--cinzel);
-  font-size: 11px;
-  letter-spacing: 0.35em;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-.divider {
-  width: 56px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  margin: 40px auto 0;
-  box-shadow: 0 0 12px var(--accent-glow);
-}
+    /* HEADER */
+    header.page-header {
+      text-align: center;
+      margin-bottom: 80px;
+      animation: fadeUp 0.8s ease 0.1s both;
+    }
+    .eyebrow {
+      font-family: var(--cinzel);
+      font-size: 10px;
+      letter-spacing: 0.45em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .eyebrow span.line {
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background: var(--muted);
+    }
+    h1.title {
+      font-family: var(--cinzel);
+      font-size: clamp(30px, 5vw, 46px);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 22px;
+      text-shadow: 0 0 30px rgba(129, 140, 248, 0.2);
+    }
+    .subtitle {
+      font-family: var(--cinzel);
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .divider {
+      width: 56px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 40px auto 0;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
 
-/* SECTIONS */
-section {
-  margin-bottom: 28px;
-  padding: 40px 44px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  animation: fadeUp 0.7s ease both;
-}
-section:nth-of-type(1) { animation-delay: 0.15s; }
-section:nth-of-type(2) { animation-delay: 0.22s; }
-section:nth-of-type(3) { animation-delay: 0.29s; }
-section:nth-of-type(4) { animation-delay: 0.36s; }
-section:nth-of-type(5) { animation-delay: 0.43s; }
-section:nth-of-type(6) { animation-delay: 0.50s; }
-section:nth-of-type(n+7) { animation-delay: 0.55s; }
+    /* SECTIONS */
+    section {
+      margin-bottom: 28px;
+      padding: 40px 44px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      animation: fadeUp 0.7s ease both;
+    }
+    section:nth-of-type(1) { animation-delay: 0.15s; }
+    section:nth-of-type(2) { animation-delay: 0.22s; }
+    section:nth-of-type(3) { animation-delay: 0.29s; }
+    section:nth-of-type(4) { animation-delay: 0.36s; }
+    section:nth-of-type(5) { animation-delay: 0.43s; }
+    section:nth-of-type(6) { animation-delay: 0.50s; }
+    section:nth-of-type(n+7) { animation-delay: 0.55s; }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-h2 {
-  font-family: var(--cinzel);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 20px;
-}
+    h2 {
+      font-family: var(--cinzel);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
 
-h3 {
-  font-family: var(--cinzel);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 32px;
-  margin-bottom: 14px;
-}
+    h3 {
+      font-family: var(--cinzel);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 32px;
+      margin-bottom: 14px;
+    }
 
-section p {
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.85;
-  margin-bottom: 16px;
-}
-section p:last-child { margin-bottom: 0; }
+    section p {
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+    section p:last-child { margin-bottom: 0; }
 
-section ul {
-  list-style: none;
-  margin: 0 0 16px 0;
-  padding: 0;
-}
-section li {
-  position: relative;
-  padding-left: 22px;
-  margin-bottom: 10px;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.7;
-}
-section li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 14px;
-  width: 10px;
-  height: 1px;
-  background: var(--accent);
-  box-shadow: 0 0 6px var(--accent-glow);
-}
+    section ul {
+      list-style: none;
+      margin: 0 0 16px 0;
+      padding: 0;
+    }
+    section li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 10px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    section li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 10px;
+      height: 1px;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent-glow);
+    }
 
-a {
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-a:hover {
-  color: #fff;
-  border-bottom-color: var(--accent);
-}
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    a:hover {
+      color: #fff;
+      border-bottom-color: var(--accent);
+    }
 
-code {
-  font-family: var(--mono);
-  font-size: 13px;
-  background: rgba(129, 140, 248, 0.1);
-  border: 1px solid rgba(129, 140, 248, 0.18);
-  color: #fff;
-  padding: 2px 7px;
-  border-radius: 4px;
-  letter-spacing: 0.02em;
-}
+    code {
+      font-family: var(--mono);
+      font-size: 13px;
+      background: rgba(129, 140, 248, 0.1);
+      border: 1px solid rgba(129, 140, 248, 0.18);
+      color: #fff;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
 
-.disclosure-tag {
-  display: inline-block;
-  font-family: var(--cinzel);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--accent);
-  padding: 8px 14px;
-  background: rgba(129, 140, 248, 0.08);
-  border: 1px solid rgba(129, 140, 248, 0.25);
-  border-radius: 6px;
-  margin-bottom: 22px;
-}
+    .disclosure-tag {
+      display: inline-block;
+      font-family: var(--cinzel);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 8px 14px;
+      background: rgba(129, 140, 248, 0.08);
+      border: 1px solid rgba(129, 140, 248, 0.25);
+      border-radius: 6px;
+      margin-bottom: 22px;
+    }
 
-/* CLOSING */
-.closing {
-  margin-top: 80px;
-  text-align: center;
-  animation: fadeUp 0.8s ease 0.7s both;
-}
-.closing-mark {
-  font-family: var(--cinzel-dec);
-  font-size: clamp(22px, 3.5vw, 30px);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #fff;
-  margin-bottom: 18px;
-  text-shadow: 0 0 24px rgba(129, 140, 248, 0.2);
-}
-.closing-link {
-  display: inline-block;
-  font-family: var(--cinzel);
-  font-size: 10px;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  padding: 14px 34px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  margin-top: 12px;
-  transition: all 0.4s ease;
-}
-.closing-link:hover {
-  color: #fff;
-  border-color: var(--accent);
-  box-shadow: 0 0 24px rgba(129, 140, 248, 0.3);
-}
+    /* CLOSING */
+    .closing {
+      margin-top: 80px;
+      text-align: center;
+      animation: fadeUp 0.8s ease 0.7s both;
+    }
+    .closing-mark {
+      font-family: var(--cinzel);
+      font-size: clamp(20px, 3.2vw, 26px);
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 18px;
+      text-shadow: 0 0 24px rgba(129, 140, 248, 0.2);
+    }
+    .closing-link {
+      display: inline-block;
+      font-family: var(--cinzel);
+      font-size: 10px;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 14px 34px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-top: 12px;
+      transition: all 0.4s ease;
+    }
+    .closing-link:hover {
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 0 24px rgba(129, 140, 248, 0.3);
+    }
 
-/* FOOTER */
-footer.site-footer {
-  position: relative;
-  z-index: 2;
-  padding: 36px 20px;
-  text-align: center;
-  border-top: 1px solid var(--border);
-}
-.footer-mark {
-  font-family: var(--cinzel);
-  font-size: 10px;
-  letter-spacing: 0.38em;
-  color: var(--muted);
-  text-transform: uppercase;
-}
+    /* FOOTER */
+    footer.site-footer {
+      position: relative;
+      z-index: 2;
+      padding: 36px 20px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-mark {
+      font-family: var(--cinzel);
+      font-size: 10px;
+      letter-spacing: 0.38em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
 
-/* RESPONSIVE */
-@media (max-width: 720px) {
-  nav.top-nav { padding: 20px 24px; flex-direction: column; gap: 18px; }
-  .nav-links { gap: 28px; }
-  .wrap { padding: 200px 20px 90px; }
-  section { padding: 28px 24px; margin-bottom: 20px; }
-  header.page-header { margin-bottom: 56px; }
-  .closing { margin-top: 60px; }
-}
-```
-
+    /* RESPONSIVE */
+    @media (max-width: 720px) {
+      nav.top-nav { padding: 20px 24px; flex-direction: column; gap: 18px; }
+      .nav-links { gap: 28px; }
+      .wrap { padding: 200px 20px 90px; }
+      section { padding: 28px 24px; margin-bottom: 20px; }
+      header.page-header { margin-bottom: 56px; }
+      .closing { margin-top: 60px; }
+    }
   </style>
 </head>
 <body>
@@ -359,138 +356,136 @@ footer.site-footer {
     <header class="page-header">
       <p class="eyebrow"><span class="line"></span>Legal<span class="line"></span></p>
       <h1 class="title">Terms &amp; Privacy Policy</h1>
-      <p class="subtitle">Last Updated · April 21, 2026</p>
+      <p class="subtitle">Last Updated &middot; April 21, 2026</p>
       <div class="divider"></div>
     </header>
 
-```
-<main>
+    <main>
 
-  <section>
-    <h2>What Talon Does</h2>
-    <p>Talon is a habit-building app that generates personalized actions to help build momentum toward your goals. You share what you're working toward, and Talon delivers one action at a time designed to build consistency.</p>
-  </section>
+      <section>
+        <h2>What Talon Does</h2>
+        <p>Talon is a habit-building app that generates personalized actions to help build momentum toward your goals. You share what you're working toward, and Talon delivers one action at a time designed to build consistency.</p>
+      </section>
 
-  <section>
-    <h2>Age Requirement</h2>
-    <p>Talon is intended for users 13 years of age or older. By creating an account, you confirm that you meet this requirement. Users under 18 should have parental or guardian consent before using the app.</p>
-  </section>
+      <section>
+        <h2>Age Requirement</h2>
+        <p>Talon is intended for users 13 years of age or older. By creating an account, you confirm that you meet this requirement. Users under 18 should have parental or guardian consent before using the app.</p>
+      </section>
 
-  <section>
-    <h2>How Your Data Is Used</h2>
-    <p>When you create a goal, Talon collects the following information you provide: your name, goal category, target description, current situation, experience level, and time availability.</p>
-    <p>As you complete actions, your check-in answers and reflections are recorded. Your progress is summarized into a rolling narrative that helps Talon generate increasingly relevant actions.</p>
-  </section>
+      <section>
+        <h2>How Your Data Is Used</h2>
+        <p>When you create a goal, Talon collects the following information you provide: your name, goal category, target description, current situation, experience level, and time availability.</p>
+        <p>As you complete actions, your check-in answers and reflections are recorded. Your progress is summarized into a rolling narrative that helps Talon generate increasingly relevant actions.</p>
+      </section>
 
-  <section>
-    <h2>AI-Powered Actions</h2>
-    <div class="disclosure-tag">Guideline 5.1.2(i) Disclosure</div>
-    <p>Talon uses Anthropic's Claude, a large language model, to generate personalized actions, check-in questions, and progress summaries.</p>
-    <p>When an action is generated, the following data is sent to Anthropic's API for processing: your goal data, check-in answers, reflections, and rolling progress summary. Anthropic acts as a sub-processor and processes this data solely to generate your response. Anthropic does not use this data to train its models. No raw action history is sent — only a condensed summary of your progress.</p>
-    <p>For more information on Anthropic's data practices, visit <a href="https://www.anthropic.com/privacy">anthropic.com/privacy</a>.</p>
-  </section>
+      <section>
+        <h2>AI-Powered Actions</h2>
+        <div class="disclosure-tag">Guideline 5.1.2(i) Disclosure</div>
+        <p>Talon uses Anthropic's Claude, a large language model, to generate personalized actions, check-in questions, and progress summaries.</p>
+        <p>When an action is generated, the following data is sent to Anthropic's API for processing: your goal data, check-in answers, reflections, and rolling progress summary. Anthropic acts as a sub-processor and processes this data solely to generate your response. Anthropic does not use this data to train its models. No raw action history is sent &mdash; only a condensed summary of your progress.</p>
+        <p>For more information on Anthropic's data practices, visit <a href="https://www.anthropic.com/privacy">anthropic.com/privacy</a>.</p>
+      </section>
 
-  <section>
-    <h2>What Talon Stores</h2>
-    <p>Your account information, goal data, action history, streak data, and progress summaries are stored securely on cloud servers and are never accessible to third parties for advertising or commercial purposes.</p>
-  </section>
+      <section>
+        <h2>What Talon Stores</h2>
+        <p>Your account information, goal data, action history, streak data, and progress summaries are stored securely on cloud servers and are never accessible to third parties for advertising or commercial purposes.</p>
+      </section>
 
-  <section>
-    <h2>What Talon Does Not Do</h2>
-    <p>Talon does not sell your data. Talon does not share your data with advertisers. Your data is not used for any purpose other than powering your Talon experience.</p>
-    <p>Talon does not collect location data, contacts, or any information beyond what you directly provide in the app.</p>
-  </section>
+      <section>
+        <h2>What Talon Does Not Do</h2>
+        <p>Talon does not sell your data. Talon does not share your data with advertisers. Your data is not used for any purpose other than powering your Talon experience.</p>
+        <p>Talon does not collect location data, contacts, or any information beyond what you directly provide in the app.</p>
+      </section>
 
-  <section>
-    <h2>Google Sign-In Data</h2>
-    <p>When you choose to sign in with Google, Talon requests access to a limited set of Google account data through Google's OAuth consent screen. This section discloses exactly what is accessed, how it is used, how it is stored, and how it is shared, in compliance with the Google API Services User Data Policy.</p>
+      <section>
+        <h2>Google Sign-In Data</h2>
+        <p>When you choose to sign in with Google, Talon requests access to a limited set of Google account data through Google's OAuth consent screen. This section discloses exactly what is accessed, how it is used, how it is stored, and how it is shared, in compliance with the Google API Services User Data Policy.</p>
 
-    <h3>Data Accessed</h3>
-    <p>Through the standard Google Sign-In scopes, Talon receives:</p>
-    <ul>
-      <li>Your Google account email address (scope: <code>email</code>)</li>
-      <li>Your Google account name and profile picture URL (scope: <code>profile</code>)</li>
-      <li>A unique Google account identifier used for authentication (scope: <code>openid</code>)</li>
-    </ul>
-    <p>Talon does not request and does not access your Gmail, Google Drive, Google Calendar, Google Contacts, Google Photos, or any other Google service.</p>
+        <h3>Data Accessed</h3>
+        <p>Through the standard Google Sign-In scopes, Talon receives:</p>
+        <ul>
+          <li>Your Google account email address (scope: <code>email</code>)</li>
+          <li>Your Google account name and profile picture URL (scope: <code>profile</code>)</li>
+          <li>A unique Google account identifier used for authentication (scope: <code>openid</code>)</li>
+        </ul>
+        <p>Talon does not request and does not access your Gmail, Google Drive, Google Calendar, Google Contacts, Google Photos, or any other Google service.</p>
 
-    <h3>Data Usage</h3>
-    <p>The data above is used solely to:</p>
-    <ul>
-      <li>Verify your identity at sign-in</li>
-      <li>Create your Talon user account — your email and name are saved to your Talon profile</li>
-      <li>Recognize you on return sign-ins</li>
-    </ul>
-    <p>Google user data is never used for advertising, analytics, profiling, or AI model training.</p>
+        <h3>Data Usage</h3>
+        <p>The data above is used solely to:</p>
+        <ul>
+          <li>Verify your identity at sign-in</li>
+          <li>Create your Talon user account &mdash; your email and name are saved to your Talon profile</li>
+          <li>Recognize you on return sign-ins</li>
+        </ul>
+        <p>Google user data is never used for advertising, analytics, profiling, or AI model training.</p>
 
-    <h3>Data Storage</h3>
-    <p>Your email and name are stored on Talon's secure cloud backend (Appwrite) as part of your Talon user record — the same way they would be stored if you signed up with email and password. The Google profile picture URL is not retained. The Google account identifier is used at the moment of sign-in and is not stored on your user record.</p>
+        <h3>Data Storage</h3>
+        <p>Your email and name are stored on Talon's secure cloud backend (Appwrite) as part of your Talon user record &mdash; the same way they would be stored if you signed up with email and password. The Google profile picture URL is not retained. The Google account identifier is used at the moment of sign-in and is not stored on your user record.</p>
 
-    <h3>Data Sharing</h3>
-    <p>Google user data is never sold and is never shared with advertisers or any third party for commercial purposes. The only sub-processor involved is Appwrite, which handles the OAuth callback and stores the Talon account record. No Google user data is transmitted to Anthropic.</p>
-    <p>Talon's use of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. You can revoke Talon's access to your Google account at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
+        <h3>Data Sharing</h3>
+        <p>Google user data is never sold and is never shared with advertisers or any third party for commercial purposes. The only sub-processor involved is Appwrite, which handles the OAuth callback and stores the Talon account record. No Google user data is transmitted to Anthropic.</p>
+        <p>Talon's use of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. You can revoke Talon's access to your Google account at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
 
-    <h3>Data Retention and Security</h3>
-    <p>Google user data is retained only for as long as your Talon account remains active. When you delete your Talon account through the Settings page, all associated data — including the email and name received via Google Sign-In — is permanently removed from Talon's systems. You may request deletion or ask any question about your data at any time by contacting <a href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
-    <p>All data, including Google user data, is encrypted in transit (HTTPS/TLS) and at rest within Talon's cloud backend (Appwrite). Access is restricted to authenticated user sessions and authorized internal operations required to deliver the Talon experience.</p>
-  </section>
+        <h3>Data Retention and Security</h3>
+        <p>Google user data is retained only for as long as your Talon account remains active. When you delete your Talon account through the Settings page, all associated data &mdash; including the email and name received via Google Sign-In &mdash; is permanently removed from Talon's systems. You may request deletion or ask any question about your data at any time by contacting <a href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
+        <p>All data, including Google user data, is encrypted in transit (HTTPS/TLS) and at rest within Talon's cloud backend (Appwrite). Access is restricted to authenticated user sessions and authorized internal operations required to deliver the Talon experience.</p>
+      </section>
 
-  <section>
-    <h2>Your Control</h2>
-    <p>Any goal can be deleted at any time. Your account can be deleted through the Settings page, which permanently removes all associated data. Talon retains your personal information only for as long as your account remains active or as required to comply with applicable legal obligations.</p>
-    <p>To submit a data request or ask any question about your data, contact <a href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
-  </section>
+      <section>
+        <h2>Your Control</h2>
+        <p>Any goal can be deleted at any time. Your account can be deleted through the Settings page, which permanently removes all associated data. Talon retains your personal information only for as long as your account remains active or as required to comply with applicable legal obligations.</p>
+        <p>To submit a data request or ask any question about your data, contact <a href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
+      </section>
 
-  <section>
-    <h2>Account Responsibility</h2>
-    <p>You are responsible for maintaining the security of your account credentials. All activity that occurs under your account is your responsibility.</p>
-    <p>If you believe your account has been accessed without authorization, contact <a href="mailto:support@talonapp.co">support@talonapp.co</a> immediately.</p>
-  </section>
+      <section>
+        <h2>Account Responsibility</h2>
+        <p>You are responsible for maintaining the security of your account credentials. All activity that occurs under your account is your responsibility.</p>
+        <p>If you believe your account has been accessed without authorization, contact <a href="mailto:support@talonapp.co">support@talonapp.co</a> immediately.</p>
+      </section>
 
-  <section>
-    <h2>Acceptable Use</h2>
-    <p>Talon is for personal habit-building use only. Goal text and any content you submit must not contain harmful, discriminatory, or illegal material.</p>
-    <p>Attempting to use Talon's AI system to generate harmful or inappropriate content may result in account suspension or termination.</p>
-  </section>
+      <section>
+        <h2>Acceptable Use</h2>
+        <p>Talon is for personal habit-building use only. Goal text and any content you submit must not contain harmful, discriminatory, or illegal material.</p>
+        <p>Attempting to use Talon's AI system to generate harmful or inappropriate content may result in account suspension or termination.</p>
+      </section>
 
-  <section>
-    <h2>Intellectual Property</h2>
-    <p>The Talon app, its design, branding, and all associated content are owned by Talon's developers and protected under applicable intellectual property laws.</p>
-    <p>Personal information and goal text you provide remain yours. By using Talon, you grant a limited license to use that information solely to generate your in-app experience.</p>
-  </section>
+      <section>
+        <h2>Intellectual Property</h2>
+        <p>The Talon app, its design, branding, and all associated content are owned by Talon's developers and protected under applicable intellectual property laws.</p>
+        <p>Personal information and goal text you provide remain yours. By using Talon, you grant a limited license to use that information solely to generate your in-app experience.</p>
+      </section>
 
-  <section>
-    <h2>Health &amp; Safety Disclaimer</h2>
-    <p>Talon is not a medical, financial, legal, or therapeutic service. Actions generated by Talon are general habit-building suggestions and should not replace professional advice. Always consult qualified professionals for health, financial, or legal decisions.</p>
-  </section>
+      <section>
+        <h2>Health &amp; Safety Disclaimer</h2>
+        <p>Talon is not a medical, financial, legal, or therapeutic service. Actions generated by Talon are general habit-building suggestions and should not replace professional advice. Always consult qualified professionals for health, financial, or legal decisions.</p>
+      </section>
 
-  <section>
-    <h2>Availability</h2>
-    <p>Talon is provided as-is. Features may be updated, modified, or discontinued at any time. Talon is not liable for any outcomes resulting from actions you choose to take based on its suggestions.</p>
-  </section>
+      <section>
+        <h2>Availability</h2>
+        <p>Talon is provided as-is. Features may be updated, modified, or discontinued at any time. Talon is not liable for any outcomes resulting from actions you choose to take based on its suggestions.</p>
+      </section>
 
-  <section>
-    <h2>Governing Law</h2>
-    <p>These terms are governed by the laws of the State of Florida, without regard to conflict of law principles. Any disputes arising from the use of Talon will be subject to the jurisdiction of the courts located in Florida.</p>
-  </section>
+      <section>
+        <h2>Governing Law</h2>
+        <p>These terms are governed by the laws of the State of Florida, without regard to conflict of law principles. Any disputes arising from the use of Talon will be subject to the jurisdiction of the courts located in Florida.</p>
+      </section>
 
-  <section>
-    <h2>Contact</h2>
-    <p>Questions about your data or these terms? Reach out to <a href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
-  </section>
+      <section>
+        <h2>Contact</h2>
+        <p>Questions about your data or these terms? Reach out to <a href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
+      </section>
 
-</main>
+    </main>
 
-<div class="closing">
-  <p class="closing-mark">Built to Win</p>
-  <a href="index.html" class="closing-link">Return to the Orb</a>
-</div>
-```
+    <div class="closing">
+      <p class="closing-mark">Built to Win</p>
+      <a href="index.html" class="closing-link">Return to the Orb</a>
+    </div>
 
   </div>
 
   <footer class="site-footer">
-    <p class="footer-mark">Talon &nbsp;·&nbsp; © 2026</p>
+    <p class="footer-mark">Talon &nbsp;&middot;&nbsp; &copy; 2026</p>
   </footer>
 </body>
 </html>
