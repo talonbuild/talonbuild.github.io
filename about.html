@@ -1,330 +1,474 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Talon — About</title>
-<meta name="description" content="Talon builds the habit so the person doesn&rsquo;t have to plan it." />
+<meta name="description" content="Talon builds the habit. Not a tracker — a system that delivers one small action at a time." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body { height: 100%; }
-body {
-  background: #030c20;
-  color: rgba(255,255,255,0.88);
-  font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Monaco, monospace;
-  font-weight: 300;
-  font-size: 15px;
-  line-height: 1.85;
-  min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-}
+  :root {
+    --bg: #030c20;
+    --surface: #0a1628;
+    --border: rgba(255, 255, 255, 0.07);
+    --text: rgba(255, 255, 255, 0.88);
+    --text-sec: rgba(255, 255, 255, 0.55);
+    --muted: rgba(255, 255, 255, 0.42);
+    --accent: #3B82F6;
+    --accent-glow: rgba(59, 130, 246, 0.55);
 
-.star-field {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image:
-    radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.45), transparent),
-    radial-gradient(1px 1px at 34% 72%, rgba(255,255,255,0.3), transparent),
-    radial-gradient(1.5px 1.5px at 56% 9%, rgba(255,255,255,0.55), transparent),
-    radial-gradient(1px 1px at 78% 55%, rgba(255,255,255,0.25), transparent),
-    radial-gradient(1px 1px at 91% 31%, rgba(255,255,255,0.4), transparent),
-    radial-gradient(1.5px 1.5px at 7% 85%, rgba(255,255,255,0.5), transparent),
-    radial-gradient(1px 1px at 63% 44%, rgba(255,255,255,0.25), transparent),
-    radial-gradient(1px 1px at 45% 92%, rgba(255,255,255,0.2), transparent),
-    radial-gradient(1px 1px at 22% 61%, rgba(255,255,255,0.25), transparent),
-    radial-gradient(1.5px 1.5px at 87% 78%, rgba(255,255,255,0.35), transparent),
-    radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.25), transparent),
-    radial-gradient(1px 1px at 72% 22%, rgba(255,255,255,0.3), transparent);
-  pointer-events: none;
-  z-index: 0;
-}
+    --display: "Cinzel", "Trajan Pro", Georgia, serif;
+    --body:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Monaco, monospace;
+  }
 
-nav.top-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 20;
-  padding: 24px 44px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(180deg, rgba(3,12,32,0.95) 0%, rgba(3,12,32,0.55) 70%, transparent 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-weight: 300;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overflow-x: clip;
+    overscroll-behavior: none;
+    position: relative;
+  }
 
-.wordmark {
-  font-family: "Cinzel", serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.48em;
-  text-transform: uppercase;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 0 18px rgba(59, 130, 246, 0.25);
-  transition: text-shadow 0.4s ease;
-}
-.wordmark:hover {
-  text-shadow: 0 0 24px rgba(59, 130, 246, 0.5);
-}
+  #starfield {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
 
-.nav-links {
-  display: flex;
-  gap: 26px;
-  list-style: none;
-}
-.nav-links a {
-  font-family: "Cinzel", serif;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.32);
-  text-decoration: none;
-  padding: 4px 0;
-  border-bottom: 1px solid transparent;
-  transition: color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-}
-.nav-links a:hover, .nav-links a.active {
-  color: rgba(255,255,255,0.85);
-  border-color: #3B82F6;
-  box-shadow: 0 1px 0 0 rgba(59, 130, 246, 0.5);
-}
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 18% 22%, rgba(59, 130, 246, 0.08), transparent 55%),
+      radial-gradient(ellipse at 82% 78%, rgba(59, 130, 246, 0.06), transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+  }
 
-.wrap {
-  position: relative;
-  z-index: 2;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 150px 28px 110px;
-}
+  /* NAV */
+  nav.top-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 20;
+    padding: 22px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(3, 12, 32, 0.92) 0%, rgba(3, 12, 32, 0.55) 70%, transparent 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .wordmark {
+    font-family: var(--display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 18px rgba(59, 130, 246, 0.25);
+    transition: text-shadow 0.4s ease;
+    padding-left: 0.45em;
+  }
+  .wordmark:hover { text-shadow: 0 0 24px rgba(59, 130, 246, 0.5); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-family: var(--display);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 0;
+    position: relative;
+    transition: color 0.4s ease;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+    transition: width 0.4s ease;
+  }
+  .nav-links a:hover, .nav-links a.active { color: #fff; }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-header.about-header {
-  text-align: center;
-  margin-bottom: 72px;
-  animation: fadeUp 0.8s ease 0.1s both;
-}
+  /* WRAP */
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 140px 24px 100px;
+  }
 
-.eyebrow {
-  font-family: "Cinzel", serif;
-  font-size: 10px;
-  letter-spacing: 0.45em;
-  color: rgba(255,255,255,0.45);
-  text-transform: uppercase;
-  margin-bottom: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-}
-.eyebrow .line {
-  display: inline-block;
-  width: 32px;
-  height: 1px;
-  background: rgba(255,255,255,0.45);
-}
+  /* HERO */
+  header.page-header {
+    text-align: center;
+    margin-bottom: 64px;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-size: 10px;
+    letter-spacing: 0.45em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  .eyebrow .line {
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--muted);
+  }
+  h1.title {
+    font-family: var(--display);
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 22px;
+    text-shadow: 0 0 30px rgba(59, 130, 246, 0.22);
+  }
+  .subtitle {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: clamp(14px, 3.4vw, 16px);
+    color: var(--text-sec);
+    line-height: 1.7;
+    max-width: 38ch;
+    margin: 0 auto;
+    text-wrap: balance;
+    letter-spacing: 0.01em;
+  }
+  .divider {
+    width: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 36px auto 0;
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
 
-h1.title {
-  font-family: "Cinzel", serif;
-  font-size: clamp(30px, 5vw, 46px);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #fff;
-  line-height: 1.2;
-  margin-bottom: 22px;
-  text-shadow: 0 0 30px rgba(59, 130, 246, 0.22);
-}
-.subtitle {
-  font-family: "Cinzel", serif;
-  font-size: 11px;
-  letter-spacing: 0.35em;
-  color: rgba(255,255,255,0.45);
-  text-transform: uppercase;
-}
-.divider {
-  width: 56px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #3B82F6, transparent);
-  margin: 40px auto 0;
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.55);
-}
+  /* CARD */
+  section.card {
+    margin-bottom: 24px;
+    padding: 36px 38px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    animation: fadeUp 0.7s ease both;
+  }
+  section.card:nth-of-type(1) { animation-delay: 0.15s; }
+  section.card:nth-of-type(2) { animation-delay: 0.22s; }
+  section.card:nth-of-type(3) { animation-delay: 0.29s; }
+  section.card:nth-of-type(4) { animation-delay: 0.36s; }
 
-section {
-  margin-bottom: 34px;
-  padding: 40px 44px;
-  background: #0a1628;
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 14px;
-  animation: fadeUp 0.7s ease both;
-}
-section:nth-of-type(1) { animation-delay: 0.15s; }
-section:nth-of-type(2) { animation-delay: 0.22s; }
-section:nth-of-type(3) { animation-delay: 0.29s; }
-section:nth-of-type(4) { animation-delay: 0.36s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+  h2.card-title {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 26px;
+    text-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+  }
 
-h2 {
-  font-family: "Cinzel", serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #3B82F6;
-  margin-bottom: 20px;
-}
+  /* STEPS */
+  .step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .step:last-child { border-bottom: 0; padding-bottom: 0; }
+  .step:first-child { padding-top: 0; }
 
-section p {
-  color: rgba(255,255,255,0.88);
-  margin-bottom: 16px;
-}
-section p:last-child { margin-bottom: 0; }
+  .step-num {
+    font-family: var(--display);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    line-height: 1.6;
+    min-width: 28px;
+    flex-shrink: 0;
+  }
+  .step-body { flex: 1; }
+  .step-head {
+    font-family: var(--display);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .step-text {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--text-sec);
+    line-height: 1.65;
+  }
 
-.founders-block {
-  margin-top: 20px;
-  padding: 18px 22px;
-  background: rgba(3, 12, 32, 0.55);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 8px;
-}
-.founder-line {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 13px;
-  color: rgba(255,255,255,0.45);
-  line-height: 1.7;
-  margin-bottom: 4px;
-}
-.founder-line:last-child { margin-bottom: 0; }
-.founder-line .name {
-  font-family: "Cinzel", serif;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.9);
-  font-size: 12px;
-  text-transform: uppercase;
-  margin-right: 8px;
-}
-.founder-line a {
-  color: rgba(255,255,255,0.45);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-  transition: color 0.3s ease, border-color 0.3s ease;
-}
-.founder-line a:hover {
-  color: #fff;
-  border-color: #3B82F6;
-}
+  /* GRID */
+  .grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .grid-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 18px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    align-items: baseline;
+  }
+  .grid-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .grid-row:first-child { padding-top: 0; }
 
-.social-block {
-  margin-top: 22px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  font-family: "Cinzel", serif;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: rgba(255,255,255,0.45);
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 2;
-}
-.social-block a {
-  color: rgba(255,255,255,0.45);
-  text-decoration: none;
-  margin: 0 10px;
-  transition: color 0.3s ease;
-}
-.social-block a:hover {
-  color: #3B82F6;
-}
-.social-label {
-  display: block;
-  margin-bottom: 10px;
-  color: rgba(255,255,255,0.32);
-  font-size: 9px;
-  letter-spacing: 0.35em;
-}
+  .grid-label {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #fff;
+    display: flex;
+    align-items: center;
+  }
+  .grid-text {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--text-sec);
+    line-height: 1.65;
+  }
 
-.closing {
-  margin-top: 72px;
-  text-align: center;
-  animation: fadeUp 0.8s ease 0.5s both;
-}
-.closing-mark {
-  font-family: "Cinzel", serif;
-  font-size: clamp(20px, 3.2vw, 26px);
-  font-weight: 700;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: #fff;
-  margin-bottom: 8px;
-  text-shadow: 0 0 24px rgba(59, 130, 246, 0.22);
-}
-.closing-meta {
-  font-family: "Cinzel", serif;
-  font-size: 10px;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  margin-bottom: 32px;
-}
-.closing-link {
-  display: inline-block;
-  font-family: "Cinzel", serif;
-  font-size: 10px;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  text-decoration: none;
-  padding: 14px 34px;
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 6px;
-  transition: color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-}
-.closing-link:hover {
-  color: #fff;
-  border-color: #3B82F6;
-  box-shadow: 0 0 24px rgba(59, 130, 246, 0.3);
-}
+  .phase-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .phase-dot.activation   { background: #f97316; box-shadow: 0 0 8px rgba(249, 115, 22, 0.7); }
+  .phase-dot.consistency  { background: #14b8a6; box-shadow: 0 0 8px rgba(20, 184, 166, 0.7); }
+  .phase-dot.breakthrough { background: #a855f7; box-shadow: 0 0 8px rgba(168, 85, 247, 0.7); }
+  .phase-dot.mastery      { background: #eab308; box-shadow: 0 0 8px rgba(234, 179, 8, 0.7); }
 
-footer.site-footer {
-  position: relative;
-  z-index: 2;
-  padding: 36px 20px;
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.07);
-}
-.footer-mark {
-  font-family: "Cinzel", serif;
-  font-size: 10px;
-  letter-spacing: 0.38em;
-  color: rgba(255,255,255,0.45);
-  text-transform: uppercase;
-}
+  /* WHY WE BUILT IT */
+  .why-line {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 14.5px;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 18px;
+    letter-spacing: 0.005em;
+  }
+  .why-line:last-child { margin-bottom: 0; }
 
-@media (max-width: 720px) {
-  nav.top-nav { padding: 18px 20px; }
-  .nav-links { gap: 18px; }
-  .nav-links a { font-size: 8px; letter-spacing: 0.28em; }
-  .wordmark { font-size: 12px; letter-spacing: 0.42em; }
-  .wrap { padding: 140px 20px 80px; }
-  section { padding: 28px 22px; }
-  header.about-header { margin-bottom: 52px; }
-  .closing { margin-top: 52px; }
-}
+  /* FOUNDERS */
+  .founders-intro {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 26px;
+  }
+
+  .founder-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    flex-wrap: wrap;
+  }
+  .founder-row:last-of-type { border-bottom: 0; }
+  .founder-row:first-of-type { padding-top: 0; }
+
+  .founder-name {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #fff;
+    min-width: 80px;
+  }
+  .founder-meta {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--text-sec);
+    letter-spacing: 0.01em;
+  }
+  .founder-meta a {
+    color: var(--text-sec);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+  .founder-meta a:hover {
+    color: #fff;
+    border-bottom-color: var(--accent);
+  }
+  .founder-meta .sep {
+    color: rgba(255, 255, 255, 0.18);
+    margin: 0 8px;
+  }
+
+  .social-block {
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .social-label {
+    display: block;
+    font-family: var(--display);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .social-links { display: flex; justify-content: center; gap: 28px; }
+  .social-links a {
+    font-family: var(--display);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  .social-links a:hover {
+    color: #fff;
+    text-shadow: 0 0 12px var(--accent-glow);
+  }
+
+  /* CLOSING */
+  .closing {
+    margin-top: 64px;
+    text-align: center;
+    animation: fadeUp 0.8s ease 0.5s both;
+  }
+  .closing-line {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--text-sec);
+    line-height: 1.7;
+    max-width: 36ch;
+    margin: 0 auto 32px;
+    text-wrap: balance;
+  }
+  .closing-mark {
+    font-family: var(--display);
+    font-size: clamp(20px, 3.2vw, 24px);
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 28px;
+    text-shadow: 0 0 24px rgba(59, 130, 246, 0.22);
+  }
+  .closing-link {
+    display: inline-block;
+    font-family: var(--display);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    text-decoration: none;
+    padding: 14px 30px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .closing-link:hover {
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 24px rgba(59, 130, 246, 0.3);
+  }
+
+  /* FOOTER */
+  footer.site-footer {
+    position: relative;
+    z-index: 2;
+    padding: 36px 20px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .footer-mark {
+    font-family: var(--display);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav.top-nav { padding: 16px 20px; }
+    .nav-links { gap: 18px; }
+    .nav-links a { font-size: 9px; letter-spacing: 0.28em; }
+    .wordmark { font-size: 12px; letter-spacing: 0.42em; }
+    .wrap { padding: 120px 18px 80px; }
+    section.card { padding: 28px 22px; }
+    header.page-header { margin-bottom: 48px; }
+    .closing { margin-top: 52px; }
+    .grid-row { grid-template-columns: 110px 1fr; gap: 14px; }
+    .step { gap: 14px; }
+    .founder-row { flex-direction: column; gap: 4px; align-items: flex-start; }
+    .founder-name { min-width: auto; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
 </style>
-
 </head>
 <body>
 
-<div class="star-field"></div>
+<canvas id="starfield"></canvas>
 
 <nav class="top-nav">
   <a href="index.html" class="wordmark">Talon</a>
@@ -336,70 +480,180 @@ footer.site-footer {
 
 <div class="wrap">
 
-  <header class="about-header">
+  <header class="page-header">
     <p class="eyebrow"><span class="line"></span>About Talon<span class="line"></span></p>
-    <h1 class="title">Built to Win</h1>
-    <p class="subtitle">The habit is the point</p>
+    <h1 class="title">Talon builds the habit.</h1>
+    <p class="subtitle">Not a tracker. A system that delivers one small action at a time.</p>
     <div class="divider"></div>
   </header>
 
   <main>
 
-    <section>
-      <h2>The problem is not information.</h2>
-      <p>The people who download habit apps already know what they should do. They have read the books. They have watched the videos. They can explain the two-minute rule to a friend at dinner. They have started the routine, stopped the routine, and started it again.</p>
-      <p>The problem is not knowing. The problem is that nobody is designing the next small action for them, every single day, as their life actually is. The planning is what they keep failing at &mdash; not the doing.</p>
-      <p>Talon builds the habit so the person doesn&rsquo;t have to plan it.</p>
+    <section class="card">
+      <h2 class="card-title">How it works</h2>
+
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <p class="step-head">Pick a goal</p>
+          <p class="step-text">Choose from four life categories.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <p class="step-head">Receive an action</p>
+          <p class="step-text">Specific. Finishable. Generated for you.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <p class="step-head">Complete it</p>
+          <p class="step-text">Mark it done. The next one builds on it.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <p class="step-head">Build the habit</p>
+          <p class="step-text">What was a decision becomes a rhythm. The habit forms quietly, action by action.</p>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>What Talon is.</h2>
-      <p>Talon is a habit-building app. Not a habit tracker &mdash; the distinction matters. A tracker records what already exists. Talon generates what comes next.</p>
-      <p>The user picks a goal. Talon delivers a small, specific, finishable action. The action changes as the user progresses. There are four categories and many sub-goals inside each. There are phases the user moves through as the habit takes hold. Completed goals become planets. Sustained practice becomes a universe.</p>
-      <p>The details are in the app. The experience is the point.</p>
+    <section class="card">
+      <h2 class="card-title">Four categories</h2>
+
+      <div class="grid">
+        <div class="grid-row">
+          <div class="grid-label">Physical</div>
+          <div class="grid-text">Body, movement, sleep, recovery.</div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-label">Emotional</div>
+          <div class="grid-text">Stress, anxiety, confidence, presence.</div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-label">Financial</div>
+          <div class="grid-text">Saving, earning, intentional spending.</div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-label">Learning</div>
+          <div class="grid-text">Reading, skills, deliberate practice.</div>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>The philosophy.</h2>
-      <p>Most habit products are loud. They gamify, they shout, they panic the user with streak-fire emojis the moment a day slips. Talon is the opposite. Quiet. Considered. Premium.</p>
-      <p>Talon&rsquo;s objective is to help the user see the paths and the actions that lead to becoming a better version of themselves. Results come from consistent, simple work &mdash; day in, day out. Talon is built to make that work visible, and to keep it in reach.</p>
-      <p>When you read something like <em>Atomic Habits</em> and find yourself nodding at every page but can&rsquo;t make the habits stick, the problem is rarely the theory. The theory is usually fine. What&rsquo;s missing is the thing that comes next &mdash; the plan that takes the theory off the page and puts it in the hand, every morning, as one small specific thing to do. Talon is built for the person who has already done the reading.</p>
-      <p>Talon does not promise outcomes. It will not say <em>lose twenty pounds</em> or <em>read fifty books</em>. It promises the habit. The doing. The outcomes are what happens to people who keep doing.</p>
+    <section class="card">
+      <h2 class="card-title">Why we built it</h2>
+
+      <p class="why-line">We had read the books. Started the routines. Quit them.</p>
+
+      <p class="why-line">The gap between knowing what to do and actually doing it kept showing up &mdash; and nothing on the market closed it.</p>
+
+      <p class="why-line">So we built what we wished existed. A system that takes the planning off the table, every day. One that does the work of designing the next small action &mdash; so the only thing left is doing it.</p>
     </section>
 
-    <section>
-      <h2>The founders.</h2>
-      <p><strong style="color:#fff; font-weight:600;">Leo and Marcos</strong> designed this app with the intention to help people close the gap between knowing what they should do and actually doing it.</p>
-      <p>They built Talon because nothing on the market took the planning off their plates.</p>
+    <section class="card">
+      <h2 class="card-title">Built by</h2>
 
-      <div class="founders-block">
-        <p class="founder-line"><span class="name">Marcos</span> <a href="mailto:marcos@talonapp.co">marcos@talonapp.co</a> &middot; <a href="https://x.com/marcostalon" target="_blank" rel="noopener">@marcostalon</a></p>
-        <p class="founder-line"><span class="name">Leo</span> <a href="mailto:leo@talonapp.co">leo@talonapp.co</a></p>
+      <p class="founders-intro">Marcos and Leo. Reach out anytime.</p>
+
+      <div class="founder-row">
+        <div class="founder-name">Marcos</div>
+        <div class="founder-meta">
+          <a href="mailto:marcos@talonapp.co">marcos@talonapp.co</a>
+          <span class="sep">·</span>
+          <a href="https://x.com/marcostalon" target="_blank" rel="noopener">@marcostalon</a>
+        </div>
+      </div>
+
+      <div class="founder-row">
+        <div class="founder-name">Leo</div>
+        <div class="founder-meta">
+          <a href="mailto:leo@talonapp.co">leo@talonapp.co</a>
+        </div>
       </div>
 
       <div class="social-block">
         <span class="social-label">Follow Talon</span>
-        <a href="https://x.com/talonbuild" target="_blank" rel="noopener">X</a>
-        &middot;
-        <a href="https://instagram.com/talonbuild" target="_blank" rel="noopener">Instagram</a>
-        &middot;
-        <a href="https://tiktok.com/@talonbuild" target="_blank" rel="noopener">TikTok</a>
+        <div class="social-links">
+          <a href="https://x.com/talonbuild" target="_blank" rel="noopener">X</a>
+          <a href="https://instagram.com/talonbuild" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://tiktok.com/@talonbuild" target="_blank" rel="noopener">TikTok</a>
+        </div>
       </div>
     </section>
 
   </main>
 
   <div class="closing">
+    <p class="closing-line">Talon does not promise outcomes. It promises the habit. The outcomes belong to the people who keep doing.</p>
     <p class="closing-mark">Built to Win</p>
-    <p class="closing-meta">Talon &middot; 2026</p>
     <a href="index.html" class="closing-link">Return to the Orb</a>
   </div>
 
 </div>
 
 <footer class="site-footer">
-  <p class="footer-mark">Talon &nbsp;&middot;&nbsp; &copy; 2026</p>
+  <p class="footer-mark">Talon &nbsp;·&nbsp; &copy; 2026</p>
 </footer>
+
+<script>
+  (function() {
+    const canvas = document.getElementById('starfield');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function resize() {
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      ctx.scale(dpr, dpr);
+      seed();
+    }
+
+    function seed() {
+      stars = [];
+      const count = Math.floor((window.innerWidth * window.innerHeight) / 9000);
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          r: Math.random() * 1.2 + 0.3,
+          a: Math.random() * 0.7 + 0.15,
+          tw: Math.random() * 0.012 + 0.003,
+          ph: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+
+    let t = 0;
+    function frame() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      t += 1;
+      for (const s of stars) {
+        const a = s.a * (0.55 + 0.45 * Math.sin(t * s.tw + s.ph));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${a})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(frame);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    frame();
+  })();
+</script>
 
 </body>
 </html>
