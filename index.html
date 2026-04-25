@@ -1,49 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Talon — Built to Win</title>
-<meta name="description" content="The habit system that builds itself. Built to Win." />
+<meta name="description" content="Talon builds the habit. One small action at a time. Join the waitlist." />
 <meta name="theme-color" content="#030c20" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  @supports (font-variation-settings: normal) {
-    :root { font-synthesis: none; }
-  }
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
 <style>
-  /* ---------- Tokens (mirrors Talon Design System) ---------- */
+  /* ========== TOKENS (Talon Design System) ========== */
   :root {
     --bg:           #030c20;
-    --bg-deep:      #010410;
     --surface:      #0a1628;
-    --surface-hi:   #0f1f3a;
     --accent:       #3B82F6;
     --accent-mid:   #60A5FA;
-    --accent-light: #bfdbfe;
     --accent-deep:  #1d4ed8;
-    --activation:   #f97316;
-    --consistency:  #14b8a6;
-    --breakthrough: #a855f7;
-    --mastery:      #eab308;
     --text:         #ffffff;
-    --text-sec:     #94a3b8;
-    --text-muted:   #475569;
-    --border:       #1e3a5f;
-    --display:  "Cinzel", "Trajan Pro", Georgia, serif;
-    --label:    "Cinzel", "Trajan Pro", Georgia, serif;
-    --body:     "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --text-sec:     rgba(255,255,255,0.78);
+    --text-muted:   rgba(255,255,255,0.45);
+    --border:       rgba(255,255,255,0.08);
+
+    --display:      "Cinzel", "Trajan Pro", Georgia, serif;
+    --display-deco: "Cinzel Decorative", "Cinzel", serif;
+    --body:         "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
     /* Rule of 8 */
-    --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 48px; --s6: 64px; --s7: 96px; --s8: 128px;
+    --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+    --s5: 48px; --s6: 64px; --s7: 96px;
   }
 
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
     background: var(--bg);
@@ -53,36 +44,36 @@
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
     min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
   }
-  body.lock { overflow: hidden; }
 
   a { color: inherit; text-decoration: none; }
   button { font-family: inherit; color: inherit; background: transparent; border: 0; cursor: pointer; padding: 0; }
-  img, svg, canvas { display: block; max-width: 100%; }
+  img { display: block; max-width: 100%; }
   ::selection { background: rgba(59,130,246,0.35); color: #fff; }
+  :focus-visible { outline: 2px solid var(--accent-mid); outline-offset: 4px; border-radius: 4px; }
 
-  :focus-visible {
-    outline: 2px solid var(--accent-mid);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  /* ---------- Background starfield (parallax) ---------- */
-  #starfield {
+  /* ========== STARFIELD (animated canvas) ========== */
+  .starfield {
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.10), transparent 55%),
-      radial-gradient(ellipse at 50% 100%, rgba(29,78,216,0.08), transparent 60%),
+      radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.12), transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(29,78,216,0.07), transparent 60%),
       var(--bg);
   }
-  #starfield canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .starfield canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
 
-  /* ---------- Layout ---------- */
+  /* ========== NAV ========== */
   .nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -90,248 +81,288 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 24px;
-    pointer-events: none;
+    padding: 24px 40px;
+    background: linear-gradient(180deg, rgba(3,12,32,0.85) 0%, rgba(3,12,32,0.4) 70%, transparent 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
   .wordmark {
-    pointer-events: auto;
     font-family: var(--display);
     font-weight: 700;
-    letter-spacing: 0.42em;
     font-size: 14px;
+    letter-spacing: 0.42em;
     color: var(--text);
     padding-left: 0.42em;
+    text-shadow: 0 0 18px rgba(59, 130, 246, 0.25);
+    transition: text-shadow 0.4s ease;
   }
-  .nav .nav-status {
-    pointer-events: auto;
+  .wordmark:hover { text-shadow: 0 0 24px rgba(59, 130, 246, 0.5); }
+
+  .nav-links {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--label);
-    font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 0.28em;
-    color: var(--accent-mid);
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 6px 0;
+    border-bottom: 1px solid transparent;
+    transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  .nav-status .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent-mid);
-    box-shadow: 0 0 8px var(--accent-mid);
-    animation: dotPulse 2.4s ease-in-out infinite;
+  .nav-links a:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    box-shadow: 0 1px 0 0 rgba(59, 130, 246, 0.5);
   }
-  @keyframes dotPulse { 0%,100%{opacity:.5;} 50%{opacity:1;} }
 
-  main { position: relative; z-index: 1; }
-
-  section {
+  /* ========== HERO ========== */
+  main {
     position: relative;
-    padding: var(--s7) 24px;
-    max-width: 100%;
+    z-index: 1;
   }
-
-  /* ============ HERO ============ */
   .hero {
-    min-height: 100svh;
     min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 96px;
-    padding-bottom: 80px;
     text-align: center;
+    padding: 120px 24px 60px;
   }
+
   .eyebrow {
-    font-family: var(--label);
+    font-family: var(--display);
     font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.32em;
+    font-size: 11px;
+    letter-spacing: 0.42em;
     text-transform: uppercase;
     color: var(--accent-mid);
     margin: 0 0 var(--s3);
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    animation: fadeUp 0.9s ease 0.1s both;
   }
-  .eyebrow .eyebrow-rule {
-    display: inline-block; vertical-align: middle;
-    width: 28px; height: 1px; background: rgba(96,165,250,0.4);
-    margin: 0 12px;
+  .eyebrow .rule {
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: rgba(96,165,250,0.5);
+  }
+  .eyebrow .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent-mid);
+    box-shadow: 0 0 8px var(--accent-mid);
+    animation: dotPulse 2.4s ease-in-out infinite;
+    margin-right: -6px;
+  }
+  @keyframes dotPulse {
+    0%, 100% { opacity: 0.5; }
+    50%      { opacity: 1; }
   }
 
   h1.headline {
     font-family: var(--display);
     font-weight: 700;
-    font-size: clamp(48px, 13vw, 124px);
-    line-height: 0.95;
-    letter-spacing: 0.01em;
+    font-size: clamp(34px, 7vw, 64px);
+    line-height: 1.05;
+    letter-spacing: 0.005em;
     margin: 0;
     color: var(--text);
     text-wrap: balance;
-  }
-  h1.headline .period {
-    color: var(--accent);
-    text-shadow: 0 0 24px rgba(59,130,246,0.6);
+    animation: fadeUp 0.9s ease 0.2s both;
   }
 
   .subtitle {
-    font-family: var(--label);
-    font-weight: 500;
-    font-size: clamp(17px, 4.6vw, 22px);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.90);
-    margin: var(--s3) 0 0;
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: clamp(16px, 3.6vw, 19px);
+    line-height: 1.5;
+    color: var(--text-sec);
+    margin: var(--s3) auto 0;
+    max-width: 38ch;
     text-wrap: balance;
+    animation: fadeUp 0.9s ease 0.3s both;
   }
 
-  /* Orb stage */
+  /* ========== ORB ========== */
   .orb-stage {
     position: relative;
     width: min(78vw, 360px);
     aspect-ratio: 1 / 1;
-    margin: var(--s5) auto var(--s4);
+    margin: var(--s5) auto var(--s3);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-  }
-  .orb-stage canvas {
-    width: 100%; height: 100%;
-    display: block;
     border-radius: 50%;
-    transition: filter 480ms cubic-bezier(.2,.7,.2,1), transform 480ms cubic-bezier(.2,.7,.2,1);
+    animation: fadeUp 1.2s ease 0.4s both;
+    transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
   }
-  .orb-stage:hover canvas { filter: brightness(1.06); }
-  .orb-stage:focus-visible { outline: none; }
-  .orb-stage:focus-visible canvas {
-    box-shadow: 0 0 0 2px var(--accent-mid), 0 0 0 6px rgba(59,130,246,0.25);
-  }
-  .orb-stage .tap-ring {
-    position: absolute; inset: 0;
+  .orb-stage:hover { transform: scale(1.02); }
+  .orb-stage:active { transform: scale(0.99); }
+
+  .orb-glow {
+    position: absolute;
+    inset: -8%;
     border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(59,130,246,0.45) 0%, rgba(59,130,246,0.18) 30%, transparent 65%);
+    filter: blur(20px);
+    animation: orbBreathe 5.5s ease-in-out infinite;
+    z-index: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .orb-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    animation: orbBreathe 5.5s ease-in-out infinite, orbRotate 90s linear infinite;
+    transform-origin: center;
+    z-index: 1;
+    filter: brightness(1) saturate(1);
+    transition: filter 0.5s ease;
+  }
+  .orb-stage:hover .orb-img { filter: brightness(1.12) saturate(1.08); }
+  .orb-stage:hover .orb-glow { opacity: 1.3; }
+
+  @keyframes orbBreathe {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.025); }
+  }
+  @keyframes orbRotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Tap-ring ripple on click */
+  .tap-ripple {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(96,165,250,0.6);
     pointer-events: none;
-    border: 1px solid rgba(96,165,250,0.18);
-    transform: scale(0.92);
     opacity: 0;
-    transition: opacity 600ms ease, transform 600ms ease;
   }
-  .orb-stage:hover .tap-ring { opacity: 1; transform: scale(1.04); }
-
-  /* CTA-active state — orb intensifies, content fades */
-  body.cta-open .hero-text,
-  body.cta-open .orb-status,
-  body.cta-open .waitlist-line,
-  body.cta-open .orb-instruction { opacity: 0.18; filter: blur(2px); }
-  body.cta-open .orb-stage canvas { filter: brightness(1.18) saturate(1.1); }
-  .hero-text, .orb-status, .waitlist-line, .orb-instruction {
-    transition: opacity 480ms ease, filter 480ms ease, transform 480ms ease;
-    will-change: opacity, filter;
+  .orb-stage.is-pulsing .tap-ripple {
+    animation: tapRipple 1.2s ease-out;
+  }
+  @keyframes tapRipple {
+    0%   { transform: scale(0.95); opacity: 0.8; }
+    100% { transform: scale(1.4);  opacity: 0; }
   }
 
-  .orb-status {
-    margin-top: var(--s2);
-    font-family: var(--label);
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--accent-mid);
-    display: inline-flex; align-items: center; gap: 10px;
-  }
-  .orb-status::before {
-    content: ""; width: 5px; height: 5px; border-radius: 50%;
-    background: var(--accent-mid);
-    box-shadow: 0 0 8px var(--accent-mid);
-    animation: dotPulse 2.4s ease-in-out infinite;
-  }
+  /* When CTA is open, orb gets brighter */
+  body.cta-open .orb-img { filter: brightness(1.15) saturate(1.1); }
+  body.cta-open .orb-glow { opacity: 1.4; }
 
-  .orb-instruction {
-    margin-top: var(--s3);
-    font-family: var(--label);
+  /* ========== ORB INSTRUCTION ========== */
+  .orb-cta {
+    font-family: var(--display);
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--accent-mid);
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeUp 0.9s ease 0.6s both;
+    transition: opacity 0.4s ease;
   }
-
-  .waitlist-line {
-    margin: 12px 0 0;
-    font-family: var(--body);
-    font-weight: 400;
-    font-size: clamp(14px, 3.6vw, 16px);
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.80);
-    text-align: center;
-    text-wrap: balance;
-  }
-  .orb-instruction .arrow {
+  .orb-cta .arrow {
     display: inline-block;
-    margin-left: 8px;
     animation: arrowDrift 2.4s ease-in-out infinite;
   }
   @keyframes arrowDrift {
-    0%,100% { transform: translateY(0); opacity: 0.7; }
-    50%     { transform: translateY(3px); opacity: 1; }
+    0%, 100% { transform: translateY(0);  opacity: 0.7; }
+    50%      { transform: translateY(3px); opacity: 1; }
   }
 
-  /* CTA panel — appears below the orb */
+  body.cta-open .orb-cta { opacity: 0; pointer-events: none; }
+
+  /* ========== CTA PANEL ========== */
   .cta-panel {
-    position: relative;
-    width: min(94vw, 440px);
-    margin: 0 auto;
-    pointer-events: none;
+    width: min(94vw, 420px);
+    margin: var(--s3) auto 0;
     height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: height 520ms cubic-bezier(.2,.7,.2,1), opacity 380ms ease 60ms;
+    pointer-events: none;
+    transition: height 0.5s cubic-bezier(.2,.7,.2,1), opacity 0.35s ease 0.05s, margin-top 0.5s ease;
   }
-  body.cta-open .cta-panel { pointer-events: auto; opacity: 1; }
-  .cta-inner {
-    padding: 4px 8px 8px;
-  }
+  body.cta-open .cta-panel { opacity: 1; pointer-events: auto; }
+
+  .cta-inner { padding: 4px; }
+
   .cta-form {
     display: flex;
-    gap: 8px;
-    background: rgba(10,22,40,0.78);
-    border: 1px solid rgba(59,130,246,0.30);
+    gap: 6px;
+    background: rgba(10, 22, 40, 0.78);
+    border: 1px solid rgba(59,130,246,0.32);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-radius: 999px;
     padding: 6px 6px 6px 22px;
-    box-shadow: 0 24px 60px -20px rgba(59,130,246,0.45),
-                inset 0 1px 0 rgba(255,255,255,0.06);
+    box-shadow:
+      0 24px 60px -20px rgba(59,130,246,0.45),
+      inset 0 1px 0 rgba(255,255,255,0.06);
   }
   .cta-form input[type="email"] {
-    flex: 1; min-width: 0;
-    background: transparent; border: 0; outline: 0;
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    outline: 0;
     font-family: var(--body);
     font-size: 15px;
     color: var(--text);
     padding: 12px 0;
     letter-spacing: 0.01em;
   }
-  .cta-form input::placeholder { color: rgba(148,163,184,0.55); }
+  .cta-form input::placeholder { color: rgba(148, 163, 184, 0.55); }
+
   .cta-form button[type="submit"] {
     flex-shrink: 0;
     padding: 12px 22px;
     border-radius: 999px;
-    font-family: var(--label);
+    font-family: var(--display);
     font-weight: 700;
     font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: #fff;
     background: linear-gradient(180deg, #3B82F6, #1d4ed8);
-    box-shadow: 0 6px 18px rgba(59,130,246,0.35), inset 0 1px 0 rgba(255,255,255,0.18);
-    transition: transform 180ms ease, box-shadow 240ms ease, filter 240ms ease;
+    box-shadow:
+      0 6px 18px rgba(59,130,246,0.35),
+      inset 0 1px 0 rgba(255,255,255,0.18);
+    transition: transform 0.18s ease, box-shadow 0.24s ease, filter 0.24s ease;
   }
-  .cta-form button[type="submit"]:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .cta-form button[type="submit"]:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
   .cta-form button[type="submit"]:active { transform: translateY(0); }
+  .cta-form button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
   .cta-error {
     display: none;
     margin-top: 12px;
-    font-family: var(--label);
+    font-family: var(--display);
     font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    font-size: 10px;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: #fca5a5;
     text-align: center;
@@ -341,386 +372,158 @@
   .cta-success {
     display: none;
     text-align: center;
-    padding: 18px 12px;
+    padding: 14px 12px;
   }
-  .cta-success.show { display: block; animation: fadeUp 600ms ease both; }
+  .cta-success.show { display: block; animation: fadeUp 0.6s ease both; }
   .cta-success .line {
     font-family: var(--display);
     font-weight: 700;
-    font-size: clamp(20px, 5.5vw, 26px);
+    font-size: clamp(18px, 4.6vw, 22px);
     letter-spacing: 0.02em;
     color: var(--text);
     margin: 0;
   }
   .cta-success .sub {
     margin-top: 8px;
-    font-family: var(--label);
+    font-family: var(--display);
     font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.22em;
+    font-size: 10px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--accent-mid);
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
   }
 
   .cta-dismiss {
-    margin-top: 14px;
-    font-family: var(--label);
+    margin-top: 16px;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(148, 163, 184, 0.5);
+    text-align: center;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========== FOOTER ========== */
+  .foot {
+    position: relative;
+    z-index: 1;
+    padding: var(--s4) 24px var(--s5);
+    text-align: center;
+    border-top: 1px solid var(--border);
+    margin-top: var(--s5);
+  }
+  .closing-mark {
+    font-family: var(--display-deco);
+    font-weight: 700;
+    font-size: clamp(20px, 4vw, 26px);
+    letter-spacing: 0.08em;
+    color: var(--text);
+    text-shadow: 0 0 24px rgba(59, 130, 246, 0.22);
+    margin-bottom: 8px;
+  }
+  .copy {
+    font-family: var(--display);
     font-weight: 500;
     font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(148,163,184,0.6);
-    text-align: center;
-  }
-  .cta-dismiss kbd {
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    background: rgba(148,163,184,0.12);
-    padding: 1px 6px;
-    border-radius: 4px;
-    color: rgba(255,255,255,0.85);
-  }
-
-  /* ============ Recognition ============ */
-  .recognition {
-    text-align: center;
-    padding-top: var(--s7);
-    padding-bottom: var(--s7);
-  }
-  .recognition .big {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: clamp(36px, 9vw, 80px);
-    line-height: 1.02;
-    letter-spacing: 0.005em;
-    margin: 0 auto;
-    max-width: 14ch;
-    text-wrap: balance;
-  }
-  .recognition .body {
-    margin: var(--s4) auto 0;
-    max-width: 56ch;
-    font-family: var(--body);
-    font-size: clamp(18px, 4.4vw, 20px);
-    line-height: 1.65;
-    color: rgba(255,255,255,0.88);
-    text-wrap: pretty;
-  }
-  .recognition .body em {
-    font-style: normal;
-    color: var(--text);
-    font-weight: 600;
-  }
-
-  /* ============ How it works ============ */
-  .section-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    font-family: var(--label);
-    font-weight: 600;
-    font-size: 15px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--accent-mid);
-    margin: 0 auto var(--s5);
-  }
-  .section-label::before, .section-label::after {
-    content: ""; width: 36px; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(96,165,250,0.5), transparent);
+    color: var(--text-muted);
   }
 
-  .how {
-    padding-bottom: var(--s6);
-  }
-  .steps {
-    display: flex;
-    flex-direction: column;
-    gap: var(--s5);
-    max-width: 1080px;
-    margin: 0 auto;
-  }
-  .step {
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
-    gap: var(--s4);
-    text-align: center;
-  }
-  .step-text { padding: 0 8px; }
-  .step-num {
-    font-family: var(--label);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.28em;
-    color: var(--accent-mid);
-    text-transform: uppercase;
-  }
-  .step-num .bar {
-    display: inline-block; vertical-align: middle;
-    width: 24px; height: 1px; background: rgba(96,165,250,0.6); margin-right: 12px;
-  }
-  .step-headline {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: clamp(26px, 6.5vw, 40px);
-    letter-spacing: 0.005em;
-    line-height: 1.12;
-    margin: 12px 0 8px;
-    text-wrap: balance;
-  }
-  .step-caption {
-    font-family: var(--body);
-    color: rgba(255,255,255,0.88);
-    font-size: clamp(17px, 4.2vw, 19px);
-    line-height: 1.6;
-    max-width: 40ch;
-    margin: 0 auto;
-    text-wrap: pretty;
-  }
-  .phone-wrap {
-    display: flex;
-    justify-content: center;
-  }
+  /* ========== WAITLIST PENDING STATE ========== */
+  /* When body.waitlist-pending is set, show "shortly" message and hide the form. */
+  .orb-cta-pending { display: none; }
+  body.waitlist-pending #orbCta { display: none; }
+  body.waitlist-pending .orb-cta-pending { display: inline-flex; }
+  body.waitlist-pending .cta-panel { display: none !important; }
 
-  /* iPhone-shaped device frame */
-  .device {
-    position: relative;
-    width: min(84vw, 320px);
-    aspect-ratio: 9 / 19.5;
-    background: #000;
-    border-radius: 44px;
-    padding: 10px;
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,0.06),
-      0 30px 60px -20px rgba(0,0,0,0.7),
-      0 0 80px -10px rgba(59,130,246,0.18);
-  }
-  .device-bezel {
-    position: relative;
-    width: 100%; height: 100%;
-    border-radius: 36px;
-    overflow: hidden;
-    background: linear-gradient(180deg, #04081a 0%, #030c20 60%);
-  }
-  .device-screen {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    background: #030c20;
-    border-radius: 36px;
-  }
-  .device-screen img.app-shot {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
-    user-select: none;
-    -webkit-user-drag: none;
-    pointer-events: none;
-  }
-
-  /* ============ Philosophy ============ */
-  .philosophy {
-    text-align: center;
-    padding-top: var(--s7);
-    padding-bottom: var(--s7);
-  }
-  .philosophy .big {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: clamp(36px, 9vw, 80px);
-    line-height: 1.04;
-    margin: 0 auto;
-    max-width: 16ch;
-    text-wrap: balance;
-  }
-  .philosophy .body-wrap {
-    margin: var(--s5) auto 0;
-    max-width: 56ch;
-    display: grid;
-    gap: var(--s4);
-    text-align: center;
-  }
-  .philosophy .body-wrap p {
-    font-family: var(--body);
-    font-size: clamp(18px, 4.4vw, 20px);
-    line-height: 1.65;
-    color: rgba(255,255,255,0.88);
-    margin: 0;
-    text-wrap: pretty;
-  }
-  .philosophy .phases-row {
-    margin-top: var(--s5);
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .philosophy .phase-chip {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(10,22,40,0.5);
-    border: 1px solid var(--c);
-    font-family: var(--label);
-    font-weight: 600;
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    color: var(--c);
-    text-transform: uppercase;
-  }
-  .philosophy .phase-chip .d { width: 5px; height: 5px; border-radius: 50%; background: var(--c); box-shadow: 0 0 6px var(--c); }
-
-  /* ============ Footer CTA ============ */
-  .footer-cta {
-    text-align: center;
-    padding-top: var(--s7);
-    padding-bottom: var(--s5);
-  }
-  .footer-cta .small-orb-stage {
-    width: min(54vw, 220px);
-    aspect-ratio: 1/1;
-    margin: 0 auto var(--s4);
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .footer-cta .small-orb-stage canvas { width: 100%; height: 100%; border-radius: 50%; }
-  .footer-cta .eyebrow { margin-bottom: var(--s2); }
-  .footer-cta .cta-line {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: clamp(24px, 6vw, 34px);
-    letter-spacing: 0.02em;
-    margin: 0;
-    color: rgba(255,255,255,0.95);
-  }
-
-  /* ============ Footer ============ */
-  footer.foot {
-    position: relative;
-    padding: var(--s5) 24px var(--s4);
-    text-align: center;
-    border-top: 1px solid rgba(59,130,246,0.10);
-    margin-top: var(--s5);
-  }
-  footer.foot .links {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px 28px;
-    font-family: var(--label);
-    font-weight: 500;
-    font-size: 16px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  footer.foot .links a {
-    color: rgba(255,255,255,0.75);
-    transition: color 220ms ease;
-  }
-  footer.foot .links a:hover,
-  footer.foot .links a:focus-visible { color: #ffffff; }
-  footer.foot .copy {
-    margin-top: 20px;
-    font-family: var(--label);
-    font-weight: 500;
-    font-size: 12px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
-  }
-
-  /* ============ Reveal animation ============ */
-  .reveal {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 900ms cubic-bezier(.2,.7,.2,1), transform 900ms cubic-bezier(.2,.7,.2,1);
-    will-change: opacity, transform;
-  }
-  .reveal.in { opacity: 1; transform: translateY(0); }
-
+  /* ========== REDUCED MOTION ========== */
   @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
-    .nav-status .dot,
-    .orb-instruction .arrow {
-      animation: none !important;
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
+    .orb-img { animation: none; }
+    .orb-glow { animation: none; }
     html { scroll-behavior: auto; }
   }
 
-  /* ============ Tablet+ ============ */
-  @media (min-width: 720px) {
-    section { padding: var(--s7) var(--s5); }
-    .step {
-      grid-template-columns: 1fr 1fr;
-      text-align: left;
-      gap: var(--s6);
-    }
-    .step:nth-child(even) {
-      direction: rtl;
-    }
-    .step:nth-child(even) > * { direction: ltr; }
-    .step-caption { margin: 0; }
-  }
-  @media (min-width: 960px) {
-    .nav { padding: 24px 40px; }
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 720px) {
+    .nav { padding: 18px 20px; }
+    .nav-links { gap: 22px; }
+    .nav-links a { font-size: 9px; letter-spacing: 0.28em; }
+    .wordmark { font-size: 12px; letter-spacing: 0.38em; }
+    .hero { padding: 110px 20px 50px; }
+    .orb-stage { margin: var(--s4) auto var(--s3); }
+    .cta-form { padding: 5px 5px 5px 18px; }
+    .cta-form input[type="email"] { font-size: 14px; padding: 11px 0; }
+    .cta-form button[type="submit"] { padding: 11px 16px; font-size: 10px; letter-spacing: 0.24em; }
   }
 </style>
 </head>
 <body>
 
-<div id="starfield" aria-hidden="true">
+<div class="starfield" aria-hidden="true">
   <canvas id="starsCanvas"></canvas>
 </div>
 
 <nav class="nav" aria-label="Top">
-  <a href="#top" class="wordmark" aria-label="Talon — home">TALON</a>
-  <span class="nav-status" aria-hidden="true"><span class="dot"></span>Early Access</span>
+  <a href="index.html" class="wordmark" aria-label="Talon — home">TALON</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="privacy-policy.html">Privacy</a></li>
+  </ul>
 </nav>
 
-<main id="top">
-
-  <!-- ============ HERO ============ -->
+<main>
   <section class="hero" aria-labelledby="hero-headline">
 
-    <div class="hero-text">
-      <div class="eyebrow"><span class="eyebrow-rule"></span>The habit that stays<span class="eyebrow-rule"></span></div>
-      <h1 class="headline" id="hero-headline">Built to Win<span class="period">.</span></h1>
-      <p class="subtitle">The habit system that builds itself.</p>
-    </div>
+    <p class="eyebrow">
+      <span class="rule"></span>
+      <span class="dot" aria-hidden="true"></span>
+      Coming Soon
+      <span class="rule"></span>
+    </p>
+
+    <h1 class="headline" id="hero-headline">Knowing isn't the problem.</h1>
+
+    <p class="subtitle">
+      Talon builds the habit. One small action at a time.
+    </p>
 
     <button
       class="orb-stage"
-      id="heroOrb"
+      id="orbBtn"
       type="button"
-      aria-label="Tap the orb for early access"
+      aria-label="Tap the orb to join the waitlist"
       aria-controls="ctaPanel"
       aria-expanded="false">
-      <canvas id="heroOrbCanvas" aria-hidden="true"></canvas>
-      <span class="tap-ring" aria-hidden="true"></span>
+      <span class="orb-glow" aria-hidden="true"></span>
+      <img class="orb-img" src="assets/orb.png" alt="" />
+      <span class="tap-ripple" aria-hidden="true"></span>
     </button>
 
-    <div class="orb-status" aria-live="polite">Currently in private testing</div>
-    <p class="waitlist-line">Launching soon. Join the waitlist for first access.</p>
+    <p class="orb-cta" id="orbCta">
+      Tap the orb to join
+    </p>
+    <p class="orb-cta orb-cta-pending" id="orbCtaPending">
+      Waitlist opens shortly
+    </p>
 
-    <div class="orb-instruction" id="orbInstruction">
-      Tap the orb for early access<span class="arrow" aria-hidden="true">↓</span>
-    </div>
-
-    <!-- Inline CTA panel -->
-    <div class="cta-panel" id="ctaPanel" role="region" aria-label="Early access waitlist">
+    <div class="cta-panel" id="ctaPanel" role="region" aria-label="Waitlist signup">
       <div class="cta-inner">
         <form
           class="cta-form"
           id="waitlistForm"
-          action="KIT_ENDPOINT_PLACEHOLDER"
+          action="KIT_FORM_ENDPOINT_PLACEHOLDER"
           method="POST"
           novalidate>
           <input
@@ -732,477 +535,275 @@
             spellcheck="false"
             required
             aria-label="Email address" />
-          <button type="submit" aria-label="Join waitlist">Join</button>
+          <button type="submit" id="waitlistSubmit" aria-label="Join the waitlist">Join</button>
         </form>
         <div class="cta-error" id="ctaError" role="alert">Please enter a valid email.</div>
 
         <div class="cta-success" id="ctaSuccess" aria-live="polite">
-          <p class="line">You're on the waitlist. Talon launches soon.</p>
-          <p class="sub">— A signal will arrive shortly</p>
+          <p class="line">You're on the list.</p>
+          <p class="sub">— Talon launches soon</p>
         </div>
 
-        <div class="cta-dismiss" aria-hidden="true">Press <kbd>Esc</kbd> or tap outside to close</div>
+        <p class="cta-dismiss" aria-hidden="true">Press Esc or tap outside to close</p>
       </div>
     </div>
+
   </section>
-
-  <!-- ============ Recognition ============ -->
-  <section class="recognition reveal" aria-labelledby="recog-headline">
-    <h2 class="big" id="recog-headline">Knowing isn't the problem.</h2>
-    <p class="body">
-      The books have been read. The systems have been tried. <em>Talon is the one that stays</em> — a habit built through small, daily, AI-generated actions.
-    </p>
-  </section>
-
-  <!-- ============ How It Works ============ -->
-  <section class="how" aria-labelledby="how-label">
-    <div class="section-label reveal" id="how-label">How it works</div>
-
-    <div class="steps">
-      <!-- Step 1 -->
-      <article class="step reveal">
-        <div class="step-text">
-          <div class="step-num"><span class="bar"></span>Step 01</div>
-          <h3 class="step-headline">Pick a goal.</h3>
-          <p class="step-caption">Choose a category — physical, emotional, financial, learning — and the system narrows on what the habit needs to become.</p>
-        </div>
-        <div class="phone-wrap">
-          <div class="device" aria-hidden="true">
-            <div class="device-bezel">
-              <div class="device-screen">
-                <img class="app-shot" src="assets/screen-categories.jpg" alt="Talon goal category selection screen" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Step 2 -->
-      <article class="step reveal">
-        <div class="step-text">
-          <div class="step-num"><span class="bar"></span>Step 02</div>
-          <h3 class="step-headline">Talon builds the habit.</h3>
-          <p class="step-caption">A single, doable action arrives each day. The system adapts as the habit deepens — through Activation, Consistency, Breakthrough, Mastery.</p>
-        </div>
-        <div class="phone-wrap">
-          <div class="device" aria-hidden="true">
-            <div class="device-bezel">
-              <div class="device-screen">
-                <img class="app-shot" src="assets/screen-dashboard.jpg" alt="Talon daily dashboard with active habit orb" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Step 3 -->
-      <article class="step reveal">
-        <div class="step-text">
-          <div class="step-num"><span class="bar"></span>Step 03</div>
-          <h3 class="step-headline">Goals become planets.</h3>
-          <p class="step-caption">Every habit conquered is a planet earned. The galaxy fills as the years compound.</p>
-        </div>
-        <div class="phone-wrap">
-          <div class="device" aria-hidden="true">
-            <div class="device-bezel">
-              <div class="device-screen">
-                <img class="app-shot" src="assets/screen-galaxy.jpg" alt="Talon galaxy view of completed habit planets" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- ============ Philosophy ============ -->
-  <section class="philosophy reveal" aria-labelledby="phil-headline">
-    <h2 class="big" id="phil-headline">Willpower runs out. Systems don't.</h2>
-    <div class="body-wrap">
-      <p>Talon isn't a tracker. It isn't a coach. Talon is a system — one that takes a goal and turns it into the smallest action that moves it forward today.</p>
-    </div>
-
-    <div class="phases-row" aria-hidden="true">
-      <span class="phase-chip" style="--c:#f97316"><span class="d"></span>Activation</span>
-      <span class="phase-chip" style="--c:#14b8a6"><span class="d"></span>Consistency</span>
-      <span class="phase-chip" style="--c:#a855f7"><span class="d"></span>Breakthrough</span>
-      <span class="phase-chip" style="--c:#eab308"><span class="d"></span>Mastery</span>
-    </div>
-
-    <div class="body-wrap" style="margin-top: var(--s5);">
-      <p>Each action adapts to the phase the habit is in. The work compounds. The habit stays.</p>
-    </div>
-  </section>
-
-  <!-- ============ Footer CTA ============ -->
-  <section class="footer-cta reveal" aria-labelledby="footer-cta-line">
-    <div class="eyebrow"><span class="eyebrow-rule"></span>Early access<span class="eyebrow-rule"></span></div>
-    <button
-      class="small-orb-stage"
-      id="footerOrb"
-      type="button"
-      aria-label="Tap the orb to join the waitlist"
-      aria-expanded="false">
-      <canvas id="footerOrbCanvas" aria-hidden="true"></canvas>
-    </button>
-    <p class="cta-line" id="footer-cta-line">Tap the orb to join.</p>
-  </section>
-
-  <!-- ============ Footer ============ -->
-  <footer class="foot">
-    <div class="links">
-      <a href="about.html">About</a>
-      <a href="privacy-policy.html">Privacy</a>
-      <a href="https://instagram.com/talonbuild" rel="noopener">@talonbuild</a>
-      <a href="mailto:support@talonapp.co">support@talonapp.co</a>
-    </div>
-    <div class="copy">Talon · 2026</div>
-  </footer>
 </main>
 
+<footer class="foot">
+  <p class="closing-mark">Built to Win.</p>
+  <p class="copy">Talon · 2026</p>
+</footer>
+
 <script>
-/* ============================================================
-   ORB RENDERER — Talon Design System spec
-   ============================================================ */
-(function(){
-  const PHASE = { Activation:'#f97316', Consistency:'#14b8a6', Breakthrough:'#a855f7', Mastery:'#eab308' };
-  const CORE = { inner:'#7dd3fc', mid:'#3B82F6', deep:'#1e40af', edge:'#0b1a4a' };
-
-  function withAlpha(hex, a){
-    const n = parseInt(hex.slice(1),16);
-    return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;
-  }
-
-  function makeOrb(canvas, opts){
-    const cfg = Object.assign({
-      phase: 'Consistency',
-      intense: false,
-      surfaceCount: 60,
-      spaceCount: 180,
-      dpr: Math.min(window.devicePixelRatio || 1, 2.25),
-    }, opts || {});
-
-    const ctx = canvas.getContext('2d');
-    let W=0, H=0, cx=0, cy=0, R=0;
-    let extraGlow = 0;
-    let burstT = -1;
-    let stopped = false;
-    let raf = 0;
-
-    function resize(){
-      const rect = canvas.getBoundingClientRect();
-      W = Math.max(1, rect.width|0);
-      H = Math.max(1, rect.height|0);
-      canvas.width  = Math.floor(W * cfg.dpr);
-      canvas.height = Math.floor(H * cfg.dpr);
-      ctx.setTransform(cfg.dpr, 0, 0, cfg.dpr, 0, 0);
-      cx = W/2; cy = H/2;
-      R  = (cfg.intense ? 0.30 : 0.32) * Math.min(W, H);
-    }
-
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
-
-    const space = [], surface = [];
-    function rand(a,b){ return a + Math.random()*(b-a); }
-    for (let i=0; i<cfg.spaceCount; i++){
-      space.push({
-        angle: Math.random()*Math.PI*2,
-        dist:  Math.pow(Math.random(),0.6) * 3.6 + 0.05,
-        speed: rand(-0.02, 0.02),
-        wob:   Math.random()*Math.PI*2,
-        wobSpeed: rand(0.2, 0.7),
-        size:  rand(0.5, 1.6),
-        baseA: rand(0.18, 0.7),
-        twinkle: rand(1.5, 4.2),
-        tintPhase: Math.random() < 0.18,
-      });
-    }
-    for (let i=0; i<cfg.surfaceCount; i++){
-      surface.push({
-        rho: Math.sqrt(Math.random()) * 0.92,
-        theta: Math.random() * Math.PI*2,
-        driftT: Math.random() * Math.PI*2,
-        driftSpeed: rand(0.05, 0.18),
-        size: rand(0.6, 1.5),
-        baseA: rand(0.25, 0.85),
-        twinkle: rand(1.2, 3.5),
-      });
-    }
-
-    let start = performance.now(), last = start;
-
-    function frame(now){
-      if (stopped) return;
-      const dt = Math.min(0.05, (now-last)/1000); last = now;
-      const t  = (now-start)/1000;
-
-      const breathe = Math.sin(t * (Math.PI*2 / 4.5));
-      const scale = 1 + breathe * 0.025 + extraGlow*0.012;
-      const pulse = 0.5 + 0.5*breathe;
-      const r = R * scale;
-      const phaseColor = PHASE[cfg.phase] || PHASE.Consistency;
-      const intense = cfg.intense || extraGlow > 0.3;
-
-      ctx.clearRect(0,0,W,H);
-
-      // Rim halo (phase-tinted)
-      const rimOuter = r * (1.18 + extraGlow*0.10);
-      const rim = ctx.createRadialGradient(cx,cy, r*0.985, cx,cy, rimOuter);
-      const rimAlpha = (intense ? 0.28 : 0.20) + 0.08*pulse + extraGlow*0.18;
-      rim.addColorStop(0.00, withAlpha(phaseColor, 0.00));
-      rim.addColorStop(0.18, withAlpha(phaseColor, rimAlpha));
-      rim.addColorStop(0.55, withAlpha(phaseColor, 0.06));
-      rim.addColorStop(1.00, 'rgba(0,0,0,0)');
-      ctx.fillStyle = rim;
-      ctx.fillRect(cx-rimOuter, cy-rimOuter, rimOuter*2, rimOuter*2);
-
-      // Burst ring (success animation)
-      if (burstT >= 0){
-        const bt = (now - burstT) / 1400;
-        if (bt > 1){ burstT = -1; }
-        else {
-          const br = R * (1 + bt*1.4);
-          const ba = (1 - bt) * 0.65;
-          ctx.strokeStyle = withAlpha(phaseColor, ba);
-          ctx.lineWidth = 1.5 + (1-bt)*1.5;
-          ctx.beginPath(); ctx.arc(cx, cy, br, 0, Math.PI*2); ctx.stroke();
-        }
-      }
-
-      // Dual orbital rings
-      const ringA = r * 1.42;
-      const ringB = r * 1.62;
-      const tilt = -0.42;
-      const ecc  = 0.34;
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(tilt);
-      ctx.strokeStyle = withAlpha(phaseColor, 0.28 + extraGlow*0.25 + 0.06*pulse);
-      ctx.lineWidth = 1.1;
-      ctx.beginPath(); ctx.ellipse(0, 0, ringA, ringA*ecc, 0, 0, Math.PI*2); ctx.stroke();
-      ctx.strokeStyle = `rgba(191, 219, 254, ${0.12 + extraGlow*0.16 + 0.04*pulse})`;
-      ctx.lineWidth = 0.8;
-      ctx.beginPath(); ctx.ellipse(0, 0, ringB, ringB*ecc, 0, 0, Math.PI*2); ctx.stroke();
-      ctx.restore();
-
-      // Orbiting particles
-      function drawOrbiters(zPass){
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.rotate(tilt);
-        ctx.globalCompositeOperation = 'lighter';
-        const speedA = 0.22, speedB = -0.16;
-        for (let ring = 0; ring < 2; ring++){
-          const rA = ring === 0 ? ringA : ringB;
-          const sp = ring === 0 ? speedA : speedB;
-          const count = ring === 0 ? 3 : 4;
-          const tint = ring === 0 ? phaseColor : '#dbeafe';
-          for (let k = 0; k < count; k++){
-            const ang = sp*t + (k * Math.PI*2 / count);
-            const ox = Math.cos(ang) * rA;
-            const oy = Math.sin(ang) * rA * ecc;
-            const depth = Math.sin(ang);
-            const inFront = depth < 0;
-            if (zPass === 'back' && inFront) continue;
-            if (zPass === 'front' && !inFront) continue;
-            const sz = 1.6 + (1 - Math.abs(depth)) * 1.4;
-            const a  = 0.55 + (1 - Math.abs(depth)) * 0.35 + extraGlow*0.15;
-            ctx.fillStyle = withAlpha(tint, a*0.22);
-            ctx.beginPath(); ctx.arc(ox, oy, sz*3.2, 0, Math.PI*2); ctx.fill();
-            ctx.fillStyle = withAlpha('#ffffff', a);
-            ctx.beginPath(); ctx.arc(ox, oy, sz, 0, Math.PI*2); ctx.fill();
-            ctx.fillStyle = withAlpha(tint, a*0.6);
-            ctx.beginPath(); ctx.arc(ox, oy, sz*1.6, 0, Math.PI*2); ctx.fill();
-          }
-        }
-        ctx.restore();
-      }
-      drawOrbiters('back');
-
-      // Space sparkles
-      ctx.globalCompositeOperation = 'lighter';
-      for (let i=0; i<space.length; i++){
-        const p = space[i];
-        p.angle += p.speed * dt;
-        p.wob   += p.wobSpeed * dt;
-        const d = (p.dist + Math.sin(p.wob)*0.03) * r;
-        const px = cx + Math.cos(p.angle)*d;
-        const py = cy + Math.sin(p.angle)*d;
-        const ddx = px-cx, ddy = py-cy;
-        if (ddx*ddx + ddy*ddy < r*r) continue;
-        if (px < -10 || px > W+10 || py < -10 || py > H+10) continue;
-        const tw = 0.5 + 0.5 * Math.sin(t*p.twinkle + p.wob);
-        const col = p.tintPhase ? phaseColor : '#bfdbfe';
-        ctx.fillStyle = withAlpha(col, p.baseA*tw);
-        ctx.beginPath(); ctx.arc(px,py,p.size,0,Math.PI*2); ctx.fill();
-        ctx.fillStyle = withAlpha(col, p.baseA*tw*0.22);
-        ctx.beginPath(); ctx.arc(px,py,p.size*2.6,0,Math.PI*2); ctx.fill();
-      }
-      ctx.globalCompositeOperation = 'source-over';
-
-      // Body
-      const body = ctx.createRadialGradient(cx,cy,0, cx,cy,r);
-      body.addColorStop(0.00, CORE.inner);
-      body.addColorStop(0.35, CORE.mid);
-      body.addColorStop(0.78, CORE.deep);
-      body.addColorStop(1.00, CORE.edge);
-      ctx.fillStyle = body;
-      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
-
-      // Vignette + inner bloom
-      ctx.save();
-      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.clip();
-      const vig = ctx.createRadialGradient(cx,cy, r*0.7, cx,cy, r);
-      vig.addColorStop(0,'rgba(0,0,0,0)'); vig.addColorStop(1,'rgba(0,0,0,0.45)');
-      ctx.fillStyle = vig; ctx.fillRect(cx-r,cy-r,r*2,r*2);
-      ctx.globalCompositeOperation = 'screen';
-      const ib = ctx.createRadialGradient(cx,cy,0, cx,cy, r*0.55);
-      ib.addColorStop(0.00, `rgba(147,197,253,${0.22 + 0.10*pulse + extraGlow*0.18})`);
-      ib.addColorStop(1.00, 'rgba(147,197,253,0)');
-      ctx.fillStyle = ib; ctx.fillRect(cx-r,cy-r,r*2,r*2);
-      ctx.restore();
-
-      // Surface sparkles
-      ctx.save();
-      ctx.beginPath(); ctx.arc(cx,cy,r*0.985,0,Math.PI*2); ctx.clip();
-      ctx.globalCompositeOperation = 'lighter';
-      for (let k=0; k<surface.length; k++){
-        const s = surface[k];
-        s.theta  += s.driftSpeed * dt * 0.25;
-        s.driftT += s.driftSpeed * dt;
-        let rho = s.rho + Math.sin(s.driftT)*0.015;
-        if (rho < 0) rho = -rho; if (rho > 0.95) rho = 0.95;
-        const sx = cx + Math.cos(s.theta)*rho*r;
-        const sy = cy + Math.sin(s.theta)*rho*r;
-        const rimFade = Math.pow(1-rho, 0.85);
-        const tw = 0.45 + 0.55 * Math.sin(t*s.twinkle + s.driftT);
-        ctx.fillStyle = withAlpha('#e0f2fe', s.baseA*tw*rimFade);
-        ctx.beginPath(); ctx.arc(sx,sy,s.size,0,Math.PI*2); ctx.fill();
-        ctx.fillStyle = withAlpha('#93c5fd', s.baseA*tw*rimFade*0.25);
-        ctx.beginPath(); ctx.arc(sx,sy,s.size*2.2,0,Math.PI*2); ctx.fill();
-      }
-      ctx.restore();
-
-      drawOrbiters('front');
-
-      raf = requestAnimationFrame(frame);
-    }
-
-    resize();
-    raf = requestAnimationFrame(frame);
-
-    return {
-      setIntensity(v){ extraGlow = Math.max(0, Math.min(1, v)); },
-      pulse(){ burstT = performance.now(); },
-      stop(){ stopped = true; cancelAnimationFrame(raf); ro.disconnect(); },
-    };
-  }
-
-  window.makeTalonOrb = makeOrb;
-})();
-
-/* ============================================================
-   STARFIELD (drifting parallax)
-   ============================================================ */
-(function(){
+/* ========================================================
+   ANIMATED STARFIELD
+   ======================================================== */
+(function() {
   const canvas = document.getElementById('starsCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  let W=0, H=0;
+
+  let W = 0, H = 0;
   let stars = [];
-  function resize(){
-    W = window.innerWidth; H = window.innerHeight;
-    canvas.width = Math.floor(W*dpr); canvas.height = Math.floor(H*dpr);
-    canvas.style.width = W+'px'; canvas.style.height = H+'px';
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    const count = Math.floor((W*H)/9000);
+  let nebulae = [];
+  let shootingStars = [];
+  let lastShootingStar = 0;
+  let visible = true;
+  let rafId = 0;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function buildStars() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width  = Math.floor(W * dpr);
+    canvas.height = Math.floor(H * dpr);
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Density scales with viewport area
+    const density = Math.floor((W * H) / 7500);
     stars = [];
-    for (let i=0;i<count;i++){
+    for (let i = 0; i < density; i++) {
+      const z = rand(0.4, 3); // depth — affects size + drift speed
       stars.push({
-        x: Math.random()*W,
-        y: Math.random()*H,
-        z: Math.random()*3 + 0.5,
-        s: 0.4 + Math.random()*1.4,
-        a: 0.25 + Math.random()*0.6,
-        tw: Math.random()*Math.PI*2,
+        x: Math.random() * W,
+        y: Math.random() * H,
+        z: z,
+        size: rand(0.4, 1.6) / Math.sqrt(z),
+        baseAlpha: rand(0.25, 0.85),
+        twinkleSpeed: rand(0.6, 2.4),
+        twinklePhase: Math.random() * Math.PI * 2,
+        driftX: rand(-0.015, 0.015) / z,
+        driftY: rand(-0.008, 0.008) / z,
+        tint: Math.random() < 0.18 ? '#bfdbfe' : '#ffffff'
+      });
+    }
+
+    // A few faint nebula clouds drifting very slowly
+    nebulae = [];
+    const nebCount = W < 768 ? 2 : 3;
+    for (let i = 0; i < nebCount; i++) {
+      nebulae.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: rand(180, 360),
+        hue: Math.random() < 0.5 ? '59,130,246' : '147,197,253',
+        alpha: rand(0.025, 0.06),
+        driftX: rand(-0.04, 0.04),
+        driftY: rand(-0.025, 0.025)
       });
     }
   }
-  let scrollY = 0;
-  let targetScroll = 0;
-  window.addEventListener('scroll', () => { targetScroll = window.scrollY || 0; }, {passive:true});
 
-  let last = performance.now();
-  function frame(now){
-    const dt = Math.min(0.05, (now-last)/1000); last = now;
-    scrollY += (targetScroll - scrollY) * 0.08;
-    ctx.clearRect(0,0,W,H);
-    for (let i=0;i<stars.length;i++){
-      const s = stars[i];
-      s.tw += dt * 1.6;
-      const py = (s.y - scrollY*0.07*s.z) % H;
-      const yy = py < 0 ? py + H : py;
-      const a = s.a * (0.7 + 0.3*Math.sin(s.tw));
-      ctx.globalAlpha = a;
-      ctx.fillStyle = '#cfe6ff';
-      ctx.beginPath(); ctx.arc(s.x, yy, s.s/s.z, 0, Math.PI*2); ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(frame);
+  function spawnShootingStar() {
+    // Random origin near top half, random direction roughly downward
+    const startX = Math.random() * W;
+    const startY = rand(0, H * 0.5);
+    const angle = rand(Math.PI * 0.18, Math.PI * 0.42); // 30°–75° from horizontal
+    const speed = rand(8, 14);
+    shootingStars.push({
+      x: startX,
+      y: startY,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life: 0,
+      maxLife: rand(0.6, 1.0),
+      length: rand(80, 160)
+    });
   }
-  resize();
-  window.addEventListener('resize', resize, {passive:true});
-  requestAnimationFrame(frame);
+
+  let lastTime = performance.now();
+  function frame(now) {
+    if (!visible) { rafId = requestAnimationFrame(frame); return; }
+    const dt = Math.min(0.05, (now - lastTime) / 1000);
+    lastTime = now;
+    const t = now / 1000;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Nebulae layer
+    for (let i = 0; i < nebulae.length; i++) {
+      const n = nebulae[i];
+      n.x += n.driftX * dt * 60;
+      n.y += n.driftY * dt * 60;
+      // Wrap around
+      if (n.x < -n.r) n.x = W + n.r;
+      if (n.x > W + n.r) n.x = -n.r;
+      if (n.y < -n.r) n.y = H + n.r;
+      if (n.y > H + n.r) n.y = -n.r;
+
+      const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
+      grad.addColorStop(0, `rgba(${n.hue}, ${n.alpha})`);
+      grad.addColorStop(1, `rgba(${n.hue}, 0)`);
+      ctx.fillStyle = grad;
+      ctx.fillRect(n.x - n.r, n.y - n.r, n.r * 2, n.r * 2);
+    }
+
+    // Stars
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < stars.length; i++) {
+      const s = stars[i];
+      // Drift
+      s.x += s.driftX * dt * 60;
+      s.y += s.driftY * dt * 60;
+      // Wrap around screen edges
+      if (s.x < -2) s.x = W + 2;
+      if (s.x > W + 2) s.x = -2;
+      if (s.y < -2) s.y = H + 2;
+      if (s.y > H + 2) s.y = -2;
+      // Twinkle
+      const tw = 0.6 + 0.4 * Math.sin(t * s.twinkleSpeed + s.twinklePhase);
+      const a = s.baseAlpha * tw;
+      // Glow
+      ctx.fillStyle = `rgba(${s.tint === '#bfdbfe' ? '191,219,254' : '255,255,255'}, ${a * 0.25})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size * 2.5, 0, Math.PI * 2);
+      ctx.fill();
+      // Core
+      ctx.fillStyle = `rgba(${s.tint === '#bfdbfe' ? '191,219,254' : '255,255,255'}, ${a})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+
+    // Shooting stars
+    if (!reduceMotion && now - lastShootingStar > rand(8000, 16000)) {
+      spawnShootingStar();
+      lastShootingStar = now;
+    }
+    for (let i = shootingStars.length - 1; i >= 0; i--) {
+      const ss = shootingStars[i];
+      ss.x += ss.vx;
+      ss.y += ss.vy;
+      ss.life += dt;
+      const lifeT = ss.life / ss.maxLife;
+      if (lifeT >= 1 || ss.x > W + 100 || ss.y > H + 100) {
+        shootingStars.splice(i, 1);
+        continue;
+      }
+      const fade = 1 - lifeT;
+      // Trail
+      const tailX = ss.x - ss.vx * (ss.length / Math.hypot(ss.vx, ss.vy));
+      const tailY = ss.y - ss.vy * (ss.length / Math.hypot(ss.vx, ss.vy));
+      const grad = ctx.createLinearGradient(ss.x, ss.y, tailX, tailY);
+      grad.addColorStop(0, `rgba(255,255,255,${0.85 * fade})`);
+      grad.addColorStop(0.4, `rgba(191,219,254,${0.4 * fade})`);
+      grad.addColorStop(1, 'rgba(191,219,254,0)');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.4;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(ss.x, ss.y);
+      ctx.lineTo(tailX, tailY);
+      ctx.stroke();
+      // Head
+      ctx.fillStyle = `rgba(255,255,255,${0.95 * fade})`;
+      ctx.beginPath();
+      ctx.arc(ss.x, ss.y, 1.6, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    rafId = requestAnimationFrame(frame);
+  }
+
+  // Pause when tab hidden — saves battery
+  document.addEventListener('visibilitychange', () => {
+    visible = !document.hidden;
+    if (visible) lastTime = performance.now();
+  });
+
+  buildStars();
+  window.addEventListener('resize', buildStars, { passive: true });
+  rafId = requestAnimationFrame(frame);
 })();
+</script>
 
-/* ============================================================
-   ORB INSTANCES
-   ============================================================ */
-const heroOrb   = window.makeTalonOrb(document.getElementById('heroOrbCanvas'),   { phase: 'Consistency', intense: true,  spaceCount: 220, surfaceCount: 70 });
-const footerOrb = window.makeTalonOrb(document.getElementById('footerOrbCanvas'), { phase: 'Consistency', intense: false, spaceCount: 120, surfaceCount: 40 });
-
-/* ============================================================
-   WAITLIST FLOW (orb-as-CTA)
-   ============================================================ */
+<script>
 (function(){
-  const body = document.body;
-  const heroOrbBtn = document.getElementById('heroOrb');
-  const footerOrbBtn = document.getElementById('footerOrb');
-  const panel = document.getElementById('ctaPanel');
-  const inner = panel.querySelector('.cta-inner');
-  const form  = document.getElementById('waitlistForm');
-  const email = document.getElementById('waitlistEmail');
-  const errEl = document.getElementById('ctaError');
-  const okEl  = document.getElementById('ctaSuccess');
-  const heroSection = document.querySelector('.hero');
+  /* ============================================================
+     WAITLIST FEATURE FLAG
+     ------------------------------------------------------------
+     Set to TRUE once the Kit form action URL is wired in above.
+     When FALSE: orb still pulses on tap, but no form opens.
+                 The page shows "Waitlist opens shortly" instead.
+     ============================================================ */
+  const WAITLIST_OPEN = false;
 
-  let isOpen = false;
+  const body         = document.body;
+  const orbBtn       = document.getElementById('orbBtn');
+  const panel        = document.getElementById('ctaPanel');
+  const inner        = panel.querySelector('.cta-inner');
+  const form         = document.getElementById('waitlistForm');
+  const email        = document.getElementById('waitlistEmail');
+  const submitBtn    = document.getElementById('waitlistSubmit');
+  const errEl        = document.getElementById('ctaError');
+  const okEl         = document.getElementById('ctaSuccess');
+
+  // If the waitlist isn't open yet, mark the body and short-circuit.
+  // Orb still pulses on click for visual feedback.
+  if (!WAITLIST_OPEN) {
+    body.classList.add('waitlist-pending');
+    orbBtn.setAttribute('aria-label', 'Talon orb — waitlist opens shortly');
+    orbBtn.removeAttribute('aria-controls');
+    orbBtn.removeAttribute('aria-expanded');
+    orbBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      orbBtn.classList.remove('is-pulsing');
+      void orbBtn.offsetWidth;
+      orbBtn.classList.add('is-pulsing');
+    });
+    return;
+  }
+
+  let isOpen      = false;
   let isSubmitted = false;
 
-  function openCTA(){
+  function openCTA() {
     if (isOpen) return;
     isOpen = true;
     body.classList.add('cta-open');
-    heroOrbBtn.setAttribute('aria-expanded','true');
-    footerOrbBtn.setAttribute('aria-expanded','true');
+    orbBtn.setAttribute('aria-expanded', 'true');
     panel.style.height = inner.scrollHeight + 'px';
-    heroOrb.setIntensity(1);
-    setTimeout(() => { if (!isSubmitted) email.focus({preventScroll:true}); }, 320);
+    setTimeout(() => { if (!isSubmitted) email.focus({ preventScroll: true }); }, 320);
   }
 
-  function closeCTA(){
+  function closeCTA() {
     if (!isOpen) return;
     isOpen = false;
     body.classList.remove('cta-open');
-    heroOrbBtn.setAttribute('aria-expanded','false');
-    footerOrbBtn.setAttribute('aria-expanded','false');
+    orbBtn.setAttribute('aria-expanded', 'false');
     panel.style.height = '0px';
-    heroOrb.setIntensity(0);
     errEl.classList.remove('show');
-    if (isSubmitted){
-      setTimeout(()=>{
+    if (isSubmitted) {
+      setTimeout(() => {
         okEl.classList.remove('show');
         form.style.display = '';
         email.value = '';
@@ -1211,80 +812,86 @@ const footerOrb = window.makeTalonOrb(document.getElementById('footerOrbCanvas')
     }
   }
 
-  function toggleCTA(){
+  function toggleCTA() {
     if (isOpen) closeCTA(); else openCTA();
   }
 
-  heroOrbBtn.addEventListener('click', (e) => {
+  // Orb tap ripple
+  function pulseOrb() {
+    orbBtn.classList.remove('is-pulsing');
+    void orbBtn.offsetWidth;
+    orbBtn.classList.add('is-pulsing');
+  }
+
+  orbBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    pulseOrb();
     toggleCTA();
-    window.scrollTo({top: heroSection.offsetTop, behavior: 'smooth'});
-  });
-  footerOrbBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    openCTA();
-    window.scrollTo({top: heroSection.offsetTop, behavior: 'smooth'});
   });
 
-  // ESC to close
+  // Esc to close
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isOpen) { closeCTA(); heroOrbBtn.focus(); }
+    if (e.key === 'Escape' && isOpen) {
+      closeCTA();
+      orbBtn.focus();
+    }
   });
 
-  // Click outside the panel/orb to close
+  // Click outside to close
   document.addEventListener('pointerdown', (e) => {
     if (!isOpen) return;
     if (panel.contains(e.target)) return;
-    if (heroOrbBtn.contains(e.target)) return;
-    if (footerOrbBtn.contains(e.target)) return;
+    if (orbBtn.contains(e.target)) return;
     closeCTA();
   });
 
-  // Re-measure if window resizes while open
+  // Re-measure panel on resize
   window.addEventListener('resize', () => {
     if (isOpen) panel.style.height = inner.scrollHeight + 'px';
-  }, {passive:true});
+  }, { passive: true });
 
-  // Submit
-  form.addEventListener('submit', (e) => {
+  // Form submit
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const v = email.value.trim();
-    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-    if (!ok){
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+    if (!valid) {
       errEl.classList.add('show');
       email.focus();
       return;
     }
     errEl.classList.remove('show');
-    isSubmitted = true;
 
+    submitBtn.disabled = true;
+    submitBtn.textContent = '...';
+
+    // KIT INTEGRATION
+    // Replace form action="KIT_FORM_ENDPOINT_PLACEHOLDER" above with your Kit form URL.
+    // Standard Kit URL format: https://app.kit.com/forms/{FORM_ID}/subscriptions
+    try {
+      if (form.action && !form.action.includes('KIT_FORM_ENDPOINT_PLACEHOLDER')) {
+        const formData = new FormData(form);
+        await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+      }
+    } catch (err) {
+      // Kit submissions may fail silently due to CORS — Kit still receives the data.
+      console.log('Submission posted.');
+    }
+
+    isSubmitted = true;
     form.style.display = 'none';
     okEl.classList.add('show');
-    heroOrb.pulse();
+    pulseOrb();
     panel.style.height = inner.scrollHeight + 'px';
 
-    // Replace with real submit when wired up:
-    // fetch(form.action, {method:'POST', body: new FormData(form)})
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Join';
   });
-})();
-
-/* ============================================================
-   SCROLL REVEAL
-   ============================================================ */
-(function(){
-  const els = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) {
-    els.forEach(el => el.classList.add('in')); return;
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(en => {
-      if (en.isIntersecting){
-        en.target.classList.add('in');
-        io.unobserve(en.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-  els.forEach(el => io.observe(el));
 })();
 </script>
 </body>
