@@ -35,7 +35,7 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
   body {
     background: var(--bg);
     color: var(--text);
@@ -45,7 +45,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip;
+    overscroll-behavior: none;
     position: relative;
   }
 
@@ -128,6 +129,7 @@
   .hero {
     min-height: 100vh;
     min-height: 100svh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -199,11 +201,15 @@
     margin: var(--s5) auto var(--s3);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
     border-radius: 50%;
     animation: fadeUp 1.2s ease 0.4s both;
     transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
   }
-  .orb-stage:hover { transform: scale(1.02); }
+  /* Hover effects only on mouse-capable devices — prevents sticky hover state on iOS */
+  @media (hover: hover) and (pointer: fine) {
+    .orb-stage:hover { transform: scale(1.02); }
+  }
   .orb-stage:active { transform: scale(0.99); }
 
   .orb-glow {
@@ -229,8 +235,10 @@
     filter: brightness(1) saturate(1);
     transition: filter 0.5s ease;
   }
-  .orb-stage:hover .orb-img { filter: brightness(1.12) saturate(1.08); }
-  .orb-stage:hover .orb-glow { opacity: 1.3; }
+  @media (hover: hover) and (pointer: fine) {
+    .orb-stage:hover .orb-img { filter: brightness(1.12) saturate(1.08); }
+    .orb-stage:hover .orb-glow { opacity: 1.3; }
+  }
 
   @keyframes orbBreathe {
     0%, 100% { transform: scale(1); }
@@ -344,10 +352,14 @@
       0 6px 18px rgba(59,130,246,0.35),
       inset 0 1px 0 rgba(255,255,255,0.18);
     transition: transform 0.18s ease, box-shadow 0.24s ease, filter 0.24s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
-  .cta-form button[type="submit"]:hover {
-    filter: brightness(1.08);
-    transform: translateY(-1px);
+  @media (hover: hover) and (pointer: fine) {
+    .cta-form button[type="submit"]:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
   }
   .cta-form button[type="submit"]:active { transform: translateY(0); }
   .cta-form button[type="submit"]:disabled {
@@ -792,7 +804,13 @@
     body.classList.add('cta-open');
     orbBtn.setAttribute('aria-expanded', 'true');
     panel.style.height = inner.scrollHeight + 'px';
-    setTimeout(() => { if (!isSubmitted) email.focus({ preventScroll: true }); }, 320);
+    // Auto-focus only on mouse-capable devices.
+    // On touch devices, auto-focus triggers iOS keyboard pop-up + viewport jump,
+    // so we let the user tap the input themselves.
+    const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    if (!isTouchDevice) {
+      setTimeout(() => { if (!isSubmitted) email.focus({ preventScroll: true }); }, 320);
+    }
   }
 
   function closeCTA() {
@@ -837,8 +855,10 @@
     }
   });
 
-  // Click outside to close
-  document.addEventListener('pointerdown', (e) => {
+  // Click outside to close.
+  // Using 'click' (not 'pointerdown') so that scroll gestures on mobile
+  // — which start with a touch but don't end in a click — don't accidentally close the panel.
+  document.addEventListener('click', (e) => {
     if (!isOpen) return;
     if (panel.contains(e.target)) return;
     if (orbBtn.contains(e.target)) return;
