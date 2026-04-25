@@ -319,12 +319,22 @@
     inset: 0;
     z-index: 100;
     display: flex;
-    align-items: center;
+    /* On mobile: anchor the form near the top so it sits ABOVE the keyboard.
+       This is the entire trick — if the form is already in the top portion
+       of the screen, iOS has nothing to auto-scroll when the keyboard opens. */
+    align-items: flex-start;
     justify-content: center;
-    padding: 24px;
+    padding: 10vh 20px 20px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
+  }
+  /* Desktop: there's no keyboard, so center the form in the viewport */
+  @media (min-width: 720px) and (hover: hover) {
+    .cta-overlay {
+      align-items: center;
+      padding: 24px;
+    }
   }
   body.cta-open .cta-overlay {
     opacity: 1;
