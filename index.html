@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -574,6 +575,7 @@
     .cta-form button[type="submit"] { padding: 11px 16px; font-size: 10px; letter-spacing: 0.24em; }
   }
 </style>
+
 </head>
 <body>
 
@@ -592,48 +594,51 @@
 <main>
   <section class="hero" aria-labelledby="hero-headline">
 
-    <div class="hero-top">
-      <p class="eyebrow">
-        <span class="rule"></span>
-        <span class="dot" aria-hidden="true"></span>
-        Coming Soon
-        <span class="rule"></span>
-      </p>
+```
+<div class="hero-top">
+  <p class="eyebrow">
+    <span class="rule"></span>
+    <span class="dot" aria-hidden="true"></span>
+    Coming Soon
+    <span class="rule"></span>
+  </p>
 
-      <h1 class="headline" id="hero-headline">Knowing isn't the problem.</h1>
+  <h1 class="headline" id="hero-headline">Knowing isn't the problem.</h1>
 
-      <p class="subtitle">
-        Talon builds the habit. One small action at a time.
-      </p>
-    </div>
+  <p class="subtitle">
+    Talon builds the habit. One small action at a time.
+  </p>
+</div>
 
-    <button
-      class="orb-stage"
-      id="orbBtn"
-      type="button"
-      aria-label="Tap the orb to join the waitlist"
-      aria-controls="ctaOverlay"
-      aria-expanded="false">
-      <span class="orb-glow" aria-hidden="true"></span>
-      <img class="orb-img" src="assets/orb.png" alt="" />
-      <span class="tap-ripple" aria-hidden="true"></span>
-    </button>
+<button
+  class="orb-stage"
+  id="orbBtn"
+  type="button"
+  aria-label="Tap the orb to join the waitlist"
+  aria-controls="ctaOverlay"
+  aria-expanded="false">
+  <span class="orb-glow" aria-hidden="true"></span>
+  <img class="orb-img" src="assets/orb.png" alt="" />
+  <span class="tap-ripple" aria-hidden="true"></span>
+</button>
 
-    <div class="hero-bottom">
-      <p class="orb-cta" id="orbCta">
-        Tap the orb to join
-      </p>
-      <p class="orb-cta orb-cta-pending" id="orbCtaPending">
-        Waitlist opens shortly
-      </p>
-    </div>
+<div class="hero-bottom">
+  <p class="orb-cta" id="orbCta">
+    Tap the orb to join
+  </p>
+  <p class="orb-cta orb-cta-pending" id="orbCtaPending">
+    Waitlist opens shortly
+  </p>
+</div>
 
-    <p class="hero-tagline">Built to Win.</p>
+<p class="hero-tagline">Built to Win.</p>
+```
 
   </section>
 </main>
 
 <!-- Fixed-overlay waitlist modal. Lives outside <main> so it sits above all content. -->
+
 <div class="cta-overlay" id="ctaOverlay" role="dialog" aria-modal="true" aria-labelledby="ctaTitle" aria-hidden="true">
   <div class="cta-backdrop" id="ctaBackdrop" aria-hidden="true"></div>
 
@@ -643,37 +648,39 @@
       <p class="cta-sheet-sub">Be first when Talon launches</p>
     </div>
 
-    <form
-      class="cta-form"
-      id="waitlistForm"
-      action="https://app.kit.com/forms/9366718/subscriptions"
-      method="POST"
-      novalidate>
-      <input
-        id="waitlistEmail"
-        type="email"
-        name="email_address"
-        placeholder="your@email.com"
-        autocomplete="email"
-        spellcheck="false"
-        required
-        aria-label="Email address" />
-      <button type="submit" id="waitlistSubmit" aria-label="Join the waitlist">Join</button>
-    </form>
-    <div class="cta-error" id="ctaError" role="alert">Please enter a valid email.</div>
+```
+<form
+  class="cta-form"
+  id="waitlistForm"
+  action="https://app.kit.com/forms/9366718/subscriptions"
+  method="POST"
+  novalidate>
+  <input
+    id="waitlistEmail"
+    type="email"
+    name="email_address"
+    placeholder="your@email.com"
+    autocomplete="email"
+    spellcheck="false"
+    required
+    aria-label="Email address" />
+  <button type="submit" id="waitlistSubmit" aria-label="Join the waitlist">Join</button>
+</form>
+<div class="cta-error" id="ctaError" role="alert">Please enter a valid email.</div>
 
-    <div class="cta-success" id="ctaSuccess" aria-live="polite">
-      <p class="line">You're on the list.</p>
-      <p class="sub">— Talon launches soon</p>
-    </div>
+<div class="cta-success" id="ctaSuccess" aria-live="polite">
+  <p class="line">You're on the list.</p>
+  <p class="sub">— Talon launches soon</p>
+</div>
 
-    <p class="cta-dismiss">Tap anywhere to close</p>
+<p class="cta-dismiss">Tap anywhere to close</p>
+```
+
   </div>
 </div>
 
-<footer class="foot" hidden>
-  <p class="closing-mark">Built to Win.</p>
-  <p class="copy">Talon · 2026</p>
+<footer class="foot">
+  <p class="copy">&copy; 2026 Talon Build LLC</p>
 </footer>
 
 <script>
@@ -1040,5 +1047,6 @@
   });
 })();
 </script>
+
 </body>
 </html>
