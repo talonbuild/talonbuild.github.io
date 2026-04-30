@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -12,371 +11,367 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-–bg: #030c20;
-–surface: #0a1628;
-–border: rgba(255, 255, 255, 0.07);
-–text: rgba(255, 255, 255, 0.88);
-–text-sec: rgba(255, 255, 255, 0.55);
-–muted: rgba(255, 255, 255, 0.42);
-–accent: #3B82F6;
-–accent-glow: rgba(59, 130, 246, 0.55);
+  :root {
+    --bg: #030c20;
+    --surface: #0a1628;
+    --border: rgba(255, 255, 255, 0.07);
+    --text: rgba(255, 255, 255, 0.88);
+    --text-sec: rgba(255, 255, 255, 0.55);
+    --muted: rgba(255, 255, 255, 0.42);
+    --accent: #3B82F6;
+    --accent-glow: rgba(59, 130, 246, 0.55);
 
-```
---display: "Cinzel", "Trajan Pro", Georgia, serif;
---body:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Monaco, monospace;
-```
+    --display: "Cinzel", "Trajan Pro", Georgia, serif;
+    --body:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Monaco, monospace;
+  }
 
-}
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-weight: 300;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overflow-x: clip;
+    overscroll-behavior: none;
+    position: relative;
+  }
 
-html, body { height: 100%; }
-body {
-background: var(–bg);
-color: var(–text);
-font-family: var(–body);
-font-weight: 300;
-line-height: 1.85;
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
-min-height: 100vh;
-overflow-x: clip;
-overscroll-behavior: none;
-position: relative;
-}
+  #starfield {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
 
-#starfield {
-position: fixed;
-inset: 0;
-z-index: 0;
-pointer-events: none;
-}
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 18% 22%, rgba(59, 130, 246, 0.08), transparent 55%),
+      radial-gradient(ellipse at 82% 78%, rgba(59, 130, 246, 0.06), transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+  }
 
-body::after {
-content: ‘’;
-position: fixed;
-inset: 0;
-background:
-radial-gradient(ellipse at 18% 22%, rgba(59, 130, 246, 0.08), transparent 55%),
-radial-gradient(ellipse at 82% 78%, rgba(59, 130, 246, 0.06), transparent 50%);
-pointer-events: none;
-z-index: 1;
-}
+  /* NAV */
+  nav.top-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 20;
+    padding: 22px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(3, 12, 32, 0.92) 0%, rgba(3, 12, 32, 0.55) 70%, transparent 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .wordmark {
+    font-family: var(--display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 18px rgba(59, 130, 246, 0.25);
+    transition: text-shadow 0.4s ease;
+    padding-left: 0.45em;
+  }
+  .wordmark:hover { text-shadow: 0 0 24px rgba(59, 130, 246, 0.5); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-family: var(--display);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 0;
+    position: relative;
+    transition: color 0.4s ease;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+    transition: width 0.4s ease;
+  }
+  .nav-links a:hover, .nav-links a.active { color: #fff; }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-/* NAV */
-nav.top-nav {
-position: fixed;
-top: 0; left: 0; right: 0;
-z-index: 20;
-padding: 22px 32px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-background: linear-gradient(180deg, rgba(3, 12, 32, 0.92) 0%, rgba(3, 12, 32, 0.55) 70%, transparent 100%);
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-}
-.wordmark {
-font-family: var(–display);
-font-size: 13px;
-font-weight: 700;
-letter-spacing: 0.45em;
-text-transform: uppercase;
-color: #fff;
-text-decoration: none;
-text-shadow: 0 0 18px rgba(59, 130, 246, 0.25);
-transition: text-shadow 0.4s ease;
-padding-left: 0.45em;
-}
-.wordmark:hover { text-shadow: 0 0 24px rgba(59, 130, 246, 0.5); }
-.nav-links { display: flex; gap: 28px; list-style: none; }
-.nav-links a {
-font-family: var(–display);
-font-size: 10px;
-font-weight: 500;
-letter-spacing: 0.32em;
-text-transform: uppercase;
-color: var(–muted);
-text-decoration: none;
-padding: 6px 0;
-position: relative;
-transition: color 0.4s ease;
-}
-.nav-links a::after {
-content: ‘’;
-position: absolute;
-bottom: 0; left: 50%;
-transform: translateX(-50%);
-width: 0;
-height: 1px;
-background: var(–accent);
-box-shadow: 0 0 8px var(–accent-glow);
-transition: width 0.4s ease;
-}
-.nav-links a:hover, .nav-links a.active { color: #fff; }
-.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  /* WRAP */
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 140px 24px 100px;
+  }
 
-/* WRAP */
-.wrap {
-position: relative;
-z-index: 2;
-max-width: 720px;
-margin: 0 auto;
-padding: 140px 24px 100px;
-}
+  /* HERO */
+  header.page-header {
+    text-align: center;
+    margin-bottom: 64px;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-size: 10px;
+    letter-spacing: 0.45em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  .eyebrow .line {
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--muted);
+  }
+  h1.title {
+    font-family: var(--display);
+    font-size: clamp(30px, 5.4vw, 46px);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 22px;
+    text-shadow: 0 0 30px rgba(59, 130, 246, 0.22);
+  }
+  .subtitle {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: clamp(13px, 3.2vw, 14px);
+    color: var(--text-sec);
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .divider {
+    width: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 36px auto 0;
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
 
-/* HERO */
-header.page-header {
-text-align: center;
-margin-bottom: 64px;
-animation: fadeUp 0.8s ease 0.1s both;
-}
-.eyebrow {
-font-family: var(–display);
-font-size: 10px;
-letter-spacing: 0.45em;
-color: var(–muted);
-text-transform: uppercase;
-margin-bottom: 26px;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 14px;
-}
-.eyebrow .line {
-display: inline-block;
-width: 28px;
-height: 1px;
-background: var(–muted);
-}
-h1.title {
-font-family: var(–display);
-font-size: clamp(30px, 5.4vw, 46px);
-font-weight: 700;
-letter-spacing: 0.04em;
-color: #fff;
-line-height: 1.15;
-margin-bottom: 22px;
-text-shadow: 0 0 30px rgba(59, 130, 246, 0.22);
-}
-.subtitle {
-font-family: var(–body);
-font-weight: 300;
-font-size: clamp(13px, 3.2vw, 14px);
-color: var(–text-sec);
-line-height: 1.7;
-letter-spacing: 0.04em;
-text-transform: uppercase;
-}
-.divider {
-width: 56px;
-height: 1px;
-background: linear-gradient(90deg, transparent, var(–accent), transparent);
-margin: 36px auto 0;
-box-shadow: 0 0 12px var(–accent-glow);
-}
+  /* CARD */
+  section.card {
+    margin-bottom: 24px;
+    padding: 36px 38px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    animation: fadeUp 0.7s ease both;
+  }
+  section.card:nth-of-type(1) { animation-delay: 0.15s; }
+  section.card:nth-of-type(2) { animation-delay: 0.20s; }
+  section.card:nth-of-type(3) { animation-delay: 0.25s; }
+  section.card:nth-of-type(4) { animation-delay: 0.30s; }
+  section.card:nth-of-type(5) { animation-delay: 0.35s; }
+  section.card:nth-of-type(6) { animation-delay: 0.40s; }
+  section.card:nth-of-type(n+7) { animation-delay: 0.42s; }
 
-/* CARD */
-section.card {
-margin-bottom: 24px;
-padding: 36px 38px;
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 14px;
-animation: fadeUp 0.7s ease both;
-}
-section.card:nth-of-type(1) { animation-delay: 0.15s; }
-section.card:nth-of-type(2) { animation-delay: 0.20s; }
-section.card:nth-of-type(3) { animation-delay: 0.25s; }
-section.card:nth-of-type(4) { animation-delay: 0.30s; }
-section.card:nth-of-type(5) { animation-delay: 0.35s; }
-section.card:nth-of-type(6) { animation-delay: 0.40s; }
-section.card:nth-of-type(n+7) { animation-delay: 0.42s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(16px); }
-to { opacity: 1; transform: translateY(0); }
-}
+  h2.card-title {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 26px;
+    text-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+  }
 
-h2.card-title {
-font-family: var(–display);
-font-size: 11px;
-font-weight: 600;
-letter-spacing: 0.32em;
-text-transform: uppercase;
-color: var(–accent);
-margin-bottom: 26px;
-text-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
-}
+  h3.sub-title {
+    font-family: var(--display);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 28px;
+    margin-bottom: 12px;
+  }
 
-h3.sub-title {
-font-family: var(–display);
-font-size: 10px;
-font-weight: 600;
-letter-spacing: 0.28em;
-text-transform: uppercase;
-color: #fff;
-margin-top: 28px;
-margin-bottom: 12px;
-}
+  section.card p {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--text-sec);
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+  section.card p:last-child { margin-bottom: 0; }
+  section.card p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
 
-section.card p {
-font-family: var(–body);
-font-weight: 300;
-font-size: 14px;
-color: var(–text-sec);
-line-height: 1.75;
-margin-bottom: 14px;
-}
-section.card p:last-child { margin-bottom: 0; }
-section.card p strong {
-color: var(–text);
-font-weight: 500;
-}
+  section.card ul {
+    list-style: none;
+    margin: 0 0 14px 0;
+    padding: 0;
+  }
+  section.card li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 8px;
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--text-sec);
+    line-height: 1.65;
+  }
+  section.card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 10px;
+    height: 1px;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent-glow);
+  }
 
-section.card ul {
-list-style: none;
-margin: 0 0 14px 0;
-padding: 0;
-}
-section.card li {
-position: relative;
-padding-left: 22px;
-margin-bottom: 8px;
-font-family: var(–body);
-font-weight: 300;
-font-size: 14px;
-color: var(–text-sec);
-line-height: 1.65;
-}
-section.card li::before {
-content: ‘’;
-position: absolute;
-left: 0;
-top: 12px;
-width: 10px;
-height: 1px;
-background: var(–accent);
-box-shadow: 0 0 6px var(–accent-glow);
-}
+  section.card a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+  section.card a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
 
-section.card a {
-color: var(–text);
-text-decoration: none;
-border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-transition: color 0.3s ease, border-color 0.3s ease;
-}
-section.card a:hover {
-color: var(–accent);
-border-bottom-color: var(–accent);
-}
+  code {
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 12px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.01em;
+  }
 
-code {
-font-family: var(–body);
-font-weight: 400;
-font-size: 12px;
-background: rgba(59, 130, 246, 0.1);
-border: 1px solid rgba(59, 130, 246, 0.25);
-color: #fff;
-padding: 2px 7px;
-border-radius: 4px;
-letter-spacing: 0.01em;
-}
+  .disclosure-tag {
+    display: inline-block;
+    font-family: var(--display);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 7px 14px;
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 6px;
+    margin-bottom: 18px;
+  }
 
-.disclosure-tag {
-display: inline-block;
-font-family: var(–display);
-font-size: 9px;
-font-weight: 600;
-letter-spacing: 0.36em;
-text-transform: uppercase;
-color: var(–accent);
-padding: 7px 14px;
-background: rgba(59, 130, 246, 0.08);
-border: 1px solid rgba(59, 130, 246, 0.25);
-border-radius: 6px;
-margin-bottom: 18px;
-}
+  /* CLOSING */
+  .closing {
+    margin-top: 64px;
+    text-align: center;
+    animation: fadeUp 0.8s ease 0.5s both;
+  }
+  .closing-line {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--text-sec);
+    line-height: 1.7;
+    max-width: 36ch;
+    margin: 0 auto 32px;
+    text-wrap: balance;
+  }
+  .closing-mark {
+    font-family: var(--display);
+    font-size: clamp(20px, 3.2vw, 24px);
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 28px;
+    text-shadow: 0 0 24px rgba(59, 130, 246, 0.22);
+  }
+  .closing-link {
+    display: inline-block;
+    font-family: var(--display);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    text-decoration: none;
+    padding: 14px 30px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .closing-link:hover {
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 24px rgba(59, 130, 246, 0.3);
+  }
 
-/* CLOSING */
-.closing {
-margin-top: 64px;
-text-align: center;
-animation: fadeUp 0.8s ease 0.5s both;
-}
-.closing-line {
-font-family: var(–body);
-font-weight: 300;
-font-size: 14px;
-color: var(–text-sec);
-line-height: 1.7;
-max-width: 36ch;
-margin: 0 auto 32px;
-text-wrap: balance;
-}
-.closing-mark {
-font-family: var(–display);
-font-size: clamp(20px, 3.2vw, 24px);
-font-weight: 700;
-letter-spacing: 0.32em;
-text-transform: uppercase;
-color: #fff;
-margin-bottom: 28px;
-text-shadow: 0 0 24px rgba(59, 130, 246, 0.22);
-}
-.closing-link {
-display: inline-block;
-font-family: var(–display);
-font-size: 10px;
-font-weight: 600;
-letter-spacing: 0.38em;
-text-transform: uppercase;
-color: var(–text-sec);
-text-decoration: none;
-padding: 14px 30px;
-border: 1px solid var(–border);
-border-radius: 6px;
-transition: color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-}
-.closing-link:hover {
-color: #fff;
-border-color: var(–accent);
-box-shadow: 0 0 24px rgba(59, 130, 246, 0.3);
-}
+  /* FOOTER */
+  footer.site-footer {
+    position: relative;
+    z-index: 2;
+    padding: 36px 20px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .footer-mark {
+    font-family: var(--display);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
 
-/* FOOTER */
-footer.site-footer {
-position: relative;
-z-index: 2;
-padding: 36px 20px;
-text-align: center;
-border-top: 1px solid var(–border);
-}
-.footer-mark {
-font-family: var(–display);
-font-size: 10px;
-font-weight: 500;
-letter-spacing: 0.42em;
-color: var(–muted);
-text-transform: uppercase;
-}
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav.top-nav { padding: 16px 20px; }
+    .nav-links { gap: 18px; }
+    .nav-links a { font-size: 9px; letter-spacing: 0.28em; }
+    .wordmark { font-size: 12px; letter-spacing: 0.42em; }
+    .wrap { padding: 120px 18px 80px; }
+    section.card { padding: 28px 22px; }
+    header.page-header { margin-bottom: 48px; }
+    .closing { margin-top: 52px; }
+  }
 
-/* RESPONSIVE */
-@media (max-width: 640px) {
-nav.top-nav { padding: 16px 20px; }
-.nav-links { gap: 18px; }
-.nav-links a { font-size: 9px; letter-spacing: 0.28em; }
-.wordmark { font-size: 12px; letter-spacing: 0.42em; }
-.wrap { padding: 120px 18px 80px; }
-section.card { padding: 28px 22px; }
-header.page-header { margin-bottom: 48px; }
-.closing { margin-top: 52px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-*, *::before, *::after { animation: none !important; transition: none !important; }
-}
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
 </style>
-
 </head>
 <body>
 
@@ -401,112 +396,110 @@ header.page-header { margin-bottom: 48px; }
 
   <main>
 
-```
-<!-- WHAT TALON DOES -->
-<section class="card">
-  <h2 class="card-title">What Talon does</h2>
-  <p>Talon is a habit-building app that generates personalized actions to help build momentum toward your goals. You share what you're working toward, and Talon delivers one action at a time designed to build consistency.</p>
+    <!-- WHAT TALON DOES -->
+    <section class="card">
+      <h2 class="card-title">What Talon does</h2>
+      <p>Talon is a habit-building app that generates personalized actions to help build momentum toward your goals. You share what you're working toward, and Talon delivers one action at a time designed to build consistency.</p>
 
-  <h3 class="sub-title">Age Requirement</h3>
-  <p>Talon is intended for users 13 years of age or older. By creating an account, you confirm that you meet this requirement. Users under 18 should have parental or guardian consent before using the app.</p>
+      <h3 class="sub-title">Age Requirement</h3>
+      <p>Talon is intended for users 13 years of age or older. By creating an account, you confirm that you meet this requirement. Users under 18 should have parental or guardian consent before using the app.</p>
 
-  <h3 class="sub-title">Health &amp; Safety</h3>
-  <p>Talon is not a medical, financial, legal, or therapeutic service. Actions generated by Talon are general habit-building suggestions and should not replace professional advice. Always consult qualified professionals for health, financial, or legal decisions.</p>
-</section>
+      <h3 class="sub-title">Health &amp; Safety</h3>
+      <p>Talon is not a medical, financial, legal, or therapeutic service. Actions generated by Talon are general habit-building suggestions and should not replace professional advice. Always consult qualified professionals for health, financial, or legal decisions.</p>
+    </section>
 
-<!-- HOW DATA IS USED -->
-<section class="card">
-  <h2 class="card-title">How your data is used</h2>
-  <p>When you create a goal, Talon collects what you provide: your name, goal category, target description, current situation, experience level, and time availability.</p>
-  <p>As you complete actions, your check-in answers and reflections are recorded. Your progress is summarized into a rolling narrative that helps Talon generate increasingly relevant actions.</p>
+    <!-- HOW DATA IS USED -->
+    <section class="card">
+      <h2 class="card-title">How your data is used</h2>
+      <p>When you create a goal, Talon collects what you provide: your name, goal category, target description, current situation, experience level, and time availability.</p>
+      <p>As you complete actions, your check-in answers and reflections are recorded. Your progress is summarized into a rolling narrative that helps Talon generate increasingly relevant actions.</p>
 
-  <h3 class="sub-title">Storage</h3>
-  <p>Account information, goal data, action history, streak data, and progress summaries are stored securely on cloud servers and are never accessible to third parties for advertising or commercial purposes.</p>
-</section>
+      <h3 class="sub-title">Storage</h3>
+      <p>Account information, goal data, action history, streak data, and progress summaries are stored securely on cloud servers and are never accessible to third parties for advertising or commercial purposes.</p>
+    </section>
 
-<!-- AI -->
-<section class="card">
-  <h2 class="card-title">AI-powered actions</h2>
-  <div class="disclosure-tag">Guideline 5.1.2(i) Disclosure</div>
-  <p>Talon uses Anthropic's Claude, a large language model, to generate personalized actions, check-in questions, and progress summaries.</p>
-  <p>When an action is generated, the following data is sent to Anthropic's API for processing: your goal data, check-in answers, reflections, and rolling progress summary. Anthropic acts as a sub-processor and processes this data solely to generate your response. Anthropic does not use this data to train its models. No raw action history is sent — only a condensed summary of your progress.</p>
-  <p>For more on Anthropic's data practices, visit <a href="https://www.anthropic.com/privacy">anthropic.com/privacy</a>.</p>
-</section>
+    <!-- AI -->
+    <section class="card">
+      <h2 class="card-title">AI-powered actions</h2>
+      <div class="disclosure-tag">Guideline 5.1.2(i) Disclosure</div>
+      <p>Talon uses Anthropic's Claude, a large language model, to generate personalized actions, check-in questions, and progress summaries.</p>
+      <p>When an action is generated, the following data is sent to Anthropic's API for processing: your goal data, check-in answers, reflections, and rolling progress summary. Anthropic acts as a sub-processor and processes this data solely to generate your response. Anthropic does not use this data to train its models. No raw action history is sent — only a condensed summary of your progress.</p>
+      <p>For more on Anthropic's data practices, visit <a href="https://www.anthropic.com/privacy">anthropic.com/privacy</a>.</p>
+    </section>
 
-<!-- WHAT TALON DOES NOT DO -->
-<section class="card">
-  <h2 class="card-title">What Talon does not do</h2>
-  <p>Talon does not sell your data. Talon does not share your data with advertisers. Your data is not used for any purpose other than powering your Talon experience.</p>
-  <p>Talon does not collect location data, contacts, or any information beyond what you directly provide in the app.</p>
-</section>
+    <!-- WHAT TALON DOES NOT DO -->
+    <section class="card">
+      <h2 class="card-title">What Talon does not do</h2>
+      <p>Talon does not sell your data. Talon does not share your data with advertisers. Your data is not used for any purpose other than powering your Talon experience.</p>
+      <p>Talon does not collect location data, contacts, or any information beyond what you directly provide in the app.</p>
+    </section>
 
-<!-- GOOGLE SIGN-IN -->
-<section class="card">
-  <h2 class="card-title">Google Sign-In data</h2>
-  <p>When you sign in with Google, Talon requests access to a limited set of Google account data through Google's OAuth consent screen. This section discloses exactly what is accessed, how it is used, how it is stored, and how it is shared, in compliance with the Google API Services User Data Policy.</p>
+    <!-- GOOGLE SIGN-IN -->
+    <section class="card">
+      <h2 class="card-title">Google Sign-In data</h2>
+      <p>When you sign in with Google, Talon requests access to a limited set of Google account data through Google's OAuth consent screen. This section discloses exactly what is accessed, how it is used, how it is stored, and how it is shared, in compliance with the Google API Services User Data Policy.</p>
 
-  <h3 class="sub-title">Data accessed</h3>
-  <p>Through the standard Google Sign-In scopes, Talon receives:</p>
-  <ul>
-    <li>Your Google account email address (scope: <code>email</code>)</li>
-    <li>Your Google account name and profile picture URL (scope: <code>profile</code>)</li>
-    <li>A unique Google account identifier used for authentication (scope: <code>openid</code>)</li>
-  </ul>
-  <p>Talon does not request and does not access your Gmail, Google Drive, Google Calendar, Google Contacts, Google Photos, or any other Google service.</p>
+      <h3 class="sub-title">Data accessed</h3>
+      <p>Through the standard Google Sign-In scopes, Talon receives:</p>
+      <ul>
+        <li>Your Google account email address (scope: <code>email</code>)</li>
+        <li>Your Google account name and profile picture URL (scope: <code>profile</code>)</li>
+        <li>A unique Google account identifier used for authentication (scope: <code>openid</code>)</li>
+      </ul>
+      <p>Talon does not request and does not access your Gmail, Google Drive, Google Calendar, Google Contacts, Google Photos, or any other Google service.</p>
 
-  <h3 class="sub-title">Data usage</h3>
-  <p>The data above is used solely to:</p>
-  <ul>
-    <li>Verify your identity at sign-in</li>
-    <li>Create your Talon user account — your email and name are saved to your Talon profile</li>
-    <li>Recognize you on return sign-ins</li>
-  </ul>
-  <p>Google user data is never used for advertising, analytics, profiling, or AI model training.</p>
+      <h3 class="sub-title">Data usage</h3>
+      <p>The data above is used solely to:</p>
+      <ul>
+        <li>Verify your identity at sign-in</li>
+        <li>Create your Talon user account — your email and name are saved to your Talon profile</li>
+        <li>Recognize you on return sign-ins</li>
+      </ul>
+      <p>Google user data is never used for advertising, analytics, profiling, or AI model training.</p>
 
-  <h3 class="sub-title">Data storage</h3>
-  <p>Your email and name are stored on Talon's secure cloud backend (Appwrite) as part of your Talon user record — the same way they would be stored if you signed up with email and password. The Google profile picture URL is not retained. The Google account identifier is used at the moment of sign-in and is not stored on your user record.</p>
+      <h3 class="sub-title">Data storage</h3>
+      <p>Your email and name are stored on Talon's secure cloud backend (Appwrite) as part of your Talon user record — the same way they would be stored if you signed up with email and password. The Google profile picture URL is not retained. The Google account identifier is used at the moment of sign-in and is not stored on your user record.</p>
 
-  <h3 class="sub-title">Data sharing</h3>
-  <p>Google user data is never sold and is never shared with advertisers or any third party for commercial purposes. The only sub-processor involved is Appwrite, which handles the OAuth callback and stores the Talon account record. No Google user data is transmitted to Anthropic.</p>
-  <p>Talon's use of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. You can revoke Talon's access to your Google account at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
+      <h3 class="sub-title">Data sharing</h3>
+      <p>Google user data is never sold and is never shared with advertisers or any third party for commercial purposes. The only sub-processor involved is Appwrite, which handles the OAuth callback and stores the Talon account record. No Google user data is transmitted to Anthropic.</p>
+      <p>Talon's use of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. You can revoke Talon's access to your Google account at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
 
-  <h3 class="sub-title">Retention &amp; security</h3>
-  <p>Google user data is retained only for as long as your Talon account remains active. When you delete your Talon account through the Settings page, all associated data — including the email and name received via Google Sign-In — is permanently removed from Talon's systems. You may request deletion or ask any question about your data at any time by contacting <a href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
-  <p>All data, including Google user data, is encrypted in transit (HTTPS/TLS) and at rest within Talon's cloud backend (Appwrite). Access is restricted to authenticated user sessions and authorized internal operations required to deliver the Talon experience.</p>
-</section>
+      <h3 class="sub-title">Retention &amp; security</h3>
+      <p>Google user data is retained only for as long as your Talon account remains active. When you delete your Talon account through the Settings page, all associated data — including the email and name received via Google Sign-In — is permanently removed from Talon's systems. You may request deletion or ask any question about your data at any time by contacting <a href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
+      <p>All data, including Google user data, is encrypted in transit (HTTPS/TLS) and at rest within Talon's cloud backend (Appwrite). Access is restricted to authenticated user sessions and authorized internal operations required to deliver the Talon experience.</p>
+    </section>
 
-<!-- YOUR CONTROL -->
-<section class="card">
-  <h2 class="card-title">Your control</h2>
-  <p>Any goal can be deleted at any time. Your account can be deleted through the Settings page, which permanently removes all associated data. Talon retains your personal information only for as long as your account remains active or as required to comply with applicable legal obligations.</p>
+    <!-- YOUR CONTROL -->
+    <section class="card">
+      <h2 class="card-title">Your control</h2>
+      <p>Any goal can be deleted at any time. Your account can be deleted through the Settings page, which permanently removes all associated data. Talon retains your personal information only for as long as your account remains active or as required to comply with applicable legal obligations.</p>
 
-  <h3 class="sub-title">Account responsibility</h3>
-  <p>You are responsible for maintaining the security of your account credentials. All activity that occurs under your account is your responsibility. If you believe your account has been accessed without authorization, contact <a href="mailto:support@talonapp.co">support@talonapp.co</a> immediately.</p>
+      <h3 class="sub-title">Account responsibility</h3>
+      <p>You are responsible for maintaining the security of your account credentials. All activity that occurs under your account is your responsibility. If you believe your account has been accessed without authorization, contact <a href="mailto:support@talonapp.co">support@talonapp.co</a> immediately.</p>
 
-  <h3 class="sub-title">Acceptable use</h3>
-  <p>Talon is for personal habit-building use only. Goal text and any content you submit must not contain harmful, discriminatory, or illegal material. Attempting to use Talon's AI system to generate harmful or inappropriate content may result in account suspension or termination.</p>
-</section>
+      <h3 class="sub-title">Acceptable use</h3>
+      <p>Talon is for personal habit-building use only. Goal text and any content you submit must not contain harmful, discriminatory, or illegal material. Attempting to use Talon's AI system to generate harmful or inappropriate content may result in account suspension or termination.</p>
+    </section>
 
-<!-- LEGAL -->
-<section class="card">
-  <h2 class="card-title">Legal</h2>
+    <!-- LEGAL -->
+    <section class="card">
+      <h2 class="card-title">Legal</h2>
 
-  <h3 class="sub-title">Intellectual property</h3>
-  <p>The Talon app, its design, branding, and all associated content are owned by Talon's developers and protected under applicable intellectual property laws. Personal information and goal text you provide remain yours. By using Talon, you grant a limited license to use that information solely to generate your in-app experience.</p>
+      <h3 class="sub-title">Intellectual property</h3>
+      <p>The Talon app, its design, branding, and all associated content are owned by Talon's developers and protected under applicable intellectual property laws. Personal information and goal text you provide remain yours. By using Talon, you grant a limited license to use that information solely to generate your in-app experience.</p>
 
-  <h3 class="sub-title">Availability</h3>
-  <p>Talon is provided as-is. Features may be updated, modified, or discontinued at any time. Talon is not liable for any outcomes resulting from actions you choose to take based on its suggestions.</p>
+      <h3 class="sub-title">Availability</h3>
+      <p>Talon is provided as-is. Features may be updated, modified, or discontinued at any time. Talon is not liable for any outcomes resulting from actions you choose to take based on its suggestions.</p>
 
-  <h3 class="sub-title">Governing law</h3>
-  <p>These terms are governed by the laws of the State of Florida, without regard to conflict of law principles. Any disputes arising from the use of Talon will be subject to the jurisdiction of the courts located in Florida.</p>
-</section>
+      <h3 class="sub-title">Governing law</h3>
+      <p>These terms are governed by the laws of the State of Florida, without regard to conflict of law principles. Any disputes arising from the use of Talon will be subject to the jurisdiction of the courts located in Florida.</p>
+    </section>
 
-<!-- CONTACT -->
-<section class="card">
-  <h2 class="card-title">Contact</h2>
-  <p>Questions about your data or these terms? Reach out to <a href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
-</section>
-```
+    <!-- CONTACT -->
+    <section class="card">
+      <h2 class="card-title">Contact</h2>
+      <p>Questions about your data or these terms? Reach out to <a href="mailto:support@talonapp.co">support@talonapp.co</a>.</p>
+    </section>
 
   </main>
 
