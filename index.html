@@ -5,7 +5,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Talon — Built to Win</title>
-<meta name="description" content="Talon builds the habit. One small action at a time. Join the waitlist." />
+<meta name="description" content="Talon: Build Your Habits — an iOS app that builds your habit system. One action at a time. Join the waitlist." />
 <meta name="theme-color" content="#030c20" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -137,7 +137,7 @@
     align-items: center;
     text-align: center;
     padding: 90px 24px 70px;
-    gap: var(--s5);
+    gap: var(--s4);
   }
   .hero-top {
     display: flex;
@@ -152,18 +152,16 @@
   }
   /* Tagline at bottom of hero — replaces the separate footer */
   .hero-tagline {
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
     font-family: var(--display);
     font-weight: 700;
-    font-size: 13px;
+    font-size: clamp(24px, 5vw, 36px);
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text);
+    text-shadow: 0 0 24px rgba(59, 130, 246, 0.35);
     margin: 0;
     white-space: nowrap;
+    animation: fadeUp 0.9s ease 0.7s both;
   }
 
   .eyebrow {
@@ -212,11 +210,11 @@
   .subtitle {
     font-family: var(--body);
     font-weight: 300;
-    font-size: clamp(14px, 3.4vw, 16px);
-    line-height: 1.7;
+    font-size: clamp(18px, 4.2vw, 24px);
+    line-height: 1.6;
     color: var(--text-sec);
     margin: var(--s3) auto 0;
-    max-width: 38ch;
+    max-width: 32ch;
     text-wrap: balance;
     letter-spacing: 0.01em;
     animation: fadeUp 0.9s ease 0.3s both;
@@ -225,14 +223,14 @@
   /* ========== ORB ========== */
   .orb-stage {
     position: relative;
-    width: min(78vw, 360px);
+    width: min(60vw, 280px);
     aspect-ratio: 1 / 1;
     margin: 0 auto;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     border-radius: 50%;
-    animation: fadeUp 1.2s ease 0.4s both;
+    animation: fadeUp 1.2s ease 0.5s both;
     transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
   }
   /* Hover effects only on mouse-capable devices — prevents sticky hover state on iOS */
@@ -299,7 +297,7 @@
   body.cta-open .orb-img { filter: brightness(1.15) saturate(1.1); }
   body.cta-open .orb-glow { opacity: 1.4; }
 
-  /* ========== ORB INSTRUCTION ========== */
+  /* ========== ORB CTA (ghost button above orb) ========== */
   .orb-cta {
     font-family: var(--display);
     font-weight: 600;
@@ -310,9 +308,20 @@
     margin: 0;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    animation: fadeUp 0.9s ease 0.6s both;
-    transition: opacity 0.4s ease;
+    gap: 12px;
+    padding: 12px 28px;
+    border: 1px solid rgba(96,165,250,0.4);
+    border-radius: 999px;
+    animation: fadeUp 0.9s ease 0.4s both;
+    transition: opacity 0.4s ease, border-color 0.3s ease;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .orb-cta:hover {
+      border-color: rgba(96,165,250,0.7);
+      color: var(--text);
+    }
   }
   .orb-cta .arrow {
     display: inline-block;
@@ -320,23 +329,17 @@
   }
   @keyframes arrowDrift {
     0%, 100% { transform: translateY(0);  opacity: 0.7; }
-    50%      { transform: translateY(3px); opacity: 1; }
+    50%      { transform: translateY(4px); opacity: 1; }
   }
 
   body.cta-open .orb-cta { opacity: 0; pointer-events: none; }
 
   /* ========== CTA OVERLAY (fixed-position modal) ========== */
-  /* Replaces the inline-expanding panel. Form lives in a fixed overlay,
-     so opening/closing it never affects layout. Tap anywhere on the
-     dimmed backdrop to close. */
   .cta-overlay {
     position: fixed;
     inset: 0;
     z-index: 100;
     display: flex;
-    /* On mobile: anchor the form near the top so it sits ABOVE the keyboard.
-       This is the entire trick — if the form is already in the top portion
-       of the screen, iOS has nothing to auto-scroll when the keyboard opens. */
     align-items: flex-start;
     justify-content: center;
     padding: 10vh 20px 20px;
@@ -545,7 +548,6 @@
   }
 
   /* ========== WAITLIST PENDING STATE ========== */
-  /* When body.waitlist-pending is set, show "shortly" message and disable the overlay. */
   .orb-cta-pending { display: none; }
   body.waitlist-pending #orbCta { display: none; }
   body.waitlist-pending .orb-cta-pending { display: inline-flex; }
@@ -569,9 +571,10 @@
     .nav-links { gap: 22px; }
     .nav-links a { font-size: 9px; letter-spacing: 0.28em; }
     .wordmark { font-size: 12px; letter-spacing: 0.38em; }
-    .hero { padding: 80px 20px 60px; gap: var(--s4); }
+    .hero { padding: 80px 20px 60px; gap: var(--s3); }
+    .orb-stage { width: min(55vw, 240px); }
     .cta-form { padding: 5px 5px 5px 18px; }
-    .cta-form input[type="email"] { font-size: 16px; padding: 11px 0; } /* keep 16px on mobile to prevent zoom */
+    .cta-form input[type="email"] { font-size: 16px; padding: 11px 0; }
     .cta-form button[type="submit"] { padding: 11px 16px; font-size: 10px; letter-spacing: 0.24em; }
   }
 </style>
@@ -594,45 +597,43 @@
 <main>
   <section class="hero" aria-labelledby="hero-headline">
 
-```
-<div class="hero-top">
-  <p class="eyebrow">
-    <span class="rule"></span>
-    <span class="dot" aria-hidden="true"></span>
-    Coming Soon
-    <span class="rule"></span>
-  </p>
+    <div class="hero-top">
+      <p class="eyebrow">
+        <span class="rule"></span>
+        <span class="dot" aria-hidden="true"></span>
+        Coming Soon, Introducing:
+        <span class="rule"></span>
+      </p>
 
-  <h1 class="headline" id="hero-headline">Knowing isn't the problem.</h1>
+      <h1 class="headline" id="hero-headline">Talon: Build Your Habits</h1>
 
-  <p class="subtitle">
-    Talon builds the habit. One small action at a time.
-  </p>
-</div>
+      <p class="subtitle">
+        An iOS app that builds your habit system. One action at a time.
+      </p>
+    </div>
 
-<button
-  class="orb-stage"
-  id="orbBtn"
-  type="button"
-  aria-label="Tap the orb to join the waitlist"
-  aria-controls="ctaOverlay"
-  aria-expanded="false">
-  <span class="orb-glow" aria-hidden="true"></span>
-  <img class="orb-img" src="assets/orb.png" alt="" />
-  <span class="tap-ripple" aria-hidden="true"></span>
-</button>
+    <p class="orb-cta" id="orbCta">
+      <span class="arrow" aria-hidden="true">&#8595;</span>
+      Tap the orb to join
+      <span class="arrow" aria-hidden="true">&#8595;</span>
+    </p>
+    <p class="orb-cta orb-cta-pending" id="orbCtaPending">
+      Waitlist opens shortly
+    </p>
 
-<div class="hero-bottom">
-  <p class="orb-cta" id="orbCta">
-    Tap the orb to join
-  </p>
-  <p class="orb-cta orb-cta-pending" id="orbCtaPending">
-    Waitlist opens shortly
-  </p>
-</div>
+    <button
+      class="orb-stage"
+      id="orbBtn"
+      type="button"
+      aria-label="Tap the orb to join the waitlist"
+      aria-controls="ctaOverlay"
+      aria-expanded="false">
+      <span class="orb-glow" aria-hidden="true"></span>
+      <img class="orb-img" src="assets/orb.png" alt="" />
+      <span class="tap-ripple" aria-hidden="true"></span>
+    </button>
 
-<p class="hero-tagline">Built to Win.</p>
-```
+    <p class="hero-tagline">Built to Win.</p>
 
   </section>
 </main>
@@ -648,33 +649,31 @@
       <p class="cta-sheet-sub">Be first when Talon launches</p>
     </div>
 
-```
-<form
-  class="cta-form"
-  id="waitlistForm"
-  action="https://app.kit.com/forms/9366718/subscriptions"
-  method="POST"
-  novalidate>
-  <input
-    id="waitlistEmail"
-    type="email"
-    name="email_address"
-    placeholder="your@email.com"
-    autocomplete="email"
-    spellcheck="false"
-    required
-    aria-label="Email address" />
-  <button type="submit" id="waitlistSubmit" aria-label="Join the waitlist">Join</button>
-</form>
-<div class="cta-error" id="ctaError" role="alert">Please enter a valid email.</div>
+    <form
+      class="cta-form"
+      id="waitlistForm"
+      action="https://app.kit.com/forms/9366718/subscriptions"
+      method="POST"
+      novalidate>
+      <input
+        id="waitlistEmail"
+        type="email"
+        name="email_address"
+        placeholder="your@email.com"
+        autocomplete="email"
+        spellcheck="false"
+        required
+        aria-label="Email address" />
+      <button type="submit" id="waitlistSubmit" aria-label="Join the waitlist">Join</button>
+    </form>
+    <div class="cta-error" id="ctaError" role="alert">Please enter a valid email.</div>
 
-<div class="cta-success" id="ctaSuccess" aria-live="polite">
-  <p class="line">You're on the list.</p>
-  <p class="sub">— Talon launches soon</p>
-</div>
+    <div class="cta-success" id="ctaSuccess" aria-live="polite">
+      <p class="line">You're on the list.</p>
+      <p class="sub">&mdash; Talon launches soon</p>
+    </div>
 
-<p class="cta-dismiss">Tap anywhere to close</p>
-```
+    <p class="cta-dismiss">Tap anywhere to close</p>
 
   </div>
 </div>
@@ -714,11 +713,10 @@
     canvas.style.height = H + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    // Density scales with viewport area
     const density = Math.floor((W * H) / 7500);
     stars = [];
     for (let i = 0; i < density; i++) {
-      const z = rand(0.4, 3); // depth — affects size + drift speed
+      const z = rand(0.4, 3);
       stars.push({
         x: Math.random() * W,
         y: Math.random() * H,
@@ -733,7 +731,6 @@
       });
     }
 
-    // A few faint nebula clouds drifting very slowly
     nebulae = [];
     const nebCount = W < 768 ? 2 : 3;
     for (let i = 0; i < nebCount; i++) {
@@ -750,10 +747,9 @@
   }
 
   function spawnShootingStar() {
-    // Random origin near top half, random direction roughly downward
     const startX = Math.random() * W;
     const startY = rand(0, H * 0.5);
-    const angle = rand(Math.PI * 0.18, Math.PI * 0.42); // 30°–75° from horizontal
+    const angle = rand(Math.PI * 0.18, Math.PI * 0.42);
     const speed = rand(8, 14);
     shootingStars.push({
       x: startX,
@@ -775,12 +771,10 @@
 
     ctx.clearRect(0, 0, W, H);
 
-    // Nebulae layer
     for (let i = 0; i < nebulae.length; i++) {
       const n = nebulae[i];
       n.x += n.driftX * dt * 60;
       n.y += n.driftY * dt * 60;
-      // Wrap around
       if (n.x < -n.r) n.x = W + n.r;
       if (n.x > W + n.r) n.x = -n.r;
       if (n.y < -n.r) n.y = H + n.r;
@@ -793,27 +787,21 @@
       ctx.fillRect(n.x - n.r, n.y - n.r, n.r * 2, n.r * 2);
     }
 
-    // Stars
     ctx.globalCompositeOperation = 'lighter';
     for (let i = 0; i < stars.length; i++) {
       const s = stars[i];
-      // Drift
       s.x += s.driftX * dt * 60;
       s.y += s.driftY * dt * 60;
-      // Wrap around screen edges
       if (s.x < -2) s.x = W + 2;
       if (s.x > W + 2) s.x = -2;
       if (s.y < -2) s.y = H + 2;
       if (s.y > H + 2) s.y = -2;
-      // Twinkle
       const tw = 0.6 + 0.4 * Math.sin(t * s.twinkleSpeed + s.twinklePhase);
       const a = s.baseAlpha * tw;
-      // Glow
       ctx.fillStyle = `rgba(${s.tint === '#bfdbfe' ? '191,219,254' : '255,255,255'}, ${a * 0.25})`;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.size * 2.5, 0, Math.PI * 2);
       ctx.fill();
-      // Core
       ctx.fillStyle = `rgba(${s.tint === '#bfdbfe' ? '191,219,254' : '255,255,255'}, ${a})`;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
@@ -821,7 +809,6 @@
     }
     ctx.globalCompositeOperation = 'source-over';
 
-    // Shooting stars
     if (!reduceMotion && now - lastShootingStar > rand(8000, 16000)) {
       spawnShootingStar();
       lastShootingStar = now;
@@ -837,7 +824,6 @@
         continue;
       }
       const fade = 1 - lifeT;
-      // Trail
       const tailX = ss.x - ss.vx * (ss.length / Math.hypot(ss.vx, ss.vy));
       const tailY = ss.y - ss.vy * (ss.length / Math.hypot(ss.vx, ss.vy));
       const grad = ctx.createLinearGradient(ss.x, ss.y, tailX, tailY);
@@ -851,7 +837,6 @@
       ctx.moveTo(ss.x, ss.y);
       ctx.lineTo(tailX, tailY);
       ctx.stroke();
-      // Head
       ctx.fillStyle = `rgba(255,255,255,${0.95 * fade})`;
       ctx.beginPath();
       ctx.arc(ss.x, ss.y, 1.6, 0, Math.PI * 2);
@@ -861,7 +846,6 @@
     rafId = requestAnimationFrame(frame);
   }
 
-  // Pause when tab hidden — saves battery
   document.addEventListener('visibilitychange', () => {
     visible = !document.hidden;
     if (visible) lastTime = performance.now();
@@ -875,13 +859,6 @@
 
 <script>
 (function(){
-  /* ============================================================
-     WAITLIST FEATURE FLAG
-     ------------------------------------------------------------
-     Set to TRUE once the Kit form action URL is wired in above.
-     When FALSE: orb still pulses on tap, but no form opens.
-                 The page shows "Waitlist opens shortly" instead.
-     ============================================================ */
   const WAITLIST_OPEN = true;
 
   const body         = document.body;
@@ -895,7 +872,6 @@
   const errEl        = document.getElementById('ctaError');
   const okEl         = document.getElementById('ctaSuccess');
 
-  // If the waitlist isn't open yet, mark the body and short-circuit.
   if (!WAITLIST_OPEN) {
     body.classList.add('waitlist-pending');
     orbBtn.setAttribute('aria-label', 'Talon orb — waitlist opens shortly');
@@ -914,7 +890,6 @@
   let isSubmitted = false;
   let scrollLockY = 0;
 
-  // iOS-safe body scroll lock: pin the body in place at its current scroll position
   function lockScroll() {
     scrollLockY = window.scrollY;
     body.style.position = 'fixed';
@@ -940,8 +915,6 @@
     overlay.setAttribute('aria-hidden', 'false');
     orbBtn.setAttribute('aria-expanded', 'true');
 
-    // Auto-focus only on mouse-capable devices.
-    // On touch devices, let the user tap the input themselves so iOS handles the keyboard naturally.
     const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     if (!isTouchDevice) {
       setTimeout(() => { if (!isSubmitted) email.focus({ preventScroll: true }); }, 320);
@@ -952,7 +925,6 @@
     if (!isOpen) return;
     isOpen = false;
 
-    // Drop focus first so the keyboard collapses on mobile before we unlock scroll
     if (document.activeElement && document.activeElement.blur) {
       document.activeElement.blur();
     }
@@ -963,7 +935,6 @@
     unlockScroll();
     errEl.classList.remove('show');
 
-    // Reset success state after the overlay animates out
     if (isSubmitted) {
       setTimeout(() => {
         okEl.classList.remove('show');
@@ -989,6 +960,14 @@
     e.preventDefault();
     pulseOrb();
     toggleCTA();
+  });
+
+  // Ghost CTA text above orb → also opens modal
+  const orbCtaText = document.getElementById('orbCta');
+  orbCtaText.addEventListener('click', (e) => {
+    e.preventDefault();
+    pulseOrb();
+    openCTA();
   });
 
   // Tap anywhere on the dimmed backdrop → close
@@ -1040,7 +1019,6 @@
     submitBtn.disabled = false;
     submitBtn.textContent = 'Join';
 
-    // Drop the keyboard on mobile after success
     if (document.activeElement && document.activeElement.blur) {
       document.activeElement.blur();
     }
