@@ -25,10 +25,14 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 .hero h1{font-family:var(--heading);font-size:clamp(42px,8vw,80px);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:24px;animation:fadeUp .8s ease .2s both}
 .hero h1 em{font-style:normal;color:var(--blue);text-shadow:0 0 40px var(--blue-glow)}
 .hero-sub{font-family:var(--body);font-size:clamp(18px,3vw,22px);font-weight:400;color:var(--text-mid);max-width:440px;margin:0 auto 48px;line-height:1.65;animation:fadeUp .8s ease .3s both}
-.phone{position:relative;width:260px;margin:0 auto;border-radius:40px;border:3px solid rgba(255,255,255,.1);background:#0a0e1a;overflow:hidden;box-shadow:0 40px 100px -20px rgba(0,0,0,.8),0 0 60px -10px var(--blue-soft),inset 0 1px 0 rgba(255,255,255,.08);animation:fadeUp 1s ease .4s both}
-.phone img{width:100%;display:block}.phone::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:80px;height:24px;background:#0a0e1a;border-radius:20px;z-index:10;border:1px solid rgba(255,255,255,.05)}
+.phone{position:relative;width:260px;margin:0 auto;border-radius:40px;border:none;background:transparent;overflow:visible;animation:fadeUp 1s ease .4s both}
+.phone-screen{position:relative;border-radius:38px;overflow:hidden;box-shadow:0 40px 100px -20px rgba(0,0,0,.8),0 0 80px -10px rgba(47,102,255,.2);-webkit-mask-image:radial-gradient(ellipse 90% 85% at 50% 50%,black 55%,transparent 72%);mask-image:radial-gradient(ellipse 90% 85% at 50% 50%,black 55%,transparent 72%)}
+.phone-screen img{width:100%;display:block}
+.phone-screen .screen-a,.phone-screen .screen-b{width:100%}
+.phone-screen .screen-b{position:absolute;inset:0;opacity:0;animation:screenFade 8s ease-in-out infinite}
+@keyframes screenFade{0%,40%{opacity:0}50%,90%{opacity:1}100%{opacity:0}}
 .hero-phone-wrap{position:relative;animation:fadeUp 1s ease .4s both}
-.hero-phone-wrap .phone{animation:phoneFloat 5s ease-in-out infinite;box-shadow:0 40px 100px -20px rgba(0,0,0,.8),0 0 80px -10px rgba(47,102,255,.2),inset 0 1px 0 rgba(255,255,255,.08)}
+.hero-phone-wrap .phone{animation:phoneFloat 5s ease-in-out infinite}
 @keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-14px) rotate(.5deg)}50%{transform:translateY(-8px) rotate(0deg)}75%{transform:translateY(-18px) rotate(-.5deg)}}
 .phone-glow{position:absolute;width:340px;height:140px;bottom:-40px;left:50%;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(47,102,255,.4),transparent 65%);filter:blur(35px);z-index:0;pointer-events:none;animation:glowPulse 5s ease-in-out infinite}
 @keyframes glowPulse{0%,100%{opacity:.7;transform:translateX(-50%) scale(1)}25%{opacity:1;transform:translateX(-50%) scale(1.08)}50%{opacity:.85;transform:translateX(-50%) scale(1.03)}75%{opacity:1;transform:translateX(-50%) scale(1.1)}}
@@ -54,7 +58,9 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 .showcase{padding:60px 28px 80px}.showcase .section{max-width:900px}
 .showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
 .showcase-phones{display:flex;gap:20px;justify-content:center}
-.showcase-phones .phone{width:220px;animation:none}.showcase-phones .phone:last-child{margin-top:40px}
+.showcase-phones .phone{width:220px;animation:none;border:3px solid rgba(255,255,255,.1);border-radius:40px;overflow:hidden;box-shadow:0 30px 80px -15px rgba(0,0,0,.7),0 0 40px -10px var(--blue-soft)}
+.showcase-phones .phone img{border-radius:0}
+.showcase-phones .phone:last-child{margin-top:40px}
 .showcase-text h2{font-family:var(--heading);font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px}
 .showcase-text h2 em{font-style:normal;display:block;color:var(--blue);text-shadow:0 0 30px var(--blue-glow)}
 .showcase-text p{font-family:var(--body);font-size:18px;color:var(--text-mid);line-height:1.65;max-width:380px}
@@ -92,7 +98,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 <h1>Discipline wins.<br/><em>Every day.</em></h1>
 <p class="hero-sub">Talon is an iOS app that builds your habit system. One focused action per day. That's it.</p>
 <div class="hero-phone-wrap">
-<div class="phone"><img src="./assets/hero_phone.png" alt="Talon app showing the orb and dashboard"/></div>
+<div class="phone"><div class="phone-screen"><img class="screen-a" src="./assets/hero_phone.png" alt="Talon empty dashboard with orb"/><img class="screen-b" src="./assets/hero_phone_active.png" alt="Talon dashboard with active goal"/></div></div>
 <div class="phone-glow"></div>
 <div class="phone-reflection"><img src="./assets/hero_phone.png" alt="" aria-hidden="true"/></div>
 </div>
