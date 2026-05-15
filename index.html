@@ -1,251 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Talon — Habit Builder</title>
-  <meta name="description" content="Talon is the habit system that helps you focus, act, and grow — one mission at a time. Join the waitlist." />
-  <meta name="theme-color" content="#02040b" />
-  <meta property="og:title" content="Talon — Habit Builder" />
-  <meta property="og:description" content="Discipline wins. Every day. Join the Talon waitlist." />
-  <meta property="og:type" content="website" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <style>
-    :root{--bg:#02040b;--bg-soft:#050915;--panel:rgba(7,13,28,.72);--panel-strong:rgba(9,17,36,.88);--border:rgba(98,141,255,.22);--border-soft:rgba(255,255,255,.08);--text:#f7f8ff;--muted:rgba(235,240,255,.68);--muted-2:rgba(235,240,255,.44);--blue:#2f66ff;--blue-bright:#48ccff;--blue-deep:#102ee9;--shadow-blue:rgba(38,99,255,.58);--radius-xl:34px;--radius-lg:24px;--radius-md:18px}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth;background:var(--bg)}
-    body{min-height:100vh;font-family:"Cinzel",serif;color:var(--text);background:radial-gradient(circle at 50% 0%,rgba(36,86,255,.18),transparent 35%),radial-gradient(circle at 50% 38%,rgba(12,75,255,.12),transparent 42%),linear-gradient(180deg,#02040b 0%,#030610 45%,#010208 100%);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}button,input{font-family:inherit}button{border:none;cursor:pointer}img{display:block;max-width:100%}
-    ::selection{background:rgba(47,102,255,.35);color:#fff}
-    .page-shell{position:relative;min-height:100vh;overflow:hidden}
-    .landing-card{position:relative;width:100%;min-height:100vh;padding:22px 24px 34px;background:radial-gradient(circle at 50% 17%,rgba(29,75,185,.22),transparent 36%),linear-gradient(180deg,rgba(2,5,13,.94),rgba(1,3,10,.98));overflow:hidden;isolation:isolate}
-    .landing-card::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.36) 0 1px,transparent 1.5px),radial-gradient(circle,rgba(72,152,255,.24) 0 1px,transparent 1.5px);background-size:72px 72px,118px 118px;background-position:18px 40px,-12px 18px;opacity:.26;pointer-events:none;z-index:-2}
-    .landing-card::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.34),transparent 18%,transparent 82%,rgba(0,0,0,.34)),linear-gradient(180deg,transparent,rgba(0,0,0,.2));pointer-events:none;z-index:-1}
-    .ambient{position:fixed;border-radius:999px;pointer-events:none;filter:blur(70px);opacity:.48}
-    .ambient-one{width:300px;height:300px;top:70px;left:50%;transform:translateX(-70%);background:rgba(30,90,255,.2)}
-    .ambient-two{width:340px;height:340px;right:-150px;top:350px;background:rgba(0,202,255,.12)}
-    .ambient-three{width:260px;height:260px;bottom:120px;left:-110px;background:rgba(29,69,255,.16)}
-
-    /* Header */
-    .site-header{position:relative;z-index:10;height:52px;display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:0 auto;padding:0 8px}
-    .brand{display:inline-flex;align-items:center}
-    .brand-wordmark{width:140px;height:auto;object-fit:contain}
-    .nav-links{display:flex;gap:24px;list-style:none}
-    .nav-links a{font-size:9px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(235,240,255,.48);transition:color .3s ease}
-    .nav-links a:hover{color:rgba(255,255,255,.86)}
-
-    /* Hero */
-    .hero-section{position:relative;padding:40px 0 28px;text-align:center;max-width:600px;margin:0 auto}
-    .section-glow{position:absolute;width:360px;height:360px;top:22px;left:50%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(35,89,255,.22),transparent 58%),radial-gradient(circle,rgba(0,216,255,.12),transparent 38%);filter:blur(8px);opacity:.9;z-index:-1}
-    .coming-pill{display:inline-flex;align-items:center;justify-content:center;height:30px;padding:0 24px;margin-bottom:22px;border:1px solid var(--border-soft);border-radius:999px;background:rgba(255,255,255,.045);color:rgba(255,255,255,.82);font-size:10px;font-weight:700;line-height:1;letter-spacing:.33em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(255,255,255,.03),0 0 24px rgba(45,93,255,.16)}
-    .hero-title{max-width:410px;margin:0 auto;font-size:clamp(38px,10.4vw,54px);line-height:.96;font-weight:700;letter-spacing:-.045em;text-shadow:0 2px 16px rgba(255,255,255,.12),0 0 38px rgba(47,102,255,.16)}
-    .hero-title span{display:block;color:var(--blue);text-shadow:0 0 18px rgba(47,102,255,.56),0 0 42px rgba(47,102,255,.24)}
-    .hero-subtitle{max-width:335px;margin:18px auto 0;color:var(--muted);font-size:14px;font-weight:500;line-height:1.7;letter-spacing:.01em}
-    .phone-stage{position:relative;width:100%;height:380px;margin-top:22px;display:flex;align-items:flex-start;justify-content:center;overflow:hidden}
-    .phone-stage::after{content:"";position:absolute;width:260px;height:66px;left:50%;bottom:14px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(23,91,255,.38),transparent 68%);filter:blur(18px);z-index:0}
-    .phone-image{position:relative;z-index:2;object-fit:cover;object-position:center 35%;filter:drop-shadow(0 20px 36px rgba(0,0,0,.72)) drop-shadow(0 0 22px rgba(48,113,255,.25))}
-    .hero-phone{width:min(340px,88vw);height:100%;border-radius:16px}
-    .energy-streak{position:absolute;z-index:1;pointer-events:none;border-radius:999px;opacity:.78}
-    .energy-streak-one{width:540px;height:90px;top:108px;left:50%;transform:translateX(-50%) rotate(-24deg);background:radial-gradient(ellipse at 50% 50%,rgba(52,145,255,.58),transparent 12%),linear-gradient(90deg,transparent 2%,rgba(0,94,255,.1),rgba(60,180,255,.54),rgba(44,83,255,.12),transparent 94%);filter:blur(10px)}
-    .energy-streak-two{width:420px;height:28px;top:145px;left:42%;transform:translateX(-50%) rotate(-24deg);background:linear-gradient(90deg,transparent,rgba(90,199,255,.58),transparent);filter:blur(9px);opacity:.44}
-
-    /* CTA */
-    .primary-cta{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:58px;padding:0 28px;border:1px solid rgba(113,159,255,.58);border-radius:999px;background:linear-gradient(180deg,rgba(45,97,255,.96),rgba(18,39,190,.96)),radial-gradient(circle at 50% 0%,rgba(255,255,255,.32),transparent 48%);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -10px 30px rgba(0,0,0,.16),0 0 0 1px rgba(52,89,255,.18),0 16px 46px rgba(22,75,255,.36);font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-    .primary-cta::before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.18) 42%,transparent 60%);transform:translateX(-110%);transition:transform 650ms ease}
-    .primary-cta:hover::before{transform:translateX(110%)}
-    .primary-cta:disabled{opacity:.6;cursor:not-allowed}
-    .hero-cta{width:min(340px,88%);margin-top:24px;z-index:5}
-    .primary-cta span{position:relative;z-index:1}
-    .primary-cta .arrow{margin-left:28px;font-size:18px;line-height:1;transform:translateY(-1px)}
-    .micro-copy{margin-top:12px;color:var(--muted-2);font-size:11px;font-weight:500;letter-spacing:.04em;text-align:center}
-
-    /* Built Section */
-    .built-section{position:relative;padding:28px 0 22px;max-width:600px;margin:0 auto}
-    .section-kicker{margin-bottom:15px;color:rgba(255,255,255,.92);text-align:center;font-size:17px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;text-shadow:0 0 20px rgba(255,255,255,.16)}
-    .feature-stack{display:grid;gap:8px;width:min(100%,520px);margin:0 auto}
-    .feature-card{display:grid;grid-template-columns:62px 1fr;gap:14px;align-items:center;min-height:82px;padding:14px 18px;border:1px solid var(--border-soft);border-radius:var(--radius-md);background:linear-gradient(180deg,rgba(13,24,50,.82),rgba(5,10,23,.84)),radial-gradient(circle at 0% 50%,rgba(49,99,255,.12),transparent 42%);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 12px 28px rgba(0,0,0,.28)}
-    .feature-icon{width:50px;height:50px;display:grid;place-items:center;border:1px solid rgba(87,132,255,.16);border-radius:50%;background:radial-gradient(circle at 50% 45%,rgba(38,100,255,.28),transparent 54%),linear-gradient(180deg,rgba(20,34,68,.9),rgba(5,10,26,.92));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 22px rgba(43,103,255,.16)}
-    .feature-card h3{margin-bottom:5px;color:rgba(255,255,255,.94);font-size:13px;font-weight:800;line-height:1.1;letter-spacing:.22em;text-transform:uppercase}
-    .feature-card p{color:var(--muted);font-size:11.5px;font-weight:500;line-height:1.5;letter-spacing:.015em}
-    .target-icon{width:24px;height:24px;border:2px solid #2f66ff;border-radius:50%;box-shadow:inset 0 0 0 5px #071225,inset 0 0 0 7px #2f66ff,0 0 16px rgba(47,102,255,.7)}
-    .bolt-icon{color:#8bc8ff;font-size:28px;font-weight:400;text-shadow:0 0 16px rgba(64,154,255,.8)}
-    .discipline-icon{position:relative;width:28px;height:28px;border-radius:50%;background:conic-gradient(from 0deg,#2f66ff 0deg 24deg,transparent 24deg 48deg,#2f66ff 48deg 72deg,transparent 72deg 96deg,#2f66ff 96deg 120deg,transparent 120deg 144deg,#2f66ff 144deg 168deg,transparent 168deg 192deg,#2f66ff 192deg 216deg,transparent 216deg 240deg,#2f66ff 240deg 264deg,transparent 264deg 288deg,#2f66ff 288deg 312deg,transparent 312deg 336deg,#2f66ff 336deg 360deg);filter:drop-shadow(0 0 10px rgba(47,102,255,.7))}
-    .discipline-icon::after{content:"";position:absolute;inset:7px;border-radius:inherit;background:#071225}
-
-    /* Why */
-    .why-section{padding:10px 0 22px;text-align:center;max-width:600px;margin:0 auto}
-    .why-copy{max-width:290px;margin:-4px auto 16px;color:var(--muted);font-size:12px;font-weight:500;line-height:1.65}
-    .stat-panel{width:min(100%,520px);min-height:72px;margin:0 auto;display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;align-items:center;border:1px solid var(--border-soft);border-radius:var(--radius-md);background:linear-gradient(180deg,rgba(9,18,38,.86),rgba(4,9,20,.88)),radial-gradient(circle at 50% 0%,rgba(42,92,255,.16),transparent 68%);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 14px 30px rgba(0,0,0,.24)}
-    .stat-divider{width:1px;height:42px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.13),transparent)}
-    .stat-item{display:grid;gap:3px;text-align:center}
-    .stat-item strong{font-size:25px;line-height:1;font-weight:600;color:#fff}
-    .stat-item span{color:var(--muted-2);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
-
-    /* Momentum */
-    .momentum-card{width:min(100%,520px);min-height:150px;margin:0 auto 22px;display:grid;grid-template-columns:39% 1fr;align-items:center;overflow:hidden;border:1px solid var(--border-soft);border-radius:var(--radius-lg);background:radial-gradient(circle at 28% 55%,rgba(30,91,255,.16),transparent 42%),linear-gradient(180deg,rgba(9,18,38,.9),rgba(4,9,20,.94));box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 16px 34px rgba(0,0,0,.32)}
-    .momentum-phone-wrap{position:relative;height:150px;overflow:hidden}
-    .momentum-phone-wrap::after{content:"";position:absolute;width:140px;height:40px;left:45%;bottom:4px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(44,98,255,.36),transparent 68%);filter:blur(13px)}
-    .small-phone{width:116px;position:absolute;left:18px;bottom:-42px;object-fit:cover;object-position:center 40%}
-    .momentum-content{padding:20px 18px 20px 4px}
-    .momentum-content h2{margin-bottom:8px;font-size:24px;font-weight:700;line-height:1.05;letter-spacing:-.045em}
-    .momentum-content h2 span{display:block;color:var(--blue);text-shadow:0 0 22px rgba(47,102,255,.38)}
-    .momentum-content p{color:var(--muted);font-size:11px;line-height:1.6}
-
-    /* Waitlist */
-    .waitlist-section{width:min(100%,520px);margin:0 auto;padding:25px 20px 22px;border:1px solid var(--border-soft);border-radius:var(--radius-lg);text-align:center;background:radial-gradient(circle at 50% 0%,rgba(47,102,255,.13),transparent 55%),linear-gradient(180deg,rgba(9,18,38,.9),rgba(4,9,20,.95));box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 18px 44px rgba(0,0,0,.34)}
-    .waitlist-section h2{margin-bottom:10px;color:#fff;font-size:24px;font-weight:700;line-height:1.1;letter-spacing:.23em;text-transform:uppercase}
-    .waitlist-section>p{max-width:290px;margin:0 auto 20px;color:var(--muted);font-size:12px;font-weight:500;line-height:1.6}
-    .waitlist-form{display:grid;gap:10px}
-    .waitlist-form input{width:100%;height:50px;padding:0 17px;border:1px solid rgba(255,255,255,.14);border-radius:9px;outline:none;background:rgba(1,4,12,.62);color:#fff;font-size:16px;font-weight:500;letter-spacing:.02em;box-shadow:inset 0 1px 0 rgba(255,255,255,.035);transition:border-color 220ms ease,box-shadow 220ms ease,background 220ms ease}
-    .waitlist-form input::placeholder{color:rgba(235,240,255,.38)}
-    .waitlist-form input:focus{border-color:rgba(82,136,255,.66);background:rgba(4,9,21,.86);box-shadow:0 0 0 4px rgba(47,102,255,.12)}
-    .form-cta{width:100%;min-height:54px;border-radius:9px}
-    .form-message{min-height:18px;color:rgba(136,201,255,.88);font-size:10px;letter-spacing:.08em}
-    .form-error{color:#fca5a5 !important}
-
-    /* Footer */
-    .site-footer{width:min(100%,370px);margin:26px auto 0;padding-bottom:4px;max-width:600px}
-    .footer-brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
-    .footer-orb{width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(47,102,255,.62))}
-    .footer-wordmark{width:98px;height:auto;object-fit:contain}
-    .footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:8px}
-    .footer-links a{color:rgba(235,240,255,.48);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;transition:color 180ms ease}
-    .footer-links a:hover{color:rgba(255,255,255,.86)}
-    .footer-social{display:flex;justify-content:center;gap:20px;margin-bottom:16px}
-    .footer-social a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid rgba(255,255,255,.1);border-radius:50%;color:rgba(235,240,255,.5);transition:color .2s ease,border-color .2s ease}
-    .footer-social a:hover{color:rgba(255,255,255,.9);border-color:rgba(47,102,255,.4)}
-    .footer-social svg{width:16px;height:16px;fill:currentColor}
-    .copyright{color:rgba(235,240,255,.25);text-align:center;font-size:9px;font-weight:500;letter-spacing:.06em}
-
-    /* Animations */
-    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-    .fade-in{opacity:0;transform:translateY(18px);animation:fadeUp .8s ease forwards}
-    .delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}.delay-4{animation-delay:.4s}.delay-5{animation-delay:.5s}
-
-    .sr-only{position:absolute;width:1px;height:1px;clip:rect(0,0,0,0);white-space:nowrap;overflow:hidden}
-
-    @media(max-width:390px){.landing-card{padding-left:14px;padding-right:14px}.hero-title{font-size:38px}.hero-subtitle{font-size:12.5px}.phone-stage{height:340px}.hero-phone{width:300px}.momentum-content h2{font-size:21px}.waitlist-section h2{font-size:21px}}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
-  </style>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Talon — Habit Builder</title>
+<meta name="description" content="Talon is an iOS app that builds your habit system. One action at a time. Join the waitlist."/>
+<meta name="theme-color" content="#020510"/>
+<meta property="og:title" content="Talon — Habit Builder"/><meta property="og:description" content="Build habits that stick. One action at a time."/><meta property="og:type" content="website"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#020510;--blue:#2f66ff;--blue-glow:rgba(47,102,255,.5);--blue-soft:rgba(47,102,255,.12);--cyan:#48ccff;--text:#f0f2ff;--text-mid:rgba(225,230,255,.72);--text-dim:rgba(200,210,240,.4);--border:rgba(255,255,255,.07);--heading:"Cinzel",Georgia,serif;--body:"Cormorant Garamond",Georgia,serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;background:var(--bg)}
+body{font-family:var(--body);color:var(--text);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;cursor:pointer;color:inherit;background:transparent}input{font-family:inherit}img{display:block;max-width:100%}::selection{background:rgba(47,102,255,.4);color:#fff}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}#stars canvas{width:100%;height:100%}
+.page{position:relative;z-index:1}.section{max-width:1100px;margin:0 auto;padding:0 28px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(2,5,16,.92),rgba(2,5,16,.6) 70%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.nav-brand{height:32px}.nav-brand img{height:100%;width:auto}
+.nav-links{display:flex;gap:28px;list-style:none}.nav-links a{font-family:var(--heading);font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--text-dim);transition:color .3s}.nav-links a:hover{color:var(--text)}
+.hero{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 28px 80px;position:relative}
+.hero-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 24px;border:1px solid var(--border);border-radius:999px;font-family:var(--heading);font-size:10px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--cyan);background:rgba(47,102,255,.06);margin-bottom:32px;animation:fadeUp .8s ease .1s both}
+.hero-pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+.hero h1{font-family:var(--heading);font-size:clamp(42px,8vw,80px);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:24px;animation:fadeUp .8s ease .2s both}
+.hero h1 em{font-style:normal;color:var(--blue);text-shadow:0 0 40px var(--blue-glow)}
+.hero-sub{font-family:var(--body);font-size:clamp(18px,3vw,22px);font-weight:400;color:var(--text-mid);max-width:440px;margin:0 auto 48px;line-height:1.65;animation:fadeUp .8s ease .3s both}
+.phone{position:relative;width:260px;margin:0 auto;border-radius:40px;border:3px solid rgba(255,255,255,.1);background:#0a0e1a;overflow:hidden;box-shadow:0 40px 100px -20px rgba(0,0,0,.8),0 0 60px -10px var(--blue-soft),inset 0 1px 0 rgba(255,255,255,.08);animation:fadeUp 1s ease .4s both}
+.phone img{width:100%;display:block}.phone::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:80px;height:24px;background:#0a0e1a;border-radius:20px;z-index:10;border:1px solid rgba(255,255,255,.05)}
+.phone-glow{position:absolute;width:300px;height:120px;bottom:-30px;left:50%;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(47,102,255,.35),transparent 70%);filter:blur(30px);z-index:0;pointer-events:none}
+.hero-cta{margin-top:40px;animation:fadeUp .8s ease .5s both}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:56px;padding:0 36px;border-radius:999px;font-family:var(--heading);font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,#3570ff,#1a3fd4);border:1px solid rgba(120,160,255,.5);box-shadow:0 16px 48px rgba(30,80,255,.35),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .2s,box-shadow .3s;position:relative;overflow:hidden}
+.cta::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%);transform:translateX(-120%);transition:transform .6s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 20px 56px rgba(30,80,255,.45),inset 0 1px 0 rgba(255,255,255,.25)}.cta:hover::after{transform:translateX(120%)}.cta:active{transform:translateY(0)}
+.cta .arrow{font-size:18px;transition:transform .3s}.cta:hover .arrow{transform:translateX(4px)}
+.cta:disabled{opacity:.6;cursor:not-allowed}
+.hero-micro{margin-top:14px;font-family:var(--heading);font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--text-dim);animation:fadeUp .8s ease .6s both}
+.s-title{font-family:var(--heading);font-size:clamp(14px,2.5vw,17px);font-weight:700;letter-spacing:.35em;text-transform:uppercase;text-align:center;color:rgba(255,255,255,.85);margin-bottom:36px;text-shadow:0 0 20px rgba(255,255,255,.1)}
+.features{padding:80px 28px 60px}.features .section{max-width:720px}
+.f-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.f-card{padding:28px 20px;border:1px solid var(--border);border-radius:20px;background:linear-gradient(180deg,rgba(12,22,48,.7),rgba(6,12,28,.8));backdrop-filter:blur(8px);text-align:center;transition:border-color .3s,transform .3s}
+.f-card:hover{border-color:rgba(47,102,255,.25);transform:translateY(-4px)}
+.f-icon{width:52px;height:52px;margin:0 auto 16px;display:grid;place-items:center;border:1px solid rgba(47,102,255,.2);border-radius:50%;background:radial-gradient(circle at 50% 40%,rgba(47,102,255,.25),transparent 60%),linear-gradient(180deg,rgba(18,30,60,.9),rgba(6,12,28,.95))}
+.f-card h3{font-family:var(--heading);font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin-bottom:8px;color:rgba(255,255,255,.92)}
+.f-card p{font-family:var(--body);font-size:15px;color:var(--text-mid);line-height:1.55}
+.icon-target{width:22px;height:22px;border:2px solid var(--blue);border-radius:50%;box-shadow:inset 0 0 0 4px #0c1830,inset 0 0 0 6px var(--blue),0 0 14px var(--blue-glow)}
+.icon-bolt{font-size:26px;color:var(--cyan);text-shadow:0 0 14px rgba(72,204,255,.6);font-style:normal}
+.icon-disc{width:24px;height:24px;border-radius:50%;border:3px solid var(--blue);border-top-color:transparent;box-shadow:0 0 12px var(--blue-glow);animation:spin 3s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.showcase{padding:60px 28px 80px}.showcase .section{max-width:900px}
+.showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.showcase-phones{display:flex;gap:20px;justify-content:center}
+.showcase-phones .phone{width:220px;animation:none}.showcase-phones .phone:last-child{margin-top:40px}
+.showcase-text h2{font-family:var(--heading);font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px}
+.showcase-text h2 em{font-style:normal;display:block;color:var(--blue);text-shadow:0 0 30px var(--blue-glow)}
+.showcase-text p{font-family:var(--body);font-size:18px;color:var(--text-mid);line-height:1.65;max-width:380px}
+.stats{padding:40px 28px 80px}.stats .section{max-width:600px}
+.stats-copy{text-align:center;font-family:var(--body);font-size:17px;color:var(--text-mid);line-height:1.65;max-width:360px;margin:-12px auto 28px}
+.stat-bar{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;align-items:center;padding:20px 0;border:1px solid var(--border);border-radius:20px;background:linear-gradient(180deg,rgba(10,18,40,.8),rgba(4,8,20,.85))}
+.stat-div{width:1px;height:40px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.12),transparent)}
+.stat{text-align:center}.stat strong{display:block;font-family:var(--heading);font-size:28px;font-weight:600;color:#fff}.stat span{font-family:var(--heading);font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim)}
+.waitlist{padding:60px 28px 80px}.waitlist .section{max-width:480px;text-align:center}
+.waitlist h2{font-family:var(--heading);font-size:clamp(22px,5vw,32px);font-weight:700;letter-spacing:.08em;margin-bottom:12px}
+.waitlist .section>p{font-family:var(--body);font-size:17px;color:var(--text-mid);margin-bottom:28px;line-height:1.6}
+.wl-form{display:grid;gap:12px}
+.wl-form input{width:100%;height:52px;padding:0 20px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(4,8,20,.7);color:#fff;font-size:16px;font-family:var(--body);font-weight:500;outline:none;transition:border-color .2s,box-shadow .2s}
+.wl-form input::placeholder{color:rgba(200,210,240,.35)}.wl-form input:focus{border-color:rgba(47,102,255,.5);box-shadow:0 0 0 4px rgba(47,102,255,.1)}
+.wl-cta{width:100%;border-radius:12px;min-height:52px}
+.wl-msg{min-height:20px;font-family:var(--heading);font-size:10px;letter-spacing:.06em;color:var(--cyan)}.wl-err{color:#fca5a5!important}
+.foot{padding:48px 28px 32px;border-top:1px solid var(--border)}.foot .section{max-width:900px;display:flex;flex-direction:column;align-items:center;gap:20px}
+.foot-brand{display:flex;align-items:center;gap:14px}.foot-orb{width:32px;height:32px;filter:drop-shadow(0 0 14px var(--blue-glow))}.foot-wm{height:20px;width:auto;opacity:.7}
+.foot-links{display:flex;gap:28px;flex-wrap:wrap;justify-content:center}.foot-links a{font-family:var(--heading);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);transition:color .2s}.foot-links a:hover{color:var(--text)}
+.foot-social{display:flex;gap:16px}.foot-social a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid var(--border);border-radius:50%;color:var(--text-dim);transition:color .2s,border-color .2s}.foot-social a:hover{color:var(--text);border-color:rgba(47,102,255,.35)}.foot-social svg{width:15px;height:15px;fill:currentColor}
+.foot-copy{font-family:var(--heading);font-size:10px;font-weight:500;letter-spacing:.06em;color:rgba(200,210,240,.2)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){.nav{padding:16px 20px}.nav-links{gap:18px}.nav-links a{font-size:9px;letter-spacing:.24em}.hero{padding:100px 20px 60px}.phone{width:220px;border-radius:36px}.phone::before{width:60px;height:20px;top:8px}.f-grid{grid-template-columns:1fr;gap:10px;max-width:400px;margin:0 auto}.f-card{display:grid;grid-template-columns:52px 1fr;gap:14px;text-align:left;padding:16px 18px}.f-icon{margin:0}.showcase-grid{grid-template-columns:1fr;text-align:center}.showcase-phones{order:-1}.showcase-phones .phone{width:180px}.showcase-phones .phone:last-child{margin-top:30px}.showcase-text{display:flex;flex-direction:column;align-items:center}.showcase-text p{text-align:center}}
+@media(max-width:420px){.hero h1{font-size:38px}.phone{width:200px;border-radius:32px}.showcase-phones .phone{width:150px;border-radius:28px}.cta{padding:0 28px;font-size:11px;min-height:50px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
-  <main class="page-shell">
-    <div class="ambient ambient-one"></div>
-    <div class="ambient ambient-two"></div>
-    <div class="ambient ambient-three"></div>
-
-    <section class="landing-card">
-      <header class="site-header">
-        <a href="#" class="brand" aria-label="Talon home">
-          <img src="./assets/Banner.png" alt="Talon" class="brand-wordmark" />
-        </a>
-        <nav><ul class="nav-links">
-          <li><a href="about.html">About</a></li>
-          <li><a href="privacy-policy.html">Privacy</a></li>
-        </ul></nav>
-      </header>
-
-      <section class="hero-section" id="top">
-        <div class="section-glow"></div>
-        <div class="coming-pill fade-in delay-1">Coming Soon</div>
-        <h1 class="hero-title fade-in delay-2">Discipline wins.<span>Every day.</span></h1>
-        <p class="hero-subtitle fade-in delay-3">Talon is the habit system that helps you focus, act, and grow &mdash; one mission at a time.</p>
-        <div class="phone-stage fade-in delay-4">
-          <div class="energy-streak energy-streak-one"></div>
-          <div class="energy-streak energy-streak-two"></div>
-          <img src="./assets/phone_screenshot_1.png" alt="Talon app preview showing daily actions" class="phone-image hero-phone" />
-        </div>
-        <a href="#waitlist" class="primary-cta hero-cta fade-in delay-5"><span>Join the Waitlist</span><span class="arrow">&rarr;</span></a>
-        <p class="micro-copy fade-in delay-5">Be the first to experience Talon.</p>
-      </section>
-
-      <section class="built-section">
-        <h2 class="section-kicker">Built to Win.</h2>
-        <div class="feature-stack">
-          <article class="feature-card">
-            <div class="feature-icon"><span class="target-icon"></span></div>
-            <div><h3>Focus</h3><p>Cut through the noise and focus on what matters.</p></div>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon"><span class="bolt-icon">&#9889;</span></div>
-            <div><h3>Action</h3><p>Small steps. Daily momentum. Real change.</p></div>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon"><span class="discipline-icon"></span></div>
-            <div><h3>Discipline</h3><p>Stay consistent. Build habits that compound.</p></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="why-section">
-        <h2 class="section-kicker">Why Talon?</h2>
-        <p class="why-copy">Talon is more than a tracker. It's your personal system for discipline, clarity, and growth.</p>
-        <div class="stat-panel">
-          <div class="stat-item"><strong>1</strong><span>Focus</span></div>
-          <div class="stat-divider"></div>
-          <div class="stat-item"><strong>1</strong><span>Action</span></div>
-          <div class="stat-divider"></div>
-          <div class="stat-item"><strong>&infin;</strong><span>Growth</span></div>
-        </div>
-      </section>
-
-      <section class="momentum-card">
-        <div class="momentum-phone-wrap">
-          <img src="./assets/phone_screenshot_2.png" alt="Talon universe view" class="phone-image small-phone" />
-        </div>
-        <div class="momentum-content">
-          <h2>Small actions.<span>Real momentum.</span></h2>
-          <p>Track your habits, stay consistent, and watch your identity evolve.</p>
-        </div>
-      </section>
-
-      <section class="waitlist-section" id="waitlist">
-        <h2>Join the Movement</h2>
-        <p>Be part of the community building discipline, one action at a time.</p>
-        <form class="waitlist-form" id="waitlistForm" action="https://app.kit.com/forms/9366718/subscriptions" method="POST" novalidate>
-          <label for="email" class="sr-only">Email address</label>
-          <input type="email" id="email" name="email_address" placeholder="Email address" autocomplete="email" spellcheck="false" required />
-          <button type="submit" class="primary-cta form-cta" id="waitlistSubmit"><span>Count Me In</span></button>
-          <p class="form-message" id="formMessage" aria-live="polite"></p>
-        </form>
-      </section>
-
-      <footer class="site-footer">
-        <div class="footer-brand">
-          <img src="./assets/talon_new_orb.png" alt="" class="footer-orb" aria-hidden="true" />
-          <img src="./assets/Banner.png" alt="Talon" class="footer-wordmark" />
-        </div>
-        <nav class="footer-links" aria-label="Footer navigation">
-          <a href="#top">Top</a>
-          <a href="#waitlist">Waitlist</a>
-          <a href="about.html">About</a>
-          <a href="privacy-policy.html">Privacy</a>
-        </nav>
-        <div class="footer-social">
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-          <a href="#" aria-label="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-          <a href="mailto:marcos@talonapp.co" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
-        </div>
-        <p class="copyright">&copy; 2026 Talon Build LLC. All rights reserved.</p>
-      </footer>
-    </section>
-  </main>
-
-  <script>
-  (function(){
-    var form=document.getElementById('waitlistForm'),emailInput=document.getElementById('email'),msg=document.getElementById('formMessage'),btn=document.getElementById('waitlistSubmit');
-    form.addEventListener('submit',async function(e){
-      e.preventDefault();
-      var v=emailInput.value.trim();
-      if(!v){msg.textContent='Please enter your email.';msg.classList.add('form-error');return}
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){msg.textContent='Please enter a valid email.';msg.classList.add('form-error');return}
-      msg.classList.remove('form-error');btn.disabled=true;btn.querySelector('span').textContent='...';
-      try{var fd=new FormData(form);await fetch(form.action,{method:'POST',body:fd,mode:'no-cors'})}catch(err){console.log('Submission posted.')}
-      msg.textContent="You're on the list. Built to win.";emailInput.value='';btn.disabled=false;btn.querySelector('span').textContent='Count Me In';
-    });
-  })();
-  </script>
+<div id="stars" aria-hidden="true"><canvas id="c"></canvas></div>
+<div class="page">
+<nav class="nav"><a href="#" class="nav-brand"><img src="./assets/Banner.png" alt="Talon"/></a><ul class="nav-links"><li><a href="about.html">About</a></li><li><a href="privacy-policy.html">Privacy</a></li></ul></nav>
+<section class="hero" id="top">
+<div class="hero-pill">Coming Soon</div>
+<h1>Discipline wins.<br/><em>Every day.</em></h1>
+<p class="hero-sub">Talon is an iOS app that builds your habit system. One focused action per day. That's it.</p>
+<div style="position:relative"><div class="phone"><img src="./assets/hero_phone.png" alt="Talon dashboard showing active goal and progress"/></div><div class="phone-glow"></div></div>
+<div class="hero-cta"><a href="#waitlist" class="cta"><span>Join the Waitlist</span><span class="arrow">&rarr;</span></a></div>
+<p class="hero-micro">Be the first to experience Talon.</p>
+</section>
+<section class="features reveal"><div class="section"><h2 class="s-title">Built to Win.</h2><div class="f-grid">
+<article class="f-card"><div class="f-icon"><span class="icon-target"></span></div><div><h3>Focus</h3><p>One goal at a time. Cut the noise.</p></div></article>
+<article class="f-card"><div class="f-icon"><em class="icon-bolt">&#9889;</em></div><div><h3>Action</h3><p>Small steps. Daily momentum. Real change.</p></div></article>
+<article class="f-card"><div class="f-icon"><span class="icon-disc"></span></div><div><h3>Discipline</h3><p>Stay consistent. Build habits that compound.</p></div></article>
+</div></div></section>
+<section class="showcase reveal"><div class="section"><div class="showcase-grid">
+<div class="showcase-phones"><div class="phone"><img src="./assets/action_orb.png" alt="Talon orb screen"/></div><div class="phone"><img src="./assets/action_detail.png" alt="Talon action generated"/></div></div>
+<div class="showcase-text"><h2>Tap. Build.<em>Repeat.</em></h2><p>Every action is personalized to your goal, calibrated to your phase, and designed to be done in minutes. Talon does the thinking. You do the doing.</p></div>
+</div></div></section>
+<section class="stats reveal"><div class="section"><h2 class="s-title">Why Talon?</h2><p class="stats-copy">Your personal system for discipline, clarity, and growth.</p><div class="stat-bar"><div class="stat"><strong>1</strong><span>Focus</span></div><div class="stat-div"></div><div class="stat"><strong>1</strong><span>Action</span></div><div class="stat-div"></div><div class="stat"><strong>&infin;</strong><span>Growth</span></div></div></div></section>
+<section class="waitlist reveal" id="waitlist"><div class="section"><h2>Join the Movement</h2><p>Be part of the community building discipline, one action at a time.</p>
+<form class="wl-form" id="wlForm" action="https://app.kit.com/forms/9366718/subscriptions" method="POST" novalidate><label for="wlEmail" style="position:absolute;width:1px;height:1px;clip:rect(0,0,0,0)">Email</label><input type="email" id="wlEmail" name="email_address" placeholder="Email address" autocomplete="email" spellcheck="false" required/><button type="submit" class="cta wl-cta" id="wlBtn"><span>Count Me In</span></button><p class="wl-msg" id="wlMsg" aria-live="polite"></p></form>
+</div></section>
+<footer class="foot"><div class="section">
+<div class="foot-brand"><img src="./assets/talon_new_orb.png" alt="" class="foot-orb"/><img src="./assets/Banner.png" alt="Talon" class="foot-wm"/></div>
+<nav class="foot-links"><a href="#top">Top</a><a href="#waitlist">Waitlist</a><a href="about.html">About</a><a href="privacy-policy.html">Privacy</a></nav>
+<div class="foot-social">
+<a href="https://www.instagram.com/talonbuild/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+<a href="https://x.com/talonbuild" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+<a href="https://www.tiktok.com/@talonbuild" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.72a8.19 8.19 0 004.76 1.52V6.79a4.84 4.84 0 01-1-.1z"/></svg></a>
+</div>
+<p class="foot-copy">&copy; 2026 Talon Build LLC. All rights reserved.</p>
+</div></footer>
+</div>
+<script>
+!function(){var c=document.getElementById("c");if(!c)return;var x=c.getContext("2d"),d=Math.min(devicePixelRatio||1,2),W,H,stars=[],neb=[];function r(a,b){return a+Math.random()*(b-a)}function build(){W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+"px";c.style.height=H+"px";x.setTransform(d,0,0,d,0,0);var n=Math.floor(W*H/8000);stars=[];for(var i=0;i<n;i++){var z=r(.4,3);stars.push({x:Math.random()*W,y:Math.random()*H,z:z,s:r(.3,1.4)/Math.sqrt(z),a:r(.2,.8),ts:r(.5,2),tp:Math.random()*6.28,dx:r(-.01,.01)/z,dy:r(-.006,.006)/z,t:Math.random()<.15})}neb=[];for(var i=0;i<(W<768?2:3);i++)neb.push({x:Math.random()*W,y:Math.random()*H,r:r(160,320),h:Math.random()<.5?"59,130,246":"147,197,253",a:r(.02,.05),dx:r(-.03,.03),dy:r(-.02,.02)})}var lt=performance.now(),vis=true;function f(now){if(!vis){requestAnimationFrame(f);return}var dt=Math.min(.05,(now-lt)/1e3);lt=now;var t=now/1e3;x.clearRect(0,0,W,H);for(var i=0;i<neb.length;i++){var n=neb[i];n.x+=n.dx*dt*60;n.y+=n.dy*dt*60;if(n.x<-n.r)n.x=W+n.r;if(n.x>W+n.r)n.x=-n.r;if(n.y<-n.r)n.y=H+n.r;if(n.y>H+n.r)n.y=-n.r;var g=x.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);g.addColorStop(0,"rgba("+n.h+","+n.a+")");g.addColorStop(1,"rgba("+n.h+",0)");x.fillStyle=g;x.fillRect(n.x-n.r,n.y-n.r,n.r*2,n.r*2)}x.globalCompositeOperation="lighter";for(var i=0;i<stars.length;i++){var s=stars[i];s.x+=s.dx*dt*60;s.y+=s.dy*dt*60;if(s.x<-2)s.x=W+2;if(s.x>W+2)s.x=-2;if(s.y<-2)s.y=H+2;if(s.y>H+2)s.y=-2;var tw=.6+.4*Math.sin(t*s.ts+s.tp),a=s.a*tw,rgb=s.t?"191,219,254":"255,255,255";x.fillStyle="rgba("+rgb+","+a*.25+")";x.beginPath();x.arc(s.x,s.y,s.s*2.5,0,6.28);x.fill();x.fillStyle="rgba("+rgb+","+a+")";x.beginPath();x.arc(s.x,s.y,s.s,0,6.28);x.fill()}x.globalCompositeOperation="source-over";requestAnimationFrame(f)}document.addEventListener("visibilitychange",function(){vis=!document.hidden;if(vis)lt=performance.now()});build();addEventListener("resize",build,{passive:true});requestAnimationFrame(f)}();
+!function(){var els=document.querySelectorAll(".reveal"),ob=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");ob.unobserve(e.target)}})},{threshold:.15});els.forEach(function(el){ob.observe(el)})}();
+!function(){var f=document.getElementById("wlForm"),e=document.getElementById("wlEmail"),m=document.getElementById("wlMsg"),b=document.getElementById("wlBtn");f.addEventListener("submit",async function(ev){ev.preventDefault();var v=e.value.trim();if(!v||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.textContent="Please enter a valid email.";m.classList.add("wl-err");return}m.classList.remove("wl-err");b.disabled=true;b.querySelector("span").textContent="...";try{await fetch(f.action,{method:"POST",body:new FormData(f),mode:"no-cors"})}catch(err){}m.textContent="You\u2019re on the list. Built to win.";e.value="";b.disabled=false;b.querySelector("span").textContent="Count Me In"})}();
+</script>
 </body>
 </html>
