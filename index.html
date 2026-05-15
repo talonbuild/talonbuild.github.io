@@ -27,8 +27,13 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 .hero-sub{font-family:var(--body);font-size:clamp(18px,3vw,22px);font-weight:400;color:var(--text-mid);max-width:440px;margin:0 auto 48px;line-height:1.65;animation:fadeUp .8s ease .3s both}
 .phone{position:relative;width:260px;margin:0 auto;border-radius:40px;border:3px solid rgba(255,255,255,.1);background:#0a0e1a;overflow:hidden;box-shadow:0 40px 100px -20px rgba(0,0,0,.8),0 0 60px -10px var(--blue-soft),inset 0 1px 0 rgba(255,255,255,.08);animation:fadeUp 1s ease .4s both}
 .phone img{width:100%;display:block}.phone::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:80px;height:24px;background:#0a0e1a;border-radius:20px;z-index:10;border:1px solid rgba(255,255,255,.05)}
-.phone-glow{position:absolute;width:300px;height:120px;bottom:-30px;left:50%;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(47,102,255,.35),transparent 70%);filter:blur(30px);z-index:0;pointer-events:none}
-.hero-cta{margin-top:40px;animation:fadeUp .8s ease .5s both}
+.hero-phone-wrap{position:relative;animation:fadeUp 1s ease .4s both}
+.hero-phone-wrap .phone{animation:phoneFloat 5s ease-in-out infinite;box-shadow:0 40px 100px -20px rgba(0,0,0,.8),0 0 80px -10px rgba(47,102,255,.2),inset 0 1px 0 rgba(255,255,255,.08)}
+@keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-14px) rotate(.5deg)}50%{transform:translateY(-8px) rotate(0deg)}75%{transform:translateY(-18px) rotate(-.5deg)}}
+.phone-glow{position:absolute;width:340px;height:140px;bottom:-40px;left:50%;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(47,102,255,.4),transparent 65%);filter:blur(35px);z-index:0;pointer-events:none;animation:glowPulse 5s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{opacity:.7;transform:translateX(-50%) scale(1)}25%{opacity:1;transform:translateX(-50%) scale(1.08)}50%{opacity:.85;transform:translateX(-50%) scale(1.03)}75%{opacity:1;transform:translateX(-50%) scale(1.1)}}
+.phone-reflection{position:absolute;bottom:-60px;left:50%;transform:translateX(-50%) scaleY(-1);width:220px;opacity:.08;filter:blur(6px);pointer-events:none;border-radius:40px;overflow:hidden;mask-image:linear-gradient(to bottom,rgba(0,0,0,.4),transparent 60%);-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.4),transparent 60%)}
+.hero-cta{margin-top:60px;animation:fadeUp .8s ease .5s both}
 .cta{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:56px;padding:0 36px;border-radius:999px;font-family:var(--heading);font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,#3570ff,#1a3fd4);border:1px solid rgba(120,160,255,.5);box-shadow:0 16px 48px rgba(30,80,255,.35),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .2s,box-shadow .3s;position:relative;overflow:hidden}
 .cta::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%);transform:translateX(-120%);transition:transform .6s}
 .cta:hover{transform:translateY(-2px);box-shadow:0 20px 56px rgba(30,80,255,.45),inset 0 1px 0 rgba(255,255,255,.25)}.cta:hover::after{transform:translateX(120%)}.cta:active{transform:translateY(0)}
@@ -86,7 +91,11 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 <div class="hero-pill">Coming Soon</div>
 <h1>Discipline wins.<br/><em>Every day.</em></h1>
 <p class="hero-sub">Talon is an iOS app that builds your habit system. One focused action per day. That's it.</p>
-<div style="position:relative"><div class="phone"><img src="./assets/hero_phone.png" alt="Talon dashboard showing active goal and progress"/></div><div class="phone-glow"></div></div>
+<div class="hero-phone-wrap">
+<div class="phone"><img src="./assets/hero_phone.png" alt="Talon app showing the orb and dashboard"/></div>
+<div class="phone-glow"></div>
+<div class="phone-reflection"><img src="./assets/hero_phone.png" alt="" aria-hidden="true"/></div>
+</div>
 <div class="hero-cta"><a href="#waitlist" class="cta"><span>Join the Waitlist</span><span class="arrow">&rarr;</span></a></div>
 <p class="hero-micro">Be the first to experience Talon.</p>
 </section>
