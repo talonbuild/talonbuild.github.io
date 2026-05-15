@@ -29,19 +29,13 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 .phone{position:relative;width:260px;margin:0 auto;border-radius:40px;border:3px solid rgba(255,255,255,.1);background:#0a0e1a;overflow:hidden;box-shadow:0 40px 100px -20px rgba(0,0,0,.8),0 0 60px -10px var(--blue-soft),inset 0 1px 0 rgba(255,255,255,.08);animation:fadeUp 1s ease .4s both}
 .phone-screen{position:relative;overflow:hidden}
 .phone-screen img{width:100%;display:block;transition:opacity .6s ease}
-.phone-screen .screen-b{position:absolute;inset:0;opacity:0}
-.phone-screen.flipped .screen-a{opacity:0}
-.phone-screen.flipped .screen-b{opacity:1}
+.phone-screen .screen-b{position:absolute;inset:0;opacity:0;animation:screenFade 8s ease-in-out infinite}
+@keyframes screenFade{0%,42%{opacity:0}50%,92%{opacity:1}100%{opacity:0}}
 .hero-phone-wrap{position:relative;animation:fadeUp 1s ease .4s both}
 .hero-phone-wrap .phone{animation:phoneFloat 5s ease-in-out infinite}
 @keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-14px) rotate(.5deg)}50%{transform:translateY(-8px) rotate(0deg)}75%{transform:translateY(-18px) rotate(-.5deg)}}
 .phone-glow{position:absolute;width:340px;height:140px;bottom:-40px;left:50%;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(47,102,255,.4),transparent 65%);filter:blur(35px);z-index:0;pointer-events:none;animation:glowPulse 5s ease-in-out infinite}
 @keyframes glowPulse{0%,100%{opacity:.7;transform:translateX(-50%) scale(1)}25%{opacity:1;transform:translateX(-50%) scale(1.08)}50%{opacity:.85;transform:translateX(-50%) scale(1.03)}75%{opacity:1;transform:translateX(-50%) scale(1.1)}}
-.tap-orb{position:absolute;right:-36px;top:50%;transform:translateY(-50%);width:52px;height:52px;cursor:pointer;border:none;background:transparent;padding:0;z-index:10;filter:drop-shadow(0 0 16px var(--blue-glow));transition:transform .2s,filter .2s;-webkit-tap-highlight-color:transparent}
-.tap-orb:hover{transform:translateY(-50%) scale(1.1);filter:drop-shadow(0 0 24px var(--blue-glow))}
-.tap-orb:active{transform:translateY(-50%) scale(.95)}
-.tap-orb img{width:100%;height:100%;object-fit:contain;border-radius:50%}
-.tap-hint{position:absolute;right:-36px;top:calc(50% + 36px);transform:translateY(-50%);font-family:var(--heading);font-size:8px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap;text-align:center;width:52px;animation:fadeUp .8s ease .8s both}
 .hero-cta{margin-top:60px;animation:fadeUp .8s ease .5s both}
 .cta{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:56px;padding:0 36px;border-radius:999px;font-family:var(--heading);font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,#3570ff,#1a3fd4);border:1px solid rgba(120,160,255,.5);box-shadow:0 16px 48px rgba(30,80,255,.35),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .2s,box-shadow .3s;position:relative;overflow:hidden}
 .cta::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%);transform:translateX(-120%);transition:transform .6s}
@@ -61,8 +55,8 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 @keyframes targetPulse{0%,100%{box-shadow:inset 0 0 0 4px #0c1830,inset 0 0 0 6px var(--blue),0 0 14px var(--blue-glow)}50%{box-shadow:inset 0 0 0 4px #0c1830,inset 0 0 0 6px var(--blue),0 0 28px var(--blue-glow),0 0 48px rgba(47,102,255,.2)}}
 .icon-bolt{font-size:26px;color:var(--cyan);text-shadow:0 0 14px rgba(72,204,255,.6);font-style:normal;animation:boltFlicker 3s ease-in-out infinite}
 @keyframes boltFlicker{0%,100%{opacity:1;text-shadow:0 0 14px rgba(72,204,255,.6)}15%{opacity:.4;text-shadow:0 0 4px rgba(72,204,255,.2)}30%{opacity:1;text-shadow:0 0 20px rgba(72,204,255,.8)}45%{opacity:.6;text-shadow:0 0 8px rgba(72,204,255,.3)}60%{opacity:1;text-shadow:0 0 18px rgba(72,204,255,.7)}80%{opacity:.85;text-shadow:0 0 10px rgba(72,204,255,.4)}}
-.icon-hammer{font-size:22px;color:var(--blue);font-style:normal;display:inline-block;animation:hammerStrike 2s ease-in-out infinite;transform-origin:bottom right}
-@keyframes hammerStrike{0%,60%,100%{transform:rotate(0deg)}70%{transform:rotate(-30deg)}80%{transform:rotate(4deg)}90%{transform:rotate(-2deg)}}
+.icon-shield{width:22px;height:26px;background:var(--blue);clip-path:polygon(50% 0%,100% 20%,100% 65%,50% 100%,0% 65%,0% 20%);box-shadow:0 0 14px var(--blue-glow);animation:shieldBeat 2s ease-in-out infinite}
+@keyframes shieldBeat{0%,100%{transform:scale(1);filter:drop-shadow(0 0 8px rgba(47,102,255,.4))}15%{transform:scale(1.15);filter:drop-shadow(0 0 18px rgba(47,102,255,.8))}30%{transform:scale(1);filter:drop-shadow(0 0 8px rgba(47,102,255,.4))}45%{transform:scale(1.08);filter:drop-shadow(0 0 14px rgba(47,102,255,.6))}60%{transform:scale(1);filter:drop-shadow(0 0 8px rgba(47,102,255,.4))}}
 .showcase{padding:60px 28px 80px}.showcase .section{max-width:900px}
 .showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
 .showcase-phones{display:flex;gap:20px;justify-content:center}
@@ -92,7 +86,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 .foot-copy{font-family:var(--heading);font-size:10px;font-weight:500;letter-spacing:.06em;color:rgba(200,210,240,.2)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
-@media(max-width:768px){.nav{padding:16px 20px}.nav-links{gap:18px}.nav-links a{font-size:9px;letter-spacing:.24em}.hero{padding:100px 20px 60px}.phone{width:220px;border-radius:36px}.tap-orb{right:-30px;width:44px;height:44px}.tap-hint{right:-30px;width:44px;top:calc(50% + 32px);font-size:7px}.phone::before{width:60px;height:20px;top:8px}.f-grid{grid-template-columns:1fr;gap:10px;max-width:400px;margin:0 auto}.f-card{display:grid;grid-template-columns:52px 1fr;gap:14px;text-align:left;padding:16px 18px}.f-icon{margin:0}.showcase-grid{grid-template-columns:1fr;text-align:center}.showcase-phones{order:-1}.showcase-phones .phone{width:180px}.showcase-phones .phone:last-child{margin-top:30px}.showcase-text{display:flex;flex-direction:column;align-items:center}.showcase-text p{text-align:center}}
+@media(max-width:768px){.nav{padding:16px 20px}.nav-links{gap:18px}.nav-links a{font-size:9px;letter-spacing:.24em}.hero{padding:100px 20px 60px}.phone{width:220px;border-radius:36px}.phone::before{width:60px;height:20px;top:8px}.f-grid{grid-template-columns:1fr;gap:10px;max-width:400px;margin:0 auto}.f-card{display:grid;grid-template-columns:52px 1fr;gap:14px;text-align:left;padding:16px 18px}.f-icon{margin:0}.showcase-grid{grid-template-columns:1fr;text-align:center}.showcase-phones{order:-1}.showcase-phones .phone{width:180px}.showcase-phones .phone:last-child{margin-top:30px}.showcase-text{display:flex;flex-direction:column;align-items:center}.showcase-text p{text-align:center}}
 @media(max-width:420px){.hero h1{font-size:38px}.phone{width:200px;border-radius:32px}.showcase-phones .phone{width:150px;border-radius:28px}.cta{padding:0 28px;font-size:11px;min-height:50px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
@@ -107,8 +101,6 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 <p class="hero-sub">Talon is an iOS app that builds your habit system. One focused action per day. That's it.</p>
 <div class="hero-phone-wrap">
 <div class="phone"><div class="phone-screen" id="heroScreen"><img class="screen-a" src="./assets/hero_phone.png" alt="Talon empty dashboard"/><img class="screen-b" src="./assets/hero_phone_active.png" alt="Talon active dashboard"/></div></div>
-<button class="tap-orb" id="tapOrb" aria-label="Tap to switch view"><img src="./assets/talon_new_orb.png" alt=""/></button>
-<span class="tap-hint">Tap</span>
 <div class="phone-glow"></div>
 </div>
 <div class="hero-cta"><a href="#waitlist" class="cta"><span>Join the Waitlist</span><span class="arrow">&rarr;</span></a></div>
@@ -117,7 +109,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 <section class="features reveal"><div class="section"><h2 class="s-title">Built to Win.</h2><div class="f-grid">
 <article class="f-card"><div class="f-icon"><span class="icon-target"></span></div><div><h3>Focus</h3><p>One goal at a time. Cut the noise.</p></div></article>
 <article class="f-card"><div class="f-icon"><em class="icon-bolt">&#9889;</em></div><div><h3>Action</h3><p>Small steps. Daily momentum. Real change.</p></div></article>
-<article class="f-card"><div class="f-icon"><em class="icon-hammer">&#9879;</em></div><div><h3>Discipline</h3><p>Stay consistent. Build habits that compound.</p></div></article>
+<article class="f-card"><div class="f-icon"><span class="icon-shield"></span></div><div><h3>Discipline</h3><p>Stay consistent. Build habits that compound.</p></div></article>
 </div></div></section>
 <section class="showcase reveal"><div class="section"><div class="showcase-grid">
 <div class="showcase-phones"><div class="phone"><img src="./assets/action_orb.png" alt="Talon orb screen"/></div><div class="phone"><img src="./assets/action_detail.png" alt="Talon action generated"/></div></div>
@@ -141,8 +133,6 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;curs
 <script>
 !function(){var c=document.getElementById("c");if(!c)return;var x=c.getContext("2d"),d=Math.min(devicePixelRatio||1,2),W,H,stars=[],neb=[];function r(a,b){return a+Math.random()*(b-a)}function build(){W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+"px";c.style.height=H+"px";x.setTransform(d,0,0,d,0,0);var n=Math.floor(W*H/8000);stars=[];for(var i=0;i<n;i++){var z=r(.4,3);stars.push({x:Math.random()*W,y:Math.random()*H,z:z,s:r(.3,1.4)/Math.sqrt(z),a:r(.2,.8),ts:r(.5,2),tp:Math.random()*6.28,dx:r(-.01,.01)/z,dy:r(-.006,.006)/z,t:Math.random()<.15})}neb=[];for(var i=0;i<(W<768?2:3);i++)neb.push({x:Math.random()*W,y:Math.random()*H,r:r(160,320),h:Math.random()<.5?"59,130,246":"147,197,253",a:r(.02,.05),dx:r(-.03,.03),dy:r(-.02,.02)})}var lt=performance.now(),vis=true;function f(now){if(!vis){requestAnimationFrame(f);return}var dt=Math.min(.05,(now-lt)/1e3);lt=now;var t=now/1e3;x.clearRect(0,0,W,H);for(var i=0;i<neb.length;i++){var n=neb[i];n.x+=n.dx*dt*60;n.y+=n.dy*dt*60;if(n.x<-n.r)n.x=W+n.r;if(n.x>W+n.r)n.x=-n.r;if(n.y<-n.r)n.y=H+n.r;if(n.y>H+n.r)n.y=-n.r;var g=x.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);g.addColorStop(0,"rgba("+n.h+","+n.a+")");g.addColorStop(1,"rgba("+n.h+",0)");x.fillStyle=g;x.fillRect(n.x-n.r,n.y-n.r,n.r*2,n.r*2)}x.globalCompositeOperation="lighter";for(var i=0;i<stars.length;i++){var s=stars[i];s.x+=s.dx*dt*60;s.y+=s.dy*dt*60;if(s.x<-2)s.x=W+2;if(s.x>W+2)s.x=-2;if(s.y<-2)s.y=H+2;if(s.y>H+2)s.y=-2;var tw=.6+.4*Math.sin(t*s.ts+s.tp),a=s.a*tw,rgb=s.t?"191,219,254":"255,255,255";x.fillStyle="rgba("+rgb+","+a*.25+")";x.beginPath();x.arc(s.x,s.y,s.s*2.5,0,6.28);x.fill();x.fillStyle="rgba("+rgb+","+a+")";x.beginPath();x.arc(s.x,s.y,s.s,0,6.28);x.fill()}x.globalCompositeOperation="source-over";requestAnimationFrame(f)}document.addEventListener("visibilitychange",function(){vis=!document.hidden;if(vis)lt=performance.now()});build();addEventListener("resize",build,{passive:true});requestAnimationFrame(f)}();
 !function(){var els=document.querySelectorAll(".reveal"),ob=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");ob.unobserve(e.target)}})},{threshold:.15});els.forEach(function(el){ob.observe(el)})}();
-/* Orb tap toggle */
-!function(){var s=document.getElementById("heroScreen"),o=document.getElementById("tapOrb");if(s&&o){o.addEventListener("click",function(){s.classList.toggle("flipped")})}}();
 /* Form */
 !function(){var f=document.getElementById("wlForm"),e=document.getElementById("wlEmail"),m=document.getElementById("wlMsg"),b=document.getElementById("wlBtn");f.addEventListener("submit",async function(ev){ev.preventDefault();var v=e.value.trim();if(!v||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.textContent="Please enter a valid email.";m.classList.add("wl-err");return}m.classList.remove("wl-err");b.disabled=true;b.querySelector("span").textContent="...";try{await fetch(f.action,{method:"POST",body:new FormData(f),mode:"no-cors"})}catch(err){}m.textContent="You\u2019re on the list. Built to win.";e.value="";b.disabled=false;b.querySelector("span").textContent="Count Me In"})}();
 </script>
