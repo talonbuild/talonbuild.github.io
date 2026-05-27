@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#030712;--blue:#60A5FA;--blue2:#3B82F6;--glow:rgba(96,165,250,.35);--t1:#f1f5ff;--t2:rgba(200,215,255,.55);--t3:rgba(160,180,220,.3);--line:rgba(96,165,250,.08);--f:'Cinzel',Georgia,serif}
+:root{--bg:#030712;--blue:#60A5FA;--blue2:#3B82F6;--glow:rgba(96,165,250,.35);--t1:#ffffff;--t2:rgba(255,255,255,.7);--t3:rgba(255,255,255,.45);--line:rgba(96,165,250,.08);--f:'Cinzel',Georgia,serif}
 html{scroll-behavior:smooth;background:var(--bg)}
 body{font-family:var(--f);color:var(--t1);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
@@ -32,7 +32,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 
 /* ====== HERO ====== */
 .hero{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;position:relative}
-.hero-orb{width:min(240px,50vw);height:auto;margin-bottom:48px;border-radius:50%;filter:drop-shadow(0 0 40px var(--glow)) drop-shadow(0 0 100px rgba(96,165,250,.15));animation:orbIn 1.8s cubic-bezier(.16,1,.3,1) .2s both,orbHover 6s ease-in-out 2s infinite}
+.hero-orb{width:min(200px,42vw);height:auto;aspect-ratio:1/1;object-fit:contain;margin-bottom:40px;border-radius:50%;filter:drop-shadow(0 0 40px var(--glow)) drop-shadow(0 0 100px rgba(96,165,250,.15));animation:orbIn 1.8s cubic-bezier(.16,1,.3,1) .2s both,orbHover 6s ease-in-out 2s infinite}
 @keyframes orbIn{0%{opacity:0;transform:scale(.8) translateY(20px);filter:blur(12px) drop-shadow(0 0 0 transparent)}100%{opacity:1;transform:scale(1) translateY(0);filter:blur(0) drop-shadow(0 0 40px var(--glow)) drop-shadow(0 0 100px rgba(96,165,250,.15))}}
 @keyframes orbHover{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 .hero h1{font-size:clamp(36px,8vw,72px);font-weight:800;line-height:.95;letter-spacing:-.01em;margin-bottom:20px;opacity:0;animation:textIn .9s ease .8s forwards}
@@ -48,14 +48,18 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 .div{width:48px;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:0 auto}
 
 /* ====== PHONE SECTION ====== */
-.phones-sec{padding:100px 24px 80px;text-align:center}
+.phones-sec{padding:80px 24px 60px;text-align:center}
 .phones-sec h2{font-size:clamp(24px,5vw,40px);font-weight:700;line-height:1.15;margin-bottom:12px}
 .phones-sec h2 em{font-style:italic;color:var(--blue);text-shadow:0 0 24px var(--glow)}
-.phones-sec>p{font-size:14px;font-weight:400;color:var(--t2);margin-bottom:56px;letter-spacing:.02em}
-.ph-row{display:flex;gap:20px;justify-content:center;position:relative}
-.ph-row::before{content:'';position:absolute;width:130%;height:80px;top:40%;left:-15%;background:linear-gradient(90deg,transparent,rgba(60,180,255,.2),rgba(96,165,250,.3),rgba(44,83,255,.06),transparent);filter:blur(16px);transform:rotate(-6deg);pointer-events:none;z-index:0;opacity:.7}
-.ph-row img{position:relative;z-index:1;height:clamp(320px,52vw,500px);border-radius:28px;border:1.5px solid rgba(255,255,255,.06);box-shadow:0 28px 80px -16px rgba(0,0,0,.7),0 0 50px rgba(96,165,250,.07);transition:transform .5s cubic-bezier(.16,1,.3,1)}
-.ph-row img:hover{transform:translateY(-8px)}
+.phones-sec>p{font-size:15px;font-weight:400;color:var(--t2);margin-bottom:48px;letter-spacing:.02em}
+.phone-wrap{position:relative;width:min(280px,65vw);margin:0 auto}
+.phone-frame{position:relative;border-radius:32px;border:2px solid rgba(255,255,255,.08);overflow:hidden;box-shadow:0 28px 80px -16px rgba(0,0,0,.7),0 0 50px rgba(96,165,250,.08);animation:phoneFloat 5s ease-in-out infinite}
+@keyframes phoneFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.phone-frame img{width:100%;display:block;transition:opacity .8s ease}
+.phone-frame .scr-b{position:absolute;inset:0;opacity:0;animation:scrSwitch 8s ease-in-out infinite}
+@keyframes scrSwitch{0%,40%{opacity:0}50%,90%{opacity:1}100%{opacity:0}}
+.phone-wrap::after{content:'';position:absolute;width:90%;height:50px;bottom:-16px;left:5%;background:radial-gradient(ellipse,rgba(96,165,250,.25),transparent 70%);filter:blur(20px);pointer-events:none;animation:glowSync 5s ease-in-out infinite}
+@keyframes glowSync{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
 
 /* ====== PILLARS ====== */
 .pillars{padding:100px 24px;max-width:800px;margin:0 auto}
@@ -90,7 +94,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 /* ====== CTA ====== */
 .cta{text-align:center;padding:120px 24px 40px;position:relative}
 .cta::before{content:'';position:absolute;width:500px;height:500px;top:30%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(96,165,250,.07),transparent 60%);border-radius:50%;pointer-events:none}
-.cta-orb{width:160px;height:160px;margin:0 auto 40px;display:block;border-radius:50%;filter:drop-shadow(0 0 36px var(--glow)) drop-shadow(0 0 90px rgba(96,165,250,.15));animation:orbHover 6s ease-in-out infinite}
+.cta-orb{width:140px;height:auto;aspect-ratio:1/1;object-fit:contain;margin:0 auto 36px;display:block;border-radius:50%;filter:drop-shadow(0 0 36px var(--glow)) drop-shadow(0 0 90px rgba(96,165,250,.15));animation:orbHover 6s ease-in-out infinite}
 .cta h2{font-size:clamp(28px,5vw,44px);font-weight:700;margin-bottom:14px}
 .cta .sub{font-size:14px;font-weight:400;color:var(--t2);margin-bottom:40px}
 .dl2{display:inline-flex;align-items:center;gap:14px;background:transparent;color:var(--t1);padding:14px 34px;border-radius:60px;border:1.5px solid rgba(96,165,250,.4);font-size:14px;font-weight:700;letter-spacing:.05em;transition:all .25s}
@@ -124,8 +128,9 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 /* Responsive */
 @media(max-width:768px){
   .n{padding:16px 20px}.n img{height:26px}.n ul{gap:16px}.n a{font-size:9px}
-  .hero{padding:90px 20px 50px}.hero-orb{width:min(180px,45vw);margin-bottom:36px}
-  .ph-row{gap:10px}.ph-row img{border-radius:22px}
+  .hero{padding:90px 20px 50px}.hero-orb{width:min(160px,40vw);margin-bottom:32px}
+  .phone-wrap{width:min(260px,70vw)}
+  .phone-frame{border-radius:28px}
   .p-grid{grid-template-columns:1fr;border-radius:14px}.p-card{padding:28px 20px}
   .sc-row,.sc-row.rev{flex-direction:column;text-align:center;gap:36px}
   .sc-txt{order:1}
@@ -134,8 +139,8 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
   .ft{justify-content:center;text-align:center}.ft ul{justify-content:center;flex-wrap:wrap}
 }
 @media(max-width:420px){
-  .hero-orb{width:150px}
-  .ph-row img{height:260px;border-radius:18px}
+  .hero-orb{width:140px}
+  .phone-wrap{width:min(240px,75vw)}
   .dl,.dl2{padding:12px 26px;font-size:12px}
   .st strong{font-size:28px}
 }
@@ -169,9 +174,11 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 <section class="phones-sec rv">
   <h2>Your app.<br/><em>Your system.</em></h2>
   <p>Set a goal. Get one action. Build the habit.</p>
-  <div class="ph-row">
-    <img src="./assets/hero_phone.png" alt="Talon dashboard"/>
-    <img src="./assets/hero_phone_active.png" alt="Talon active goal"/>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <img src="./assets/hero_phone.png" alt="Talon dashboard" class="scr-a"/>
+      <img src="./assets/hero_phone_active.png" alt="Talon active goal" class="scr-b"/>
+    </div>
   </div>
 </section>
 
