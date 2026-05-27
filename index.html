@@ -1,140 +1,284 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>Talon — Habit Builder</title>
-<meta name="description" content="Talon is an iOS app that builds your habit system. One action at a time. Join the waitlist."/>
-<meta name="theme-color" content="#020510"/>
-<meta property="og:title" content="Talon — Habit Builder"/><meta property="og:description" content="Build habits that stick. One action at a time."/><meta property="og:type" content="website"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<style>
-:root{--bg:#020510;--blue:#2f66ff;--blue-glow:rgba(47,102,255,.5);--blue-soft:rgba(47,102,255,.12);--cyan:#48ccff;--text:#f0f2ff;--text-mid:rgba(225,230,255,.72);--text-dim:rgba(200,210,240,.4);--border:rgba(255,255,255,.07);--heading:"Cinzel",Georgia,serif;--body:"Cormorant Garamond",Georgia,serif}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;background:var(--bg)}
-body{font-family:var(--body);color:var(--text);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
-a{color:inherit;text-decoration:none}button{font-family:inherit;border:none;cursor:pointer;color:inherit;background:transparent}input{font-family:inherit}img{display:block;max-width:100%}::selection{background:rgba(47,102,255,.4);color:#fff}
-#stars{position:fixed;inset:0;z-index:0;pointer-events:none}#stars canvas{width:100%;height:100%}
-.page{position:relative;z-index:1}.section{max-width:1100px;margin:0 auto;padding:0 28px}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(2,5,16,.92),rgba(2,5,16,.6) 70%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.nav-brand{height:32px}.nav-brand img{height:100%;width:auto}
-.nav-links{display:flex;gap:28px;list-style:none}.nav-links a{font-family:var(--heading);font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--text-dim);transition:color .3s}.nav-links a:hover{color:var(--text)}
-.hero{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 28px 80px;position:relative}
-.hero-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 24px;border:1px solid var(--border);border-radius:999px;font-family:var(--heading);font-size:10px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--cyan);background:rgba(47,102,255,.06);margin-bottom:32px;animation:fadeUp .8s ease .1s both}
-.hero-pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
-.hero h1{font-family:var(--heading);font-size:clamp(42px,8vw,80px);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:24px;animation:fadeUp .8s ease .2s both}
-.hero h1 em{font-style:normal;color:var(--blue);text-shadow:0 0 40px var(--blue-glow)}
-.hero-sub{font-family:var(--body);font-size:clamp(18px,3vw,22px);font-weight:400;color:var(--text-mid);max-width:440px;margin:0 auto 48px;line-height:1.65;animation:fadeUp .8s ease .3s both}
-.phone{position:relative;width:260px;margin:0 auto;border-radius:40px;border:3px solid rgba(255,255,255,.1);background:#0a0e1a;overflow:hidden;box-shadow:0 40px 100px -20px rgba(0,0,0,.8),0 0 60px -10px var(--blue-soft),inset 0 1px 0 rgba(255,255,255,.08);animation:fadeUp 1s ease .4s both}
-.phone-screen{position:relative;overflow:hidden}
-.phone-screen img{width:100%;display:block;transition:opacity .6s ease}
-.phone-screen .screen-b{position:absolute;inset:0;opacity:0;animation:screenFade 8s ease-in-out infinite}
-@keyframes screenFade{0%,42%{opacity:0}50%,92%{opacity:1}100%{opacity:0}}
-.hero-phone-wrap{position:relative;animation:fadeUp 1s ease .4s both}
-.hero-phone-wrap .phone{animation:phoneFloat 5s ease-in-out infinite}
-@keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-14px) rotate(.5deg)}50%{transform:translateY(-8px) rotate(0deg)}75%{transform:translateY(-18px) rotate(-.5deg)}}
-.phone-glow{position:absolute;width:340px;height:140px;bottom:-40px;left:50%;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(47,102,255,.4),transparent 65%);filter:blur(35px);z-index:0;pointer-events:none;animation:glowPulse 5s ease-in-out infinite}
-@keyframes glowPulse{0%,100%{opacity:.7;transform:translateX(-50%) scale(1)}25%{opacity:1;transform:translateX(-50%) scale(1.08)}50%{opacity:.85;transform:translateX(-50%) scale(1.03)}75%{opacity:1;transform:translateX(-50%) scale(1.1)}}
-.hero-cta{margin-top:60px;animation:fadeUp .8s ease .5s both}
-.cta{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:56px;padding:0 36px;border-radius:999px;font-family:var(--heading);font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,#3570ff,#1a3fd4);border:1px solid rgba(120,160,255,.5);box-shadow:0 16px 48px rgba(30,80,255,.35),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .2s,box-shadow .3s;position:relative;overflow:hidden}
-.cta::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%);transform:translateX(-120%);transition:transform .6s}
-.cta:hover{transform:translateY(-2px);box-shadow:0 20px 56px rgba(30,80,255,.45),inset 0 1px 0 rgba(255,255,255,.25)}.cta:hover::after{transform:translateX(120%)}.cta:active{transform:translateY(0)}
-.cta .arrow{font-size:18px;transition:transform .3s}.cta:hover .arrow{transform:translateX(4px)}
-.cta:disabled{opacity:.6;cursor:not-allowed}
-.hero-micro{margin-top:14px;font-family:var(--heading);font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--text-dim);animation:fadeUp .8s ease .6s both}
-.s-title{font-family:var(--heading);font-size:clamp(14px,2.5vw,17px);font-weight:700;letter-spacing:.35em;text-transform:uppercase;text-align:center;color:rgba(255,255,255,.85);margin-bottom:36px;text-shadow:0 0 20px rgba(255,255,255,.1)}
-.features{padding:80px 28px 60px}.features .section{max-width:720px}
-.f-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.f-card{padding:28px 20px;border:1px solid var(--border);border-radius:20px;background:linear-gradient(180deg,rgba(12,22,48,.7),rgba(6,12,28,.8));backdrop-filter:blur(8px);text-align:center;transition:border-color .3s,transform .3s}
-.f-card:hover{border-color:rgba(47,102,255,.25);transform:translateY(-4px)}
-.f-icon{width:52px;height:52px;margin:0 auto 16px;display:grid;place-items:center;border:1px solid rgba(47,102,255,.2);border-radius:50%;background:radial-gradient(circle at 50% 40%,rgba(47,102,255,.25),transparent 60%),linear-gradient(180deg,rgba(18,30,60,.9),rgba(6,12,28,.95))}
-.f-card h3{font-family:var(--heading);font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin-bottom:8px;color:rgba(255,255,255,.92)}
-.f-card p{font-family:var(--body);font-size:15px;color:var(--text-mid);line-height:1.55}
-.icon-target{width:22px;height:22px;border:2px solid var(--blue);border-radius:50%;box-shadow:inset 0 0 0 4px #0c1830,inset 0 0 0 6px var(--blue),0 0 14px var(--blue-glow);animation:targetPulse 2.5s ease-in-out infinite}
-@keyframes targetPulse{0%,100%{box-shadow:inset 0 0 0 4px #0c1830,inset 0 0 0 6px var(--blue),0 0 14px var(--blue-glow)}50%{box-shadow:inset 0 0 0 4px #0c1830,inset 0 0 0 6px var(--blue),0 0 28px var(--blue-glow),0 0 48px rgba(47,102,255,.2)}}
-.icon-bolt{font-size:26px;color:var(--cyan);text-shadow:0 0 14px rgba(72,204,255,.6);font-style:normal;animation:boltFlicker 3s ease-in-out infinite}
-@keyframes boltFlicker{0%,100%{opacity:1;text-shadow:0 0 14px rgba(72,204,255,.6)}15%{opacity:.4;text-shadow:0 0 4px rgba(72,204,255,.2)}30%{opacity:1;text-shadow:0 0 20px rgba(72,204,255,.8)}45%{opacity:.6;text-shadow:0 0 8px rgba(72,204,255,.3)}60%{opacity:1;text-shadow:0 0 18px rgba(72,204,255,.7)}80%{opacity:.85;text-shadow:0 0 10px rgba(72,204,255,.4)}}
-.icon-shield{width:22px;height:26px;background:var(--blue);clip-path:polygon(50% 0%,100% 20%,100% 65%,50% 100%,0% 65%,0% 20%);box-shadow:0 0 14px var(--blue-glow);animation:shieldBeat 2s ease-in-out infinite}
-@keyframes shieldBeat{0%,100%{transform:scale(1);filter:drop-shadow(0 0 8px rgba(47,102,255,.4))}15%{transform:scale(1.15);filter:drop-shadow(0 0 18px rgba(47,102,255,.8))}30%{transform:scale(1);filter:drop-shadow(0 0 8px rgba(47,102,255,.4))}45%{transform:scale(1.08);filter:drop-shadow(0 0 14px rgba(47,102,255,.6))}60%{transform:scale(1);filter:drop-shadow(0 0 8px rgba(47,102,255,.4))}}
-.showcase{padding:60px 28px 80px}.showcase .section{max-width:900px}
-.showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.showcase-phones{display:flex;gap:20px;justify-content:center}
-.showcase-phones .phone{width:220px;animation:none;border:3px solid rgba(255,255,255,.1);border-radius:40px;overflow:hidden;box-shadow:0 30px 80px -15px rgba(0,0,0,.7),0 0 40px -10px var(--blue-soft)}
-.showcase-phones .phone img{border-radius:0}
-.showcase-phones .phone:last-child{margin-top:40px}
-.showcase-text h2{font-family:var(--heading);font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px}
-.showcase-text h2 em{font-style:normal;display:block;color:var(--blue);text-shadow:0 0 30px var(--blue-glow)}
-.showcase-text p{font-family:var(--body);font-size:18px;color:var(--text-mid);line-height:1.65;max-width:380px}
-.stats{padding:40px 28px 80px}.stats .section{max-width:600px}
-.stats-copy{text-align:center;font-family:var(--body);font-size:17px;color:var(--text-mid);line-height:1.65;max-width:360px;margin:-12px auto 28px}
-.stat-bar{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;align-items:center;padding:20px 0;border:1px solid var(--border);border-radius:20px;background:linear-gradient(180deg,rgba(10,18,40,.8),rgba(4,8,20,.85))}
-.stat-div{width:1px;height:40px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.12),transparent)}
-.stat{text-align:center}.stat strong{display:block;font-family:var(--heading);font-size:28px;font-weight:600;color:#fff}.stat span{font-family:var(--heading);font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim)}
-.waitlist{padding:60px 28px 80px}.waitlist .section{max-width:480px;text-align:center}
-.waitlist h2{font-family:var(--heading);font-size:clamp(22px,5vw,32px);font-weight:700;letter-spacing:.08em;margin-bottom:12px}
-.waitlist .section>p{font-family:var(--body);font-size:17px;color:var(--text-mid);margin-bottom:28px;line-height:1.6}
-.wl-form{display:grid;gap:12px}
-.wl-form input{width:100%;height:52px;padding:0 20px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(4,8,20,.7);color:#fff;font-size:16px;font-family:var(--body);font-weight:500;outline:none;transition:border-color .2s,box-shadow .2s}
-.wl-form input::placeholder{color:rgba(200,210,240,.35)}.wl-form input:focus{border-color:rgba(47,102,255,.5);box-shadow:0 0 0 4px rgba(47,102,255,.1)}
-.wl-cta{width:100%;border-radius:12px;min-height:52px}
-.wl-msg{min-height:20px;font-family:var(--heading);font-size:10px;letter-spacing:.06em;color:var(--cyan)}.wl-err{color:#fca5a5!important}
-.foot{padding:48px 28px 32px;border-top:1px solid var(--border)}.foot .section{max-width:900px;display:flex;flex-direction:column;align-items:center;gap:20px}
-.foot-brand{display:flex;align-items:center;gap:14px}.foot-orb{width:32px;height:32px;filter:drop-shadow(0 0 14px var(--blue-glow))}.foot-wm{height:20px;width:auto;opacity:.7}
-.foot-links{display:flex;gap:28px;flex-wrap:wrap;justify-content:center}.foot-links a{font-family:var(--heading);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);transition:color .2s}.foot-links a:hover{color:var(--text)}
-.foot-social{display:flex;gap:16px}.foot-social a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid var(--border);border-radius:50%;color:var(--text-dim);transition:color .2s,border-color .2s}.foot-social a:hover{color:var(--text);border-color:rgba(47,102,255,.35)}.foot-social svg{width:15px;height:15px;fill:currentColor}
-.foot-copy{font-family:var(--heading);font-size:10px;font-weight:500;letter-spacing:.06em;color:rgba(200,210,240,.2)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
-@media(max-width:768px){.nav{padding:16px 20px}.nav-links{gap:18px}.nav-links a{font-size:9px;letter-spacing:.24em}.hero{padding:100px 20px 60px}.phone{width:220px;border-radius:36px}.phone::before{width:60px;height:20px;top:8px}.f-grid{grid-template-columns:1fr;gap:10px;max-width:400px;margin:0 auto}.f-card{display:grid;grid-template-columns:52px 1fr;gap:14px;text-align:left;padding:16px 18px}.f-icon{margin:0}.showcase-grid{grid-template-columns:1fr;text-align:center}.showcase-phones{order:-1}.showcase-phones .phone{width:180px}.showcase-phones .phone:last-child{margin-top:30px}.showcase-text{display:flex;flex-direction:column;align-items:center}.showcase-text p{text-align:center}}
-@media(max-width:420px){.hero h1{font-size:38px}.phone{width:200px;border-radius:32px}.showcase-phones .phone{width:150px;border-radius:28px}.cta{padding:0 28px;font-size:11px;min-height:50px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-</style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Talon — Habit Builder</title>
+  <meta name="description" content="Talon is an iOS app that builds your habit system. One action at a time. Download free on the App Store."/>
+  <meta property="og:title" content="Talon — Habit Builder"/>
+  <meta property="og:description" content="Build habits that stick. One action at a time. Available now."/>
+  <meta property="og:type" content="website"/>
+  <meta name="theme-color" content="#020510"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#020510;--bg-card:#0a0e1a;--blue:#60A5FA;--blue-alt:#3B82F6;--white:#ffffff;--gray:#94a3b8;--dim:rgba(255,255,255,0.5);--font-display:'Cinzel',serif;--font-mono:'IBM Plex Mono',monospace}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--white);font-family:var(--font-mono);font-weight:300;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+    ::selection{background:rgba(96,165,250,.35);color:#fff}
+
+    /* Starfield */
+    #stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+    #stars canvas{width:100%;height:100%}
+
+    .page{position:relative;z-index:1}
+
+    /* Nav */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:rgba(2,5,16,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(96,165,250,.08)}
+    .nav-logo img{height:40px;display:block}
+    .nav-links{display:flex;gap:32px;list-style:none}
+    .nav-links a{color:var(--gray);font-size:13px;font-weight:400;letter-spacing:.05em;transition:color .2s}
+    .nav-links a:hover{color:var(--white)}
+
+    /* Hero */
+    .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 24px 80px;overflow:hidden}
+    .hero::before{content:'';position:absolute;width:700px;height:700px;top:-200px;left:-150px;background:rgba(59,130,246,.08);filter:blur(120px);border-radius:50%;pointer-events:none}
+    .hero::after{content:'';position:absolute;width:600px;height:600px;bottom:-200px;right:-150px;background:rgba(99,102,241,.06);filter:blur(120px);border-radius:50%;pointer-events:none}
+    .hero-badge{display:inline-block;font-family:var(--font-mono);font-size:12px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(96,165,250,.3);padding:8px 24px;border-radius:100px;margin-bottom:40px;position:relative;z-index:1;animation:fadeUp .7s ease .1s both}
+    .hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7vw,72px);line-height:1.15;letter-spacing:.02em;margin-bottom:24px;position:relative;z-index:1;animation:fadeUp .7s ease .2s both}
+    .hero h1 em{font-style:italic;color:var(--blue)}
+    .hero-sub{font-size:17px;color:var(--white);max-width:480px;margin-bottom:48px;position:relative;z-index:1;font-style:italic;animation:fadeUp .7s ease .3s both}
+    .hero-phones{display:flex;gap:20px;justify-content:center;margin-bottom:48px;position:relative;z-index:1;animation:fadeUp .8s ease .4s both}
+    .hero-phones img{height:clamp(320px,45vw,480px);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 80px rgba(96,165,250,.08)}
+    .app-store-btn{display:inline-flex;align-items:center;gap:14px;background:var(--white);color:#000;padding:16px 36px;border-radius:14px;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:.05em;transition:transform .2s,box-shadow .2s;position:relative;z-index:1;animation:fadeUp .7s ease .5s both}
+    .app-store-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(96,165,250,.25)}
+    .app-store-btn svg{width:28px;height:28px}
+    .hero-note{font-size:13px;color:var(--dim);margin-top:16px;position:relative;z-index:1;animation:fadeUp .7s ease .6s both}
+
+    /* Sections */
+    section{padding:100px 24px;max-width:1080px;margin:0 auto}
+    .section-label{font-family:var(--font-mono);font-size:12px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;text-align:center}
+    .section-title{font-family:var(--font-display);font-weight:700;font-size:clamp(32px,5vw,52px);text-align:center;margin-bottom:64px;line-height:1.2}
+    .section-title em{font-style:italic;color:var(--blue)}
+
+    /* Features */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:80px}
+    .feature-card{background:var(--bg-card);border:1px solid rgba(96,165,250,.08);border-radius:20px;padding:40px 32px;text-align:center;transition:border-color .3s,transform .3s}
+    .feature-card:hover{border-color:rgba(96,165,250,.2);transform:translateY(-4px)}
+    .feature-icon{font-size:32px;margin-bottom:20px;display:block;color:var(--blue)}
+    .feature-card h3{font-family:var(--font-display);font-weight:700;font-size:22px;margin-bottom:12px;letter-spacing:.03em}
+    .feature-card p{font-size:14px;color:var(--gray);font-style:italic}
+
+    /* Showcase */
+    .showcase{display:flex;align-items:center;gap:60px;padding:60px 0}
+    .showcase-reverse{flex-direction:row-reverse}
+    .showcase-text{flex:1}
+    .showcase-text h2{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,4vw,42px);line-height:1.2;margin-bottom:20px}
+    .showcase-text h2 em{font-style:italic;color:var(--blue)}
+    .showcase-text p{font-size:15px;color:var(--gray);font-style:italic;line-height:1.7}
+    .showcase-img{flex:1;display:flex;justify-content:center}
+    .showcase-img img{max-height:500px;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+
+    /* Stats */
+    .stats{display:flex;justify-content:center;gap:80px;padding:80px 0;border-top:1px solid rgba(96,165,250,.08);border-bottom:1px solid rgba(96,165,250,.08)}
+    .stat{text-align:center}
+    .stat-num{font-family:var(--font-display);font-weight:700;font-size:48px;color:var(--blue);display:block;margin-bottom:8px}
+    .stat-label{font-size:14px;color:var(--gray);letter-spacing:.05em}
+
+    /* Bottom CTA */
+    .bottom-cta{text-align:center;padding:120px 24px 60px;position:relative}
+    .bottom-cta::before{content:'';position:absolute;width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(96,165,250,.06),transparent 70%);border-radius:50%;pointer-events:none}
+    .orb{width:100px;height:100px;margin:0 auto 40px;display:block;border-radius:50%;filter:drop-shadow(0 0 20px rgba(96,165,250,.4))}
+    .bottom-cta h2{font-family:var(--font-display);font-weight:700;font-size:clamp(32px,5vw,48px);margin-bottom:16px;position:relative;z-index:1}
+    .bottom-cta .sub{font-size:16px;color:var(--gray);font-style:italic;margin-bottom:40px;position:relative;z-index:1}
+    .app-store-btn-dark{display:inline-flex;align-items:center;gap:14px;background:transparent;color:var(--white);padding:16px 36px;border-radius:14px;border:1.5px solid var(--blue);font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:.05em;transition:all .2s;position:relative;z-index:1}
+    .app-store-btn-dark:hover{background:rgba(96,165,250,.1);transform:translateY(-2px);box-shadow:0 8px 30px rgba(96,165,250,.15)}
+    .app-store-btn-dark svg{width:28px;height:28px}
+
+    /* Kit Form */
+    .kit-section{max-width:480px;margin:0 auto;padding:0 24px 100px;text-align:center}
+    .kit-section h3{font-family:var(--font-display);font-weight:700;font-size:20px;margin-bottom:8px;letter-spacing:.03em}
+    .kit-section p{font-size:14px;color:var(--gray);font-style:italic;margin-bottom:24px}
+    .kit-form{display:flex;gap:10px}
+    .kit-form input{flex:1;height:48px;padding:0 18px;border:1px solid rgba(96,165,250,.2);border-radius:10px;background:rgba(10,14,26,.8);color:#fff;font-size:15px;font-family:var(--font-mono);outline:none;transition:border-color .2s,box-shadow .2s}
+    .kit-form input::placeholder{color:rgba(148,163,184,.4)}
+    .kit-form input:focus{border-color:rgba(96,165,250,.5);box-shadow:0 0 0 3px rgba(96,165,250,.1)}
+    .kit-form button{height:48px;padding:0 24px;border:none;border-radius:10px;background:var(--blue-alt);color:#fff;font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s,transform .2s;white-space:nowrap}
+    .kit-form button:hover{background:var(--blue);transform:translateY(-1px)}
+    .kit-form button:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .kit-msg{min-height:20px;margin-top:10px;font-size:12px;color:var(--blue);letter-spacing:.04em}
+    .kit-err{color:#fca5a5!important}
+
+    /* Footer */
+    footer{border-top:1px solid rgba(96,165,250,.08);padding:40px;display:flex;align-items:center;justify-content:space-between;max-width:1080px;margin:0 auto;flex-wrap:wrap;gap:20px}
+    .footer-links{display:flex;gap:24px;list-style:none}
+    .footer-links a{color:var(--gray);font-size:13px;transition:color .2s}
+    .footer-links a:hover{color:var(--white)}
+    .footer-social{display:flex;gap:20px}
+    .footer-social a{color:var(--gray);font-size:13px;transition:color .2s}
+    .footer-social a:hover{color:var(--blue)}
+    .footer-copy{width:100%;text-align:center;font-size:12px;color:var(--dim);margin-top:16px}
+
+    /* Animations */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* Responsive */
+    @media(max-width:768px){
+      nav{padding:16px 20px}.nav-logo img{height:32px}.nav-links{gap:20px}.nav-links a{font-size:12px}
+      .hero{padding:120px 20px 60px}.hero-phones{gap:12px}
+      .features{grid-template-columns:1fr;gap:16px}
+      .showcase,.showcase-reverse{flex-direction:column;gap:40px;text-align:center}
+      .showcase-img img{max-height:380px}
+      .stats{gap:40px;flex-wrap:wrap}
+      .kit-form{flex-direction:column}
+      footer{justify-content:center;text-align:center}.footer-links,.footer-social{justify-content:center}
+    }
+    @media(max-width:480px){
+      .hero-phones img{height:280px}
+      .stats{flex-direction:column;gap:32px}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
 </head>
 <body>
+
 <div id="stars" aria-hidden="true"><canvas id="c"></canvas></div>
+
 <div class="page">
-<nav class="nav"><a href="#" class="nav-brand"><img src="./assets/Banner.png" alt="Talon"/></a><ul class="nav-links"><li><a href="about.html">About</a></li><li><a href="privacy-policy.html">Privacy</a></li></ul></nav>
+
+<nav>
+  <a href="#" class="nav-logo"><img src="./assets/Banner.png" alt="Talon"/></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="privacy-policy.html">Privacy</a></li>
+  </ul>
+</nav>
+
 <section class="hero" id="top">
-<div class="hero-pill">Coming Soon</div>
-<h1>Discipline wins.<br/><em>Every day.</em></h1>
-<p class="hero-sub">Talon is an iOS app that builds your habit system. One focused action per day. That's it.</p>
-<div class="hero-phone-wrap">
-<div class="phone"><div class="phone-screen" id="heroScreen"><img class="screen-a" src="./assets/hero_phone.png" alt="Talon empty dashboard"/><img class="screen-b" src="./assets/hero_phone_active.png" alt="Talon active dashboard"/></div></div>
-<div class="phone-glow"></div>
-</div>
-<div class="hero-cta"><a href="#waitlist" class="cta"><span>Join the Waitlist</span><span class="arrow">&rarr;</span></a></div>
-<p class="hero-micro">Be the first to experience Talon.</p>
+  <div class="hero-badge">Available Now</div>
+  <h1>Discipline wins.<br/><em>Every day.</em></h1>
+  <p class="hero-sub">Talon is an iOS app that builds your habit system. One focused action at a time. That's it.</p>
+  <div class="hero-phones">
+    <img src="./assets/hero_phone.png" alt="Talon dashboard"/>
+    <img src="./assets/hero_phone_active.png" alt="Talon active dashboard"/>
+  </div>
+  <a href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009" class="app-store-btn" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 21.99 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 21.99C7.79 22.03 6.8 20.68 5.96 19.47C4.25 16.97 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.89C10.1 6.87 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
+    Download Free
+  </a>
+  <p class="hero-note">Free on the App Store. No credit card required.</p>
 </section>
-<section class="features reveal"><div class="section"><h2 class="s-title">Built to Win.</h2><div class="f-grid">
-<article class="f-card"><div class="f-icon"><span class="icon-target"></span></div><div><h3>Focus</h3><p>One goal at a time. Cut the noise.</p></div></article>
-<article class="f-card"><div class="f-icon"><em class="icon-bolt">&#9889;</em></div><div><h3>Action</h3><p>Small steps. Daily momentum. Real change.</p></div></article>
-<article class="f-card"><div class="f-icon"><span class="icon-shield"></span></div><div><h3>Discipline</h3><p>Stay consistent. Build habits that compound.</p></div></article>
-</div></div></section>
-<section class="showcase reveal"><div class="section"><div class="showcase-grid">
-<div class="showcase-phones"><div class="phone"><img src="./assets/action_orb.png" alt="Talon orb screen"/></div><div class="phone"><img src="./assets/action_detail.png" alt="Talon action generated"/></div></div>
-<div class="showcase-text"><h2>Tap. Build.<em>Repeat.</em></h2><p>Every action is personalized to your goal, calibrated to your phase, and designed to be done in minutes. Talon does the thinking. You do the doing.</p></div>
-</div></div></section>
-<section class="stats reveal"><div class="section"><h2 class="s-title">Why Talon?</h2><p class="stats-copy">Your personal system for discipline, clarity, and growth.</p><div class="stat-bar"><div class="stat"><strong>1</strong><span>Focus</span></div><div class="stat-div"></div><div class="stat"><strong>1</strong><span>Action</span></div><div class="stat-div"></div><div class="stat"><strong>&infin;</strong><span>Growth</span></div></div></div></section>
-<section class="waitlist reveal" id="waitlist"><div class="section"><h2>Join the Movement</h2><p>Be part of the community building discipline, one action at a time.</p>
-<form class="wl-form" id="wlForm" action="https://app.kit.com/forms/9366718/subscriptions" method="POST" novalidate><label for="wlEmail" style="position:absolute;width:1px;height:1px;clip:rect(0,0,0,0)">Email</label><input type="email" id="wlEmail" name="email_address" placeholder="Email address" autocomplete="email" spellcheck="false" required/><button type="submit" class="cta wl-cta" id="wlBtn"><span>Count Me In</span></button><p class="wl-msg" id="wlMsg" aria-live="polite"></p></form>
-</div></section>
-<footer class="foot"><div class="section">
-<div class="foot-brand"><img src="./assets/talon_new_orb.png" alt="Talon" class="foot-orb"/></div>
-<nav class="foot-links"><a href="#top">Top</a><a href="#waitlist">Waitlist</a><a href="about.html">About</a><a href="privacy-policy.html">Privacy</a></nav>
-<div class="foot-social">
-<a href="https://www.instagram.com/talonbuild/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-<a href="https://x.com/talonbuild" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-<a href="https://www.tiktok.com/@talonbuild" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.72a8.19 8.19 0 004.76 1.52V6.79a4.84 4.84 0 01-1-.1z"/></svg></a>
+
+<section class="reveal">
+  <p class="section-label">Built to Win</p>
+  <div class="features">
+    <div class="feature-card">
+      <span class="feature-icon">&#9678;</span>
+      <h3>Focus</h3>
+      <p>One goal at a time. Cut the noise.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">&#9889;</span>
+      <h3>Action</h3>
+      <p>Small steps. Daily momentum. Real change.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">&#9670;</span>
+      <h3>Discipline</h3>
+      <p>Stay consistent. Build habits that compound.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="showcase">
+    <div class="showcase-text">
+      <h2>Tap. Build.<br/><em>Repeat.</em></h2>
+      <p>Every action is personalized to your goal, calibrated to your phase, and designed to be done in minutes. Talon does the thinking. You do the doing.</p>
+    </div>
+    <div class="showcase-img">
+      <img src="./assets/action_orb.png" alt="Talon orb screen"/>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="showcase showcase-reverse">
+    <div class="showcase-text">
+      <h2>Your habit.<br/><em>Designed for you.</em></h2>
+      <p>Each action is built around who you are, where you are in your journey, and what you need to do next. No templates. No guesswork.</p>
+    </div>
+    <div class="showcase-img">
+      <img src="./assets/action_detail.png" alt="Talon action detail"/>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="stats">
+    <div class="stat"><span class="stat-num">1</span><span class="stat-label">Focus</span></div>
+    <div class="stat"><span class="stat-num">1</span><span class="stat-label">Action</span></div>
+    <div class="stat"><span class="stat-num">&infin;</span><span class="stat-label">Growth</span></div>
+  </div>
+</section>
+
+<section class="bottom-cta reveal" id="download">
+  <img src="./assets/talon_new_orb.png" alt="Talon" class="orb"/>
+  <h2>Start building.</h2>
+  <p class="sub">One habit at a time. Available now on the App Store.</p>
+  <a href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009" class="app-store-btn-dark" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 21.99 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 21.99C7.79 22.03 6.8 20.68 5.96 19.47C4.25 16.97 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.89C10.1 6.87 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
+    Download on the App Store
+  </a>
+</section>
+
+<div class="kit-section reveal" id="updates">
+  <h3>Stay in the loop.</h3>
+  <p>Get updates on new features, tips, and what's next for Talon.</p>
+  <form class="kit-form" id="kitForm" action="https://app.kit.com/forms/9366718/subscriptions" method="POST" novalidate>
+    <input type="email" name="email_address" id="kitEmail" placeholder="Email address" autocomplete="email" spellcheck="false" required/>
+    <button type="submit" id="kitBtn">Join</button>
+  </form>
+  <p class="kit-msg" id="kitMsg" aria-live="polite"></p>
 </div>
-<p class="foot-copy">&copy; 2026 Talon Build LLC. All rights reserved.</p>
-</div></footer>
+
+<footer>
+  <ul class="footer-links">
+    <li><a href="#top">Top</a></li>
+    <li><a href="#download">Download</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="privacy-policy.html">Privacy</a></li>
+  </ul>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/talonbuild/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://x.com/talonbuild" target="_blank" rel="noopener">X</a>
+    <a href="https://www.tiktok.com/@talonbuild" target="_blank" rel="noopener">TikTok</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Talon Build LLC. All rights reserved.</p>
+</footer>
+
 </div>
+
 <script>
-!function(){var c=document.getElementById("c");if(!c)return;var x=c.getContext("2d"),d=Math.min(devicePixelRatio||1,2),W,H,stars=[],neb=[];function r(a,b){return a+Math.random()*(b-a)}function build(){W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+"px";c.style.height=H+"px";x.setTransform(d,0,0,d,0,0);var n=Math.floor(W*H/8000);stars=[];for(var i=0;i<n;i++){var z=r(.4,3);stars.push({x:Math.random()*W,y:Math.random()*H,z:z,s:r(.3,1.4)/Math.sqrt(z),a:r(.2,.8),ts:r(.5,2),tp:Math.random()*6.28,dx:r(-.01,.01)/z,dy:r(-.006,.006)/z,t:Math.random()<.15})}neb=[];for(var i=0;i<(W<768?2:3);i++)neb.push({x:Math.random()*W,y:Math.random()*H,r:r(160,320),h:Math.random()<.5?"59,130,246":"147,197,253",a:r(.02,.05),dx:r(-.03,.03),dy:r(-.02,.02)})}var lt=performance.now(),vis=true;function f(now){if(!vis){requestAnimationFrame(f);return}var dt=Math.min(.05,(now-lt)/1e3);lt=now;var t=now/1e3;x.clearRect(0,0,W,H);for(var i=0;i<neb.length;i++){var n=neb[i];n.x+=n.dx*dt*60;n.y+=n.dy*dt*60;if(n.x<-n.r)n.x=W+n.r;if(n.x>W+n.r)n.x=-n.r;if(n.y<-n.r)n.y=H+n.r;if(n.y>H+n.r)n.y=-n.r;var g=x.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);g.addColorStop(0,"rgba("+n.h+","+n.a+")");g.addColorStop(1,"rgba("+n.h+",0)");x.fillStyle=g;x.fillRect(n.x-n.r,n.y-n.r,n.r*2,n.r*2)}x.globalCompositeOperation="lighter";for(var i=0;i<stars.length;i++){var s=stars[i];s.x+=s.dx*dt*60;s.y+=s.dy*dt*60;if(s.x<-2)s.x=W+2;if(s.x>W+2)s.x=-2;if(s.y<-2)s.y=H+2;if(s.y>H+2)s.y=-2;var tw=.6+.4*Math.sin(t*s.ts+s.tp),a=s.a*tw,rgb=s.t?"191,219,254":"255,255,255";x.fillStyle="rgba("+rgb+","+a*.25+")";x.beginPath();x.arc(s.x,s.y,s.s*2.5,0,6.28);x.fill();x.fillStyle="rgba("+rgb+","+a+")";x.beginPath();x.arc(s.x,s.y,s.s,0,6.28);x.fill()}x.globalCompositeOperation="source-over";requestAnimationFrame(f)}document.addEventListener("visibilitychange",function(){vis=!document.hidden;if(vis)lt=performance.now()});build();addEventListener("resize",build,{passive:true});requestAnimationFrame(f)}();
-!function(){var els=document.querySelectorAll(".reveal"),ob=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");ob.unobserve(e.target)}})},{threshold:.15});els.forEach(function(el){ob.observe(el)})}();
-/* Form */
-!function(){var f=document.getElementById("wlForm"),e=document.getElementById("wlEmail"),m=document.getElementById("wlMsg"),b=document.getElementById("wlBtn");f.addEventListener("submit",async function(ev){ev.preventDefault();var v=e.value.trim();if(!v||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.textContent="Please enter a valid email.";m.classList.add("wl-err");return}m.classList.remove("wl-err");b.disabled=true;b.querySelector("span").textContent="...";try{await fetch(f.action,{method:"POST",body:new FormData(f),mode:"no-cors"})}catch(err){}m.textContent="You\u2019re on the list. Built to win.";e.value="";b.disabled=false;b.querySelector("span").textContent="Count Me In"})}();
+/* Starfield */
+!function(){var c=document.getElementById("c");if(!c)return;var x=c.getContext("2d"),d=Math.min(devicePixelRatio||1,2),W,H,stars=[],neb=[];
+function r(a,b){return a+Math.random()*(b-a)}
+function build(){W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+"px";c.style.height=H+"px";x.setTransform(d,0,0,d,0,0);
+var n=Math.floor(W*H/9000);stars=[];for(var i=0;i<n;i++){var z=r(.4,3);stars.push({x:Math.random()*W,y:Math.random()*H,s:r(.3,1.4)/Math.sqrt(z),a:r(.15,.7),ts:r(.5,2),tp:Math.random()*6.28,dx:r(-.008,.008)/z,dy:r(-.005,.005)/z,t:Math.random()<.12})}
+neb=[];for(var i=0;i<(W<768?2:3);i++)neb.push({x:Math.random()*W,y:Math.random()*H,r:r(180,340),h:Math.random()<.5?"96,165,250":"139,152,241",a:r(.015,.04),dx:r(-.025,.025),dy:r(-.015,.015)})}
+var lt=performance.now(),vis=true;
+function f(now){if(!vis){requestAnimationFrame(f);return}var dt=Math.min(.05,(now-lt)/1e3);lt=now;var t=now/1e3;x.clearRect(0,0,W,H);
+for(var i=0;i<neb.length;i++){var n=neb[i];n.x+=n.dx*dt*60;n.y+=n.dy*dt*60;if(n.x<-n.r)n.x=W+n.r;if(n.x>W+n.r)n.x=-n.r;if(n.y<-n.r)n.y=H+n.r;if(n.y>H+n.r)n.y=-n.r;var g=x.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);g.addColorStop(0,"rgba("+n.h+","+n.a+")");g.addColorStop(1,"rgba("+n.h+",0)");x.fillStyle=g;x.fillRect(n.x-n.r,n.y-n.r,n.r*2,n.r*2)}
+x.globalCompositeOperation="lighter";for(var i=0;i<stars.length;i++){var s=stars[i];s.x+=s.dx*dt*60;s.y+=s.dy*dt*60;if(s.x<-2)s.x=W+2;if(s.x>W+2)s.x=-2;if(s.y<-2)s.y=H+2;if(s.y>H+2)s.y=-2;var tw=.6+.4*Math.sin(t*s.ts+s.tp),a=s.a*tw,rgb=s.t?"191,219,254":"255,255,255";x.fillStyle="rgba("+rgb+","+a*.2+")";x.beginPath();x.arc(s.x,s.y,s.s*2.5,0,6.28);x.fill();x.fillStyle="rgba("+rgb+","+a+")";x.beginPath();x.arc(s.x,s.y,s.s,0,6.28);x.fill()}
+x.globalCompositeOperation="source-over";requestAnimationFrame(f)}
+document.addEventListener("visibilitychange",function(){vis=!document.hidden;if(vis)lt=performance.now()});
+build();addEventListener("resize",build,{passive:true});requestAnimationFrame(f)}();
+
+/* Scroll reveal */
+!function(){var els=document.querySelectorAll(".reveal"),ob=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");ob.unobserve(e.target)}})},{threshold:.12});els.forEach(function(el){ob.observe(el)})}();
+
+/* Kit form */
+!function(){var f=document.getElementById("kitForm"),e=document.getElementById("kitEmail"),m=document.getElementById("kitMsg"),b=document.getElementById("kitBtn");
+f.addEventListener("submit",async function(ev){ev.preventDefault();var v=e.value.trim();
+if(!v||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.textContent="Please enter a valid email.";m.classList.add("kit-err");return}
+m.classList.remove("kit-err");b.disabled=true;b.textContent="...";
+try{await fetch(f.action,{method:"POST",body:new FormData(f),mode:"no-cors"})}catch(err){}
+m.textContent="You\u2019re in. Built to win.";e.value="";b.disabled=false;b.textContent="Join"})}();
 </script>
 </body>
 </html>
