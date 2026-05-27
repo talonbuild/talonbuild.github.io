@@ -33,7 +33,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 
 /* === HERO === */
 .hero{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 24px 70px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;width:600px;height:600px;top:-180px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(59,130,246,.1),transparent 60%);border-radius:50%;pointer-events:none}
+.hero::before{content:'';position:absolute;width:800px;height:800px;top:-250px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(59,130,246,.12),rgba(96,165,250,.04) 40%,transparent 65%);border-radius:50%;pointer-events:none}
 
 .badge{display:inline-flex;align-items:center;gap:8px;padding:7px 22px;border:1px solid var(--border);border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--blue);background:rgba(96,165,250,.04);margin-bottom:36px;opacity:0;animation:fadeUp .7s ease .3s forwards}
 .badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 8px var(--blue)}
@@ -45,9 +45,11 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 /* Hero Phones */
 .phones{display:flex;gap:16px;justify-content:center;margin-bottom:44px;opacity:0;animation:phonesIn 1s ease .65s forwards;position:relative}
 @keyframes phonesIn{0%{opacity:0;transform:translateY(30px) scale(.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
-.phones img{height:clamp(300px,50vw,460px);border-radius:28px;border:2px solid rgba(255,255,255,.06);box-shadow:0 24px 80px -12px rgba(0,0,0,.7),0 0 60px rgba(96,165,250,.08);transition:transform .4s ease}
+.phones img{height:clamp(300px,50vw,460px);border-radius:28px;border:2px solid rgba(255,255,255,.06);box-shadow:0 24px 80px -12px rgba(0,0,0,.7),0 0 60px rgba(96,165,250,.1),0 0 120px rgba(96,165,250,.05);transition:transform .4s ease}
 .phones img:hover{transform:translateY(-6px)}
-.phones::after{content:'';position:absolute;width:80%;height:60px;bottom:-20px;left:10%;background:radial-gradient(ellipse,rgba(96,165,250,.2),transparent 70%);filter:blur(24px);pointer-events:none}
+.phones::after{content:'';position:absolute;width:80%;height:60px;bottom:-20px;left:10%;background:radial-gradient(ellipse,rgba(96,165,250,.25),transparent 70%);filter:blur(24px);pointer-events:none}
+/* Energy streak behind phones */
+.phones::before{content:'';position:absolute;width:140%;height:100px;top:35%;left:-20%;background:linear-gradient(90deg,transparent 5%,rgba(0,94,255,.06),rgba(60,180,255,.35),rgba(96,165,250,.4),rgba(44,83,255,.08),transparent 95%);filter:blur(12px);transform:rotate(-8deg);pointer-events:none;z-index:-1;opacity:.8}
 
 /* App Store Button */
 .as-btn{display:inline-flex;align-items:center;gap:14px;background:var(--white);color:#080c18;padding:15px 34px;border-radius:14px;font-size:14px;font-weight:700;letter-spacing:.06em;box-shadow:0 8px 32px rgba(96,165,250,.2),0 2px 8px rgba(0,0,0,.3);transition:transform .2s,box-shadow .2s;position:relative;z-index:1;opacity:0;animation:fadeUp .7s ease .8s forwards}
@@ -64,8 +66,8 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 
 /* === FEATURES === */
 .f-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.f-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px 24px;text-align:center;backdrop-filter:blur(8px);transition:border-color .3s,transform .3s,box-shadow .3s}
-.f-card:hover{border-color:rgba(96,165,250,.25);transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.3),0 0 24px rgba(96,165,250,.06)}
+.f-card{background:linear-gradient(180deg,rgba(12,22,48,.65),rgba(6,12,28,.7));border:1px solid rgba(96,165,250,.12);border-radius:20px;padding:36px 24px;text-align:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:border-color .3s,transform .3s,box-shadow .3s;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 12px 40px rgba(0,0,0,.25)}
+.f-card:hover{border-color:rgba(96,165,250,.3);transform:translateY(-6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 20px 56px rgba(0,0,0,.35),0 0 32px rgba(96,165,250,.08)}
 .f-card .ic{font-size:28px;margin-bottom:18px;display:block;color:var(--blue);text-shadow:0 0 12px var(--blue-glow)}
 .f-card h3{font-size:14px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
 .f-card p{font-size:13px;font-weight:400;color:var(--mid);line-height:1.55}
@@ -78,7 +80,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 .show-txt h2 em{font-style:italic;display:block;color:var(--blue);text-shadow:0 0 24px var(--blue-glow)}
 .show-txt p{font-size:14px;font-weight:400;color:var(--mid);line-height:1.7}
 .show-img{flex:1;display:flex;justify-content:center}
-.show-img img{max-height:440px;border-radius:24px;border:2px solid rgba(255,255,255,.05);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(96,165,250,.06);transition:transform .4s}
+.show-img img{max-height:440px;border-radius:28px;border:2px solid rgba(255,255,255,.06);box-shadow:0 24px 70px rgba(0,0,0,.5),0 0 50px rgba(96,165,250,.08),0 0 100px rgba(96,165,250,.04);transition:transform .4s}
 .show-img img:hover{transform:translateY(-6px) scale(1.01)}
 
 /* === STATS === */
@@ -89,9 +91,9 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 
 /* === BOTTOM CTA === */
 .bot{text-align:center;padding:100px 24px 48px;position:relative}
-.bot::before{content:'';position:absolute;width:400px;height:400px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(96,165,250,.06),transparent 65%);border-radius:50%;pointer-events:none}
-.bot-orb{width:88px;height:88px;margin:0 auto 32px;display:block;border-radius:50%;filter:drop-shadow(0 0 24px var(--blue-glow));animation:orbFloat 4s ease-in-out infinite}
-@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.bot::before{content:'';position:absolute;width:600px;height:600px;top:40%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(96,165,250,.08),rgba(96,165,250,.03) 40%,transparent 65%);border-radius:50%;pointer-events:none}
+.bot-orb{width:140px;height:140px;margin:0 auto 36px;display:block;border-radius:50%;filter:drop-shadow(0 0 36px var(--blue-glow)) drop-shadow(0 0 80px rgba(96,165,250,.2));animation:orbFloat 4s ease-in-out infinite}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 .bot h2{font-size:clamp(28px,5vw,42px);font-weight:700;margin-bottom:12px;position:relative;z-index:1}
 .bot .sub{font-size:14px;font-weight:400;color:var(--mid);margin-bottom:36px;position:relative;z-index:1}
 .as-dark{display:inline-flex;align-items:center;gap:14px;background:transparent;color:var(--white);padding:15px 34px;border-radius:14px;border:1.5px solid rgba(96,165,250,.5);font-size:14px;font-weight:700;letter-spacing:.06em;transition:all .2s;position:relative;z-index:1}
@@ -171,7 +173,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 21.99 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 21.99C7.79 22.03 6.8 20.68 5.96 19.47C4.25 16.97 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.89C10.1 6.87 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
     Download Free
   </a>
-  <p class="hero-note">Free on the App Store. No credit card required.</p>
+  <p class="hero-note">Download for free on the App Store.</p>
 </section>
 
 <div class="sec rv">
