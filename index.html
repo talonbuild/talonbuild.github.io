@@ -42,17 +42,16 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 .hero h1 em{font-style:italic;color:var(--blue);text-shadow:0 0 30px var(--glow)}
 .hero-p{font-size:clamp(15px,3.2vw,18px);font-weight:500;color:var(--t2);max-width:400px;line-height:1.65;margin-bottom:44px;letter-spacing:.02em;opacity:0;animation:textIn .9s ease 1s forwards}
 @keyframes textIn{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:none}}
-.dl{display:inline-flex;align-items:center;gap:14px;background:var(--t1);color:var(--bg);padding:14px 34px;border-radius:60px;font-size:14px;font-weight:700;letter-spacing:.05em;box-shadow:0 6px 28px rgba(96,165,250,.2);transition:transform .2s,box-shadow .2s;opacity:0;animation:textIn .9s ease 1.15s forwards}
-.dl:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(96,165,250,.3)}
-.dl svg{width:22px;height:22px}
+.as-badge{display:inline-block;opacity:0;animation:textIn .9s ease 1.15s forwards;transition:transform .2s;position:relative;z-index:1}
+.as-badge:hover{transform:translateY(-2px)}
+.as-badge svg{width:160px;height:auto;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3))}
 .hero-note{font-size:11px;font-weight:500;color:var(--t3);margin-top:14px;letter-spacing:.08em;opacity:0;animation:textIn .9s ease 1.3s forwards}
 
 /* ====== DIVIDER ====== */
 .div{width:48px;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:0 auto}
 
 /* ====== PHONE SECTION ====== */
-.phones-sec{padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
-.phones-sec::before{content:"";position:absolute;width:200%;height:2px;top:30%;left:-50%;background:linear-gradient(90deg,transparent 10%,rgba(96,165,250,.02) 25%,rgba(96,165,250,.2) 45%,rgba(140,200,255,.35) 50%,rgba(96,165,250,.2) 55%,rgba(96,165,250,.02) 75%,transparent 90%);transform:rotate(12deg);pointer-events:none;z-index:0}
+.phones-sec{padding:80px 24px 60px;text-align:center}
 .phones-sec h2{font-size:clamp(24px,5vw,40px);font-weight:700;line-height:1.15;margin-bottom:12px}
 .phones-sec h2 em{font-style:italic;color:var(--blue);text-shadow:0 0 24px var(--glow)}
 .phones-sec>p{font-size:15px;font-weight:400;color:var(--t2);margin-bottom:48px;letter-spacing:.02em}
@@ -66,14 +65,16 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 @keyframes glowSync{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
 
 /* ====== PILLARS ====== */
-.pillars{padding:100px 24px;max-width:800px;margin:0 auto}
-.pillars h2{font-size:clamp(20px,4vw,32px);font-weight:700;text-align:center;margin-bottom:56px;letter-spacing:.08em}
-.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:16px;overflow:hidden}
-.p-card{background:var(--bg);padding:40px 20px;text-align:center;transition:background .3s}
-.p-card:hover{background:rgba(10,16,36,.8)}
-.p-card .ic{font-size:24px;color:var(--blue);text-shadow:0 0 10px var(--glow);display:block;margin-bottom:16px}
-.p-card h3{font-size:14px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
-.p-card p{font-size:13px;font-weight:500;color:var(--t2);line-height:1.6}
+.pillars{padding:80px 24px;max-width:800px;margin:0 auto;text-align:center}
+.pillars h2{font-size:clamp(20px,4vw,32px);font-weight:700;text-align:center;margin-bottom:8px;letter-spacing:.08em}
+.pillars .hint{font-size:11px;font-weight:500;color:var(--t3);letter-spacing:.08em;margin-bottom:28px}
+.pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border:1px solid var(--line);border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--t2);background:rgba(96,165,250,.04);transition:all .3s;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.pill:hover,.pill.active{border-color:rgba(96,165,250,.4);background:rgba(96,165,250,.1);color:var(--t1)}
+.pill .ic{font-size:16px;color:var(--blue);text-shadow:0 0 8px var(--glow)}
+.pill-popup{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;opacity:0;text-align:center}
+.pill-popup.show{max-height:80px;opacity:1}
+.pill-popup p{font-size:14px;font-weight:500;color:var(--t2);line-height:1.6;padding:8px 20px;border:1px solid rgba(96,165,250,.15);border-radius:16px;background:rgba(96,165,250,.06);display:inline-block;max-width:320px}
 
 /* ====== SHOWCASE ====== */
 .sc{padding:80px 24px;max-width:900px;margin:0 auto}
@@ -97,13 +98,10 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 
 /* ====== CTA ====== */
 .cta{text-align:center;padding:120px 24px 40px;position:relative}
-.cta::before{content:"";position:absolute;width:200%;height:2px;top:35%;left:-50%;background:linear-gradient(90deg,transparent 10%,rgba(96,165,250,.02) 25%,rgba(96,165,250,.2) 45%,rgba(140,200,255,.35) 50%,rgba(96,165,250,.2) 55%,rgba(96,165,250,.02) 75%,transparent 90%);transform:rotate(-10deg);border-radius:50%;pointer-events:none}
+.cta::before{content:'';position:absolute;width:500px;height:500px;top:30%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(96,165,250,.07),transparent 60%);border-radius:50%;pointer-events:none}
 .cta-orb{width:140px;height:auto;aspect-ratio:1/1;object-fit:contain;margin:0 auto 36px;display:block;border-radius:50%;filter:drop-shadow(0 0 36px var(--glow)) drop-shadow(0 0 90px rgba(96,165,250,.15));animation:orbHover 6s ease-in-out infinite}
 .cta h2{font-size:clamp(28px,5vw,44px);font-weight:700;margin-bottom:14px}
 .cta .sub{font-size:14px;font-weight:400;color:var(--t2);margin-bottom:40px}
-.dl2{display:inline-flex;align-items:center;gap:14px;background:transparent;color:var(--t1);padding:14px 34px;border-radius:60px;border:1.5px solid rgba(96,165,250,.4);font-size:14px;font-weight:700;letter-spacing:.05em;transition:all .25s}
-.dl2:hover{background:rgba(96,165,250,.08);transform:translateY(-2px);box-shadow:0 8px 32px rgba(96,165,250,.12);border-color:rgba(96,165,250,.6)}
-.dl2 svg{width:22px;height:22px}
 
 /* ====== KIT ====== */
 .kit{max-width:420px;margin:0 auto;padding:48px 24px 100px;text-align:center}
@@ -136,7 +134,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
   .hero{padding:90px 20px 50px}.hero-orb{width:min(160px,40vw);margin-bottom:32px}
   .phone-wrap{width:min(260px,70vw)}
   .phone-frame{border-radius:28px}
-  .p-grid{grid-template-columns:1fr;border-radius:14px}.p-card{padding:28px 20px}
+  .pills{gap:8px}.pill{padding:8px 18px;font-size:12px}
   .sc-row,.sc-row.rev{flex-direction:column;text-align:center;gap:36px}
   .sc-txt{order:1}
   .sc-img img{max-height:360px}
@@ -145,7 +143,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 @media(max-width:420px){
   .hero-orb{width:140px}
   .phone-wrap{width:min(240px,75vw)}
-  .dl,.dl2{padding:12px 26px;font-size:12px}
+  .as-badge svg{width:140px}
   .st strong{font-size:28px}
 }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
@@ -164,13 +162,11 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 
 <section class="hero">
   <img src="./assets/talon_new_orb.png" alt="" class="hero-orb"/>
-  <h1>Discipline wins.<br/><em>Every day.</em></h1>
-  <p class="hero-p">Talon is an iOS app that builds your habit system. One focused action per day. That's it.</p>
-  <a href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009" class="dl" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 21.99 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 21.99C7.79 22.03 6.8 20.68 5.96 19.47C4.25 16.97 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.89C10.1 6.87 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
-    Download Free
+  <h1>Discipline Delivered.<br/><em>Daily.</em></h1>
+  <p class="hero-p">Talon is built to help you win at developing the perfect habit. Not a coach. Not a planner. A system builder designed to craft your habit, helping you achieve the best version of yourself.</p>
+  <a href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009" class="as-badge" target="_blank" rel="noopener">
+    <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="40" rx="6" fill="#000"/><rect x=".5" y=".5" width="119" height="39" rx="5.5" fill="none" stroke="#A6A6A6" stroke-width=".5"/><path d="M24.77 20.3a4.95 4.95 0 012.36-4.15 5.07 5.07 0 00-3.99-2.16c-1.68-.18-3.31 1.01-4.17 1.01-.87 0-2.19-.99-3.61-.96a5.31 5.31 0 00-4.47 2.73c-1.93 3.34-.49 8.27 1.36 10.97.93 1.33 2.02 2.81 3.44 2.76 1.39-.06 1.91-.89 3.59-.89 1.67 0 2.15.89 3.6.86 1.49-.02 2.44-1.34 3.33-2.69a11.05 11.05 0 001.51-3.09 4.78 4.78 0 01-2.95-4.39zM22.04 12.21a4.87 4.87 0 001.12-3.49 4.96 4.96 0 00-3.21 1.66 4.64 4.64 0 00-1.15 3.36 4.1 4.1 0 003.24-1.53z" fill="#fff"/><text fill="#fff" font-family="'Cinzel',Georgia,serif" font-size="8" font-weight="400" x="42" y="15" letter-spacing=".02em">Download on the</text><text fill="#fff" font-family="'Cinzel',Georgia,serif" font-size="14" font-weight="700" x="42" y="30" letter-spacing=".01em">App Store</text></svg>
   </a>
-  <p class="hero-note">Download for free on the App Store.</p>
 </section>
 
 <div class="div"></div>
@@ -190,11 +186,13 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
 
 <section class="pillars rv">
   <h2>Built to Win.</h2>
-  <div class="p-grid">
-    <div class="p-card"><span class="ic">&#9678;</span><h3>Focus</h3><p>One goal at a time. Cut the noise.</p></div>
-    <div class="p-card"><span class="ic">&#9889;</span><h3>Action</h3><p>Small steps. Daily momentum. Real change.</p></div>
-    <div class="p-card"><span class="ic">&#9670;</span><h3>Discipline</h3><p>Stay consistent. Build habits that compound.</p></div>
+  <p class="hint">Tap each for details.</p>
+  <div class="pills">
+    <span class="pill" data-desc="One goal at a time. Cut the noise."><span class="ic">&#9678;</span> Focus</span>
+    <span class="pill" data-desc="Small steps. Daily momentum. Real change."><span class="ic">&#9889;</span> Action</span>
+    <span class="pill" data-desc="Stay consistent. Build habits that compound."><span class="ic">&#9670;</span> Discipline</span>
   </div>
+  <div class="pill-popup" id="pp"><p id="ppt"></p></div>
 </section>
 
 <div class="div rv"></div>
@@ -227,9 +225,8 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
   <img src="./assets/talon_new_orb.png" alt="Talon" class="cta-orb"/>
   <h2>Start building.</h2>
   <p class="sub">One habit at a time. Available now on the App Store.</p>
-  <a href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009" class="dl2" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 21.99 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 21.99C7.79 22.03 6.8 20.68 5.96 19.47C4.25 16.97 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.89C10.1 6.87 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
-    Download on the App Store
+  <a href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009" class="as-badge" style="opacity:1;animation:none" target="_blank" rel="noopener">
+    <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="40" rx="6" fill="#000"/><rect x=".5" y=".5" width="119" height="39" rx="5.5" fill="none" stroke="#A6A6A6" stroke-width=".5"/><path d="M24.77 20.3a4.95 4.95 0 012.36-4.15 5.07 5.07 0 00-3.99-2.16c-1.68-.18-3.31 1.01-4.17 1.01-.87 0-2.19-.99-3.61-.96a5.31 5.31 0 00-4.47 2.73c-1.93 3.34-.49 8.27 1.36 10.97.93 1.33 2.02 2.81 3.44 2.76 1.39-.06 1.91-.89 3.59-.89 1.67 0 2.15.89 3.6.86 1.49-.02 2.44-1.34 3.33-2.69a11.05 11.05 0 001.51-3.09 4.78 4.78 0 01-2.95-4.39zM22.04 12.21a4.87 4.87 0 001.12-3.49 4.96 4.96 0 00-3.21 1.66 4.64 4.64 0 00-1.15 3.36 4.1 4.1 0 003.24-1.53z" fill="#fff"/><text fill="#fff" font-family="'Cinzel',Georgia,serif" font-size="8" font-weight="400" x="42" y="15" letter-spacing=".02em">Download on the</text><text fill="#fff" font-family="'Cinzel',Georgia,serif" font-size="14" font-weight="700" x="42" y="30" letter-spacing=".01em">App Store</text></svg>
   </a>
 </section>
 
@@ -280,6 +277,11 @@ if(!v||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.textContent="Please enter a vali
 m.classList.remove("ke");b.disabled=true;b.textContent="...";
 try{await fetch(f.action,{method:"POST",body:new FormData(f),mode:"no-cors"})}catch(err){}
 m.textContent="You\u2019re in. Built to win.";e.value="";b.disabled=false;b.textContent="Join"})}();
+/* Pill tap */
+!function(){var pills=document.querySelectorAll(".pill"),pp=document.getElementById("pp"),ppt=document.getElementById("ppt"),cur=null;
+pills.forEach(function(p){p.addEventListener("click",function(){if(cur===p){pp.classList.remove("show");p.classList.remove("active");cur=null;return}
+pills.forEach(function(x){x.classList.remove("active")});p.classList.add("active");ppt.textContent=p.getAttribute("data-desc");pp.classList.add("show");cur=p})});
+document.addEventListener("click",function(e){if(!e.target.closest(".pill")&&!e.target.closest(".pill-popup")){pp.classList.remove("show");pills.forEach(function(x){x.classList.remove("active")});cur=null}})}();
 </script>
 </body>
 </html>
