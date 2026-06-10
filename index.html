@@ -84,9 +84,8 @@ nav{
 }
 .orb-wrap{position:relative;width:190px;height:190px;margin-bottom:46px}
 .orb{
-  position:absolute;inset:0;border-radius:50%;
-  background:radial-gradient(circle at 35% 32%,#9cc4ff 0%,var(--blue-lt) 28%,var(--blue) 55%,#0c2a66 100%);
-  box-shadow:0 0 60px rgba(59,130,246,.55),0 0 140px rgba(59,130,246,.28),inset -14px -18px 42px rgba(2,6,20,.6);
+  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  filter:drop-shadow(0 0 50px rgba(59,130,246,.5)) drop-shadow(0 0 110px rgba(59,130,246,.25));
   animation:breathe 5s ease-in-out infinite;
 }
 .orb-ring{
@@ -274,7 +273,7 @@ a:focus-visible,.btn-store:focus-visible{outline:2px solid var(--blue-lt);outlin
     <div class="orb-wrap">
       <div class="orb-ring"></div>
       <div class="orb-ring r2"></div>
-      <div class="orb"></div>
+      <img class="orb" src="https://talonapp.co/assets/talon_new_orb.png?v=2" alt="Talon orb">
     </div>
     <span class="eyebrow">Habit Builder for iOS</span>
     <h1 class="display">Discipline.<br>Delivered. <span class="accent">Daily.</span></h1>
@@ -406,7 +405,7 @@ a:focus-visible,.btn-store:focus-visible{outline:2px solid var(--blue-lt);outlin
     <div class="reveal">
       <div class="orb-wrap">
         <div class="orb-ring"></div>
-        <div class="orb"></div>
+        <img class="orb" src="https://talonapp.co/assets/talon_new_orb.png?v=2" alt="Talon orb" loading="lazy">
       </div>
       <h2 class="display">Start <span class="accent">Building.</span></h2>
       <p>Talon is built to help you become the type of person who finishes what they start. One habit at a time. Available now on the App Store.</p>
