@@ -158,7 +158,7 @@ svg.radar{width:100%;max-width:340px;height:auto;overflow:visible}
 .quote .q{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.36;color:#fff}
 
 .sharecard{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(96,165,250,.25);background:radial-gradient(120% 90% at 20% 0%,rgba(59,130,246,.18),transparent 55%),#04060c;padding:26px 24px 22px}
-.sharecard .sc-orb{width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 38% 34%,#9cc4ff,#3B82F6 46%,#1e3a8a 80%);box-shadow:0 0 30px rgba(59,130,246,.45);margin-bottom:18px}
+.sharecard .sc-orb{width:54px;height:54px;object-fit:contain;display:block;filter:drop-shadow(0 0 22px rgba(59,130,246,.45));margin-bottom:18px}
 .sharecard .sc-lbl{font-family:var(--mono);font-style:italic;font-weight:300;font-size:11px;color:var(--blue-2);margin-bottom:8px}
 .sharecard .sc-name{font-family:var(--display);font-weight:700;font-size:30px;line-height:1.05}
 .sharecard .sc-name .em{color:var(--blue-2)}
@@ -455,16 +455,16 @@ function buildDash(){
     <div class="score-read"><div class="lbl">consistency score</div><div class="band">${band}</div><div class="txt">How well the habit survives the days you don\u2019t feel like it, not how hard you start.</div></div>
   </div></div>
 
+  <div class="card"><div class="lbl">habit pattern</div><div class="radar-wrap">${radarSVG()}</div></div>
+
   <div class="card"><div class="lbl">your strengths</div><div class="lead">${a.strongLead}</div>${sList?`<ul class="dimlist">${sList}</ul>`:''}</div>
   <div class="card"><div class="lbl">your weaknesses</div><div class="lead">${a.weakLead}</div>${wList?`<ul class="dimlist">${wList}</ul>`:''}</div>
-
-  <div class="card"><div class="lbl">habit pattern</div><div class="radar-wrap">${radarSVG()}</div></div>
 
   <div class="card"><div class="lbl">best strategy</div><div class="strat">${a.strategy}</div>
     <div class="quote"><div class="q">\u201C${a.quote}\u201D</div></div></div>
 
   <div class="card" style="margin-top:16px"><div class="lbl" style="padding-left:2px">shareable result</div>
-    <div class="sharecard" id="sharecard"><div class="sc-orb"></div><div class="sc-lbl">talon · find your habit type</div>
+    <div class="sharecard" id="sharecard"><img class="sc-orb" src="https://talonapp.co/assets/talon_new_orb.png?v=2" alt="Talon orb"><div class="sc-lbl">talon · find your habit type</div>
       <div class="sc-name">The <span class="em">${a.em}</span></div>
       <div class="sc-score"><b>${score}</b><span>/ 100 consistency</span></div>
       <div class="sc-insight">${a.headline}</div>
@@ -493,7 +493,7 @@ function buildDash(){
   $('#copylink').addEventListener('click',e=>{navigator.clipboard&&navigator.clipboard.writeText('https://talonapp.co');e.target.textContent='Copied';setTimeout(()=>e.target.textContent='Copy link',1500);});
   $('#dlcard').addEventListener('click',()=>{
     if(typeof html2canvas!=='function'){alert('Screenshot the card to share.');return;}
-    html2canvas($('#sharecard'),{backgroundColor:'#04060c',scale:2}).then(cv=>{const l=document.createElement('a');l.download='talon-'+a.em.toLowerCase().replace(/\s/g,'-')+'.png';l.href=cv.toDataURL('image/png');l.click();}).catch(()=>alert('Screenshot the card to share.'));
+    html2canvas($('#sharecard'),{backgroundColor:'#04060c',scale:2,useCORS:true,imageTimeout:0}).then(cv=>{const l=document.createElement('a');l.download='talon-'+a.em.toLowerCase().replace(/\s/g,'-')+'.png';l.href=cv.toDataURL('image/png');l.click();}).catch(()=>alert('Screenshot the card to share.'));
   });
 }
 
