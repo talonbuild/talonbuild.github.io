@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Find Your Habit Type — Talon</title>
+<title>Find Your Habit Type · Talon</title>
 <meta name="description" content="A 3-minute habit diagnostic. Find your habit type, your breaking point, and the one strategy built for it.">
 <meta name="theme-color" content="#04060c">
 <meta name="apple-itunes-app" content="app-id=6758687009">
-<meta property="og:title" content="Find Your Habit Type — Talon">
+<meta property="og:title" content="Find Your Habit Type · Talon">
 <meta property="og:description" content="You know what to do. So why don't you do it? Take the 3-minute test.">
 <meta property="og:image" content="https://talonapp.co/assets/Banner.png?v=2">
 <meta property="og:url" content="https://talonapp.co/habit-test">
@@ -42,11 +42,11 @@ body{background:var(--base);color:var(--ink);font-family:var(--body);-webkit-fon
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes fadeq{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
-.orb{width:116px;height:116px;border-radius:50%;margin:0 auto 28px;position:relative;
-  background:radial-gradient(circle at 38% 34%,#9cc4ff,#3B82F6 46%,#1e3a8a 78%,#0b1733);
-  box-shadow:0 0 60px 6px rgba(59,130,246,.35),0 0 120px 20px rgba(59,130,246,.18);animation:breathe 5.5s ease-in-out infinite}
-.orb::after,.orb::before{content:"";position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(96,165,250,.25);animation:pulse 5.5s ease-out infinite}
-.orb::before{animation-delay:2.4s}
+.orb-wrap{position:relative;width:116px;height:116px;margin:0 auto 28px}
+.orb{width:100%;height:100%;object-fit:contain;display:block;
+  filter:drop-shadow(0 0 46px rgba(59,130,246,.5)) drop-shadow(0 0 100px rgba(59,130,246,.22));animation:breathe 5.5s ease-in-out infinite}
+.orb-ring{position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(96,165,250,.25);animation:pulse 5.5s ease-out infinite}
+.orb-ring.r2{animation-delay:2.4s}
 @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
 @keyframes pulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.7);opacity:0}}
 
@@ -93,7 +93,7 @@ h1 .em{color:var(--blue-2)}
 
 /* swipe deck */
 .deck{position:relative;height:248px;margin-bottom:16px}
-.swcard{position:absolute;inset:0;background:#0b1020;border:1px solid var(--line-2);border-radius:20px;padding:30px 26px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--display);font-weight:600;font-size:22px;line-height:1.34;cursor:grab;user-select:none;box-shadow:0 18px 44px -18px rgba(0,0,0,.7)}
+.swcard{position:absolute;inset:0;background:#0b1020;border:1px solid var(--line-2);border-radius:20px;padding:30px 26px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--display);font-weight:600;font-size:22px;line-height:1.34;cursor:grab;user-select:none;box-shadow:0 18px 44px -18px rgba(0,0,0,.7);touch-action:none;will-change:transform}
 .swcard.behind{transform:translateY(12px) scale(.95);opacity:.5;filter:brightness(.8)}
 .swcard .hint{position:absolute;top:18px;font-family:var(--mono);font-style:italic;font-weight:300;font-size:13px;padding:5px 13px;border-radius:99px;opacity:0;transition:opacity .1s;pointer-events:none}
 .swcard .yes{right:18px;color:var(--blue-2);border:1px solid var(--blue-2)}
@@ -115,7 +115,7 @@ h1 .em{color:var(--blue-2)}
 
 /* reveal */
 .reveal{text-align:center}
-.reveal .orb{width:88px;height:88px}
+.reveal .orb-wrap{width:88px;height:88px}
 .rline{font-family:var(--mono);font-style:italic;font-weight:300;font-size:13.5px;color:var(--soft);min-height:20px;margin-top:8px;transition:opacity .3s}
 
 /* dashboard */
@@ -189,14 +189,14 @@ svg.radar{width:100%;max-width:340px;height:auto;overflow:visible}
   <div class="brandbar"><a class="wordmark" href="https://talonapp.co">TALON</a><div class="tagm">find your habit type</div></div>
 
   <section class="screen on" id="s-landing">
-    <div class="orb"></div>
+    <div class="orb-wrap"><div class="orb-ring"></div><div class="orb-ring r2"></div><img class="orb" src="https://talonapp.co/assets/talon_new_orb.png?v=2" alt="Talon orb"></div>
     <div class="eyebrow">a 3-minute habit diagnostic</div>
     <h1>You know what to do.<br>So why don't <span class="em">you do it?</span></h1>
-    <p class="sub">A short series of real decisions reveals the exact pattern that breaks your consistency — your habit type, your breaking point, and the one strategy built for it.</p>
+    <p class="sub">A short series of real decisions reveals the exact pattern that breaks your consistency: your habit type, your breaking point, and the one strategy built for it.</p>
     <div class="meta"><span>9 quick moves</span><span>~3 minutes</span><span>no email</span></div>
     <div class="cta-wrap">
       <button class="btn" id="start">Find your habit type</button>
-      <p class="fine">No right answers. Answer on instinct — the result is only as honest as you are.</p>
+      <p class="fine">No right answers. Answer on instinct. The result is only as honest as you are.</p>
     </div>
   </section>
 
@@ -207,7 +207,7 @@ svg.radar{width:100%;max-width:340px;height:auto;overflow:visible}
   </section>
 
   <section class="screen reveal" id="s-reveal">
-    <div class="orb"></div>
+    <div class="orb-wrap"><div class="orb-ring"></div><div class="orb-ring r2"></div><img class="orb" src="https://talonapp.co/assets/talon_new_orb.png?v=2" alt="Talon orb"></div>
     <h1 style="font-size:26px">Reading the pattern</h1>
     <p class="rline" id="rline"></p>
   </section>
@@ -235,7 +235,7 @@ const DIM_STRENGTH={
   resilience:'A setback doesn\u2019t take you out of the game.',
   recovery:'You have a way back after a missed day.',
   accountability:'You use outside stakes to keep yourself honest.',
-  execution:'You do more than you plan — you actually move.'
+  execution:'You do more than you plan. You actually move.'
 };
 const DIM_WEAK={
   drive:'The start rarely catches fire.',
@@ -243,7 +243,7 @@ const DIM_WEAK={
   planning:'You move without a clear next step.',
   focus:'You take on too much at once, and the load collapses.',
   resilience:'One setback tends to end the whole run.',
-  recovery:'A missed day has no road back — it becomes the end.',
+  recovery:'A missed day has no road back. It becomes the end.',
   accountability:'Nothing outside you holds the line.',
   execution:'Planning quietly takes the place of doing.'
 };
@@ -258,44 +258,44 @@ const GOAL={
 
 const ARCH={
   sprinter:{name:'The Sprinter',em:'Sprinter',tag:'Maximum intensity. No fuel left for tomorrow.',
-    strongLead:'A rare capacity for effort — when engaged, the output is genuinely high.',
+    strongLead:'A rare capacity for effort. When engaged, the output is genuinely high.',
     weakLead:'Consistency gets mistaken for intensity, so the habit gets everything on day one and nothing by day six.',
-    strategy:'Cap the daily action far below what you\u2019re capable of — small enough to survive a low day. Intensity is the talent; restraint is the missing skill.',
+    strategy:'Cap the daily action far below what you\u2019re capable of, small enough to survive a low day. Intensity is the talent; restraint is the missing skill.',
     quote:'The work that lasts is the work you can do tired.',
     talon:'Talon hands over one small action a day instead of an open field to over-invest in. The ceiling is set on purpose, so the habit outlasts the first burst.',
     headline:'I start at full speed. Talon taught me to leave fuel for tomorrow.'},
   architect:{name:'The Architect',em:'Architect',tag:'Designs the perfect system. Never quite runs it.',
-    strongLead:'Real clarity — your plan is usually sharper than most people bother to make.',
+    strongLead:'Real clarity. Your plan is usually sharper than most people bother to make.',
     weakLead:'Planning has quietly become the habit. The system keeps getting refined because building it feels safe and starting risks failure.',
-    strategy:'Act before the plan feels ready. Ship a deliberately rough version today — the plan earns the right to improve only after the habit exists.',
+    strategy:'Act before the plan feels ready. Ship a deliberately rough version today. The plan earns the right to improve only after the habit exists.',
     quote:'A plan you never run is just a nicer way of not starting.',
-    talon:'Talon removes the planning entirely — it generates the next action, so there\u2019s nothing left to design and nowhere to hide. The only move left is to do it.',
+    talon:'Talon removes the planning entirely. It generates the next action, so there\u2019s nothing left to design and nowhere to hide. The only move left is to do it.',
     headline:'I planned for months. Talon made me start in a minute.'},
   vanisher:{name:'The Vanisher',em:'Vanisher',tag:'Strong start. Then, quietly, gone.',
-    strongLead:'Strong starts — getting going is the part most people can\u2019t do, and it comes easily to you.',
-    weakLead:'There\u2019s no recovery mechanism. The first missed day isn\u2019t dramatic — it just never gets corrected, and the silence becomes the ending.',
+    strongLead:'Strong starts. Getting going is the part most people can\u2019t do, and it comes easily to you.',
+    weakLead:'There\u2019s no recovery mechanism. The first missed day isn\u2019t dramatic. It just never gets corrected, and the silence becomes the ending.',
     strategy:'Decide the bad-day version in advance, and treat the first miss as the only moment that matters. Catching the slip on day one is the entire skill.',
     quote:'The habit isn\u2019t lost on the day you miss. It\u2019s lost on the day you don\u2019t come back.',
     talon:'Talon keeps the next action in view every day, so a slip is visible immediately instead of weeks later. The habit can\u2019t quietly disappear when it\u2019s in front of you.',
     headline:'I always vanished by week two. Talon made the slip impossible to miss.'},
   purist:{name:'The Purist',em:'Purist',tag:'One imperfect day, and the streak is dead.',
-    strongLead:'High standards — when the work gets done, it\u2019s done well. Quality is never the issue.',
+    strongLead:'High standards. When the work gets done, it\u2019s done well. Quality is never the issue.',
     weakLead:'All-or-nothing. A broken streak reads as total failure, so a single off day ends the whole effort.',
-    strategy:'Never throw up a zero. On any day the full habit isn\u2019t possible, do the smaller version — a small action keeps the streak alive, and a zero is the only thing that breaks it.',
+    strategy:'Never throw up a zero. On any day the full habit isn\u2019t possible, do the smaller version. A small action keeps the streak alive, and a zero is the only thing that breaks it.',
     quote:'A small version done beats a perfect version skipped. Every time.',
     talon:'Talon offers a finishable action even on a hard day, so there\u2019s always a way to not break. The streak bends instead of snapping.',
     headline:'One bad day used to end it. Talon taught me the small version still counts.'},
   waiter:{name:'The Waiter',em:'Waiter',tag:'Acts only when the motivation shows up.',
-    strongLead:'High engagement — on a motivated day, the work is fast, focused and good.',
-    weakLead:'The habit runs on a feeling that actually arrives after starting, not before — so the wait never ends on its own.',
-    strategy:'Anchor the action to a fixed cue — after coffee, after the shower — so it fires whether or not motivation showed up. Motivation becomes the reward for starting, not the permission.',
-    quote:'Motivation is what you get for starting — not what you wait for to start.',
+    strongLead:'High engagement. On a motivated day, the work is fast, focused and good.',
+    weakLead:'The habit runs on a feeling that actually arrives after starting, not before, so the wait never ends on its own.',
+    strategy:'Anchor the action to a fixed cue (after coffee, after the shower) so it fires whether or not motivation showed up. Motivation becomes the reward for starting, not the permission.',
+    quote:'Motivation is what you get for starting, not what you wait for to start.',
     talon:'Talon gives a fixed daily action that doesn\u2019t ask how you feel. The cue replaces the mood, and starting generates the motivation you were waiting for.',
     headline:'I waited to feel like it. Talon taught me the feeling comes after.'},
   loop:{name:'The Restart Loop',em:'Restart Loop',tag:'Always beginning again. Rarely continuing.',
-    strongLead:'Optimism and a willingness to begin — starting again takes a hope most people lose. That\u2019s real fuel, just misdirected.',
-    weakLead:'A clean Monday feels better than a messy Wednesday — usually with too much taken on at once — so progress keeps resetting to zero.',
-    strategy:'One habit, and never restart. Continue from exactly where things stand — messy, mid-week, behind — because continuing imperfectly is the only thing that compounds.',
+    strongLead:'Optimism and a willingness to begin. Starting again takes a hope most people lose. That\u2019s real fuel, just misdirected.',
+    weakLead:'A clean Monday feels better than a messy Wednesday, usually with too much taken on at once, so progress keeps resetting to zero.',
+    strategy:'One habit, and never restart. Continue from exactly where things stand (messy, mid-week, behind) because continuing imperfectly is the only thing that compounds.',
     quote:'Stop starting over. Continue from exactly where you are.',
     talon:'Talon keeps one habit and one next action in front of you, so there\u2019s nothing to overload and no clean slate to chase. The only direction is forward from here.',
     headline:'I kept starting over. Talon taught me to just continue.'}
@@ -303,14 +303,14 @@ const ARCH={
 
 /* ---- questions ---- */
 const Q=[
- {type:'goal',mech:'pick one',kicker:'First — the goal',text:'What are you actually trying to build right now?',
+ {type:'goal',mech:'pick one',kicker:'First: the goal',text:'What are you actually trying to build right now?',
   items:[['learning','Reading & learning'],['fitness','Fitness & movement'],['focus','Focus & deep work'],['calm','Calm & mindfulness'],['money','Money & saving'],['other','Something else']]},
 
- {type:'binary',mech:'tap a scenario',kicker:'Day one',text:'A habit you actually care about. The start honestly looks like\u2014',
+ {type:'binary',mech:'tap a scenario',kicker:'Day one',text:'A habit you actually care about. The start honestly looks like\u2026',
   a:{glyph:'full',t:'Go all in',s:'Clear the schedule. Maximum effort.',arch:{sprinter:2},dims:{drive:15,recovery:-10}},
   b:{glyph:'ring',t:'Start tiny',s:'One small version. Today.',arch:{},dims:{execution:15,recovery:10,discipline:8,focus:8}}},
 
- {type:'binary',mech:'tap a reaction',kicker:'When the motivation fades',text:'Two weeks in. The spark that started it is gone. You\u2014',
+ {type:'binary',mech:'tap a reaction',kicker:'When the motivation fades',text:'Two weeks in. The spark that started it is gone. You\u2026',
   a:{glyph:'full',t:'Push through',s:'Run it on discipline alone.',arch:{},dims:{discipline:18,resilience:8}},
   b:{glyph:'ring',t:'Wait for it',s:'Pick it back up when it returns.',arch:{waiter:2,vanisher:1},dims:{discipline:-15,drive:5}}},
 
@@ -323,7 +323,7 @@ const Q=[
    {text:'I research the perfect approach before I begin.',yes:{arch:{architect:2},dims:{planning:12,execution:-10}},no:{arch:{},dims:{execution:8}}}
   ]},
 
- {type:'binary',mech:'tap a reaction',kicker:'Slow progress',text:'A month in. Still no results showing. The honest move\u2014',
+ {type:'binary',mech:'tap a reaction',kicker:'Slow progress',text:'A month in. Still no results showing. The honest move\u2026',
   a:{glyph:'full',t:'Push harder',s:'Add more. Force the results.',arch:{sprinter:1,loop:1},dims:{drive:10,recovery:-10}},
   b:{glyph:'ring',t:'Keep it small',s:'Trust it. Same small action.',arch:{},dims:{resilience:15,discipline:10,focus:6}}},
 
@@ -331,15 +331,15 @@ const Q=[
   a:{glyph:'full',t:'Someone counting on me',s:'Outside stakes keep me honest.',arch:{},dims:{accountability:18}},
   b:{glyph:'ring',t:'Only my own word',s:'It has to come from me.',arch:{},dims:{discipline:10,accountability:-8}}},
 
- {type:'sim',seg:0,mech:'simulated week · monday',kicker:'A hard week begins',text:'Monday. You\u2019re behind before the day even starts. The habit\u2014',
+ {type:'sim',seg:0,mech:'simulated week · monday',kicker:'A hard week begins',text:'Monday. You\u2019re behind before the day even starts. The habit\u2026',
   a:{glyph:'full',t:'Gets done first',s:'Before the chaos takes over.',hit:true,arch:{},dims:{discipline:15,execution:10}},
   b:{glyph:'ring',t:'Gets pushed to tonight',s:'\u2026and then it doesn\u2019t happen.',hit:false,arch:{vanisher:2},dims:{execution:-10,recovery:-5}}},
 
- {type:'sim',seg:1,mech:'simulated week · wednesday',kicker:'The streak just broke',text:'You missed Tuesday. The run is gone. Wednesday\u2014',
+ {type:'sim',seg:1,mech:'simulated week · wednesday',kicker:'The streak just broke',text:'You missed Tuesday. The run is gone. Wednesday\u2026',
   a:{glyph:'ring',t:'Pick it up today',s:'Imperfectly. Just continue.',hit:true,arch:{},dims:{recovery:20,resilience:15}},
   b:{glyph:'full',t:'Write off the week',s:'Start clean on Monday.',hit:false,arch:{loop:2},dims:{recovery:-15,focus:-5}}},
 
- {type:'sim',seg:2,mech:'simulated week · friday',kicker:'The worst day',text:'Friday. Energy gone. The honest move\u2014',
+ {type:'sim',seg:2,mech:'simulated week · friday',kicker:'The worst day',text:'Friday. Energy gone. The honest move\u2026',
   a:{glyph:'ring',t:'Smallest version',s:'Just enough to not break it.',hit:true,arch:{},dims:{recovery:15,resilience:10,discipline:8,focus:5}},
   b:{glyph:'full',t:'Skip it',s:'Protect what energy is left.',hit:false,arch:{waiter:1},dims:{discipline:-10}}}
 ];
@@ -402,10 +402,13 @@ function renderSwipe(q){
     setTimeout(()=>{idx>=q.cards.length?next({q:qi,done:true}):paint();},250);
   }
   function drag(card){
-    let sx=0,dx=0,down=false;const yes=card.querySelector('.yes'),no=card.querySelector('.no');
-    card.addEventListener('pointerdown',e=>{down=true;sx=e.clientX;card.setPointerCapture(e.pointerId);card.style.transition='none';});
-    card.addEventListener('pointermove',e=>{if(!down)return;dx=e.clientX-sx;card.style.transform=`translateX(${dx}px) rotate(${dx*.04}deg)`;yes.style.opacity=dx>0?Math.min(1,dx/80):0;no.style.opacity=dx<0?Math.min(1,-dx/80):0;});
-    card.addEventListener('pointerup',()=>{down=false;if(Math.abs(dx)>88)commit(dx>0?1:-1);else{card.style.transition='transform .2s';card.style.transform='';yes.style.opacity=0;no.style.opacity=0;}dx=0;});
+    let sx=0,dx=0,down=false,raf=null;const yes=card.querySelector('.yes'),no=card.querySelector('.no');
+    function render(){raf=null;card.style.transform=`translateX(${dx}px) rotate(${dx*.05}deg)`;yes.style.opacity=dx>0?Math.min(1,dx/70):0;no.style.opacity=dx<0?Math.min(1,-dx/70):0;}
+    card.addEventListener('pointerdown',e=>{down=true;sx=e.clientX;try{card.setPointerCapture(e.pointerId);}catch(_){}card.style.transition='none';});
+    card.addEventListener('pointermove',e=>{if(!down)return;dx=e.clientX-sx;if(!raf)raf=requestAnimationFrame(render);});
+    function release(){if(!down)return;down=false;if(raf){cancelAnimationFrame(raf);raf=null;}if(Math.abs(dx)>78)commit(dx>0?1:-1);else{card.style.transition='transform .22s ease';card.style.transform='';yes.style.opacity=0;no.style.opacity=0;}dx=0;}
+    card.addEventListener('pointerup',release);
+    card.addEventListener('pointercancel',release);
   }
   $('#byes').addEventListener('click',()=>commit(1));$('#bno').addEventListener('click',()=>commit(-1));
   paint();
@@ -449,7 +452,7 @@ function buildDash(){
 
   <div class="card"><div class="ring-wrap">
     <div class="ring"><svg width="126" height="126"><circle cx="63" cy="63" r="55" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10"/><circle id="ringfg" cx="63" cy="63" r="55" fill="none" stroke="url(#g)" stroke-width="10" stroke-linecap="round" stroke-dasharray="${2*Math.PI*55}" stroke-dashoffset="${2*Math.PI*55}"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B82F6"/><stop offset="1" stop-color="#60A5FA"/></linearGradient></defs></svg><div class="num"><b id="scoreNum">0</b><span>/ 100</span></div></div>
-    <div class="score-read"><div class="lbl">consistency score</div><div class="band">${band}</div><div class="txt">How well the habit survives the days you don\u2019t feel like it — not how hard you start.</div></div>
+    <div class="score-read"><div class="lbl">consistency score</div><div class="band">${band}</div><div class="txt">How well the habit survives the days you don\u2019t feel like it, not how hard you start.</div></div>
   </div></div>
 
   <div class="card"><div class="lbl">your strengths</div><div class="lead">${a.strongLead}</div>${sList?`<ul class="dimlist">${sList}</ul>`:''}</div>
