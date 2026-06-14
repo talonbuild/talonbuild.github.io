@@ -75,14 +75,14 @@ h1 .em{color:var(--blue-2)}
 /* goal chips */
 .chips{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .chip{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px;cursor:pointer;color:#fff;font-size:15px;font-weight:500;min-height:64px;display:flex;align-items:center;transition:border-color .15s,background .15s,transform .12s}
-.chip:hover{border-color:rgba(96,165,250,.55);background:var(--card-2)}
+@media(hover:hover){.chip:hover{border-color:rgba(96,165,250,.55);background:var(--card-2)}}
 .chip:active{transform:scale(.98)}
 .chip.sel{border-color:var(--blue-2);background:var(--blue-dim)}
 
 /* binary scenarios */
 .pair{display:flex;flex-direction:column;gap:12px}
 .scn{position:relative;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:20px 18px;cursor:pointer;min-height:96px;transition:border-color .15s,background .15s,transform .12s}
-.scn:hover{border-color:rgba(96,165,250,.55);background:var(--card-2)}
+@media(hover:hover){.scn:hover{border-color:rgba(96,165,250,.55);background:var(--card-2)}}
 .scn:active{transform:scale(.99)}
 .scn.sel{border-color:var(--blue-2);background:var(--blue-dim)}
 .scn .glyph{width:22px;height:22px;margin-bottom:12px;border-radius:50%}
@@ -178,6 +178,7 @@ svg.radar{width:100%;max-width:340px;height:auto;overflow:visible}
 .foot{text-align:center;margin-top:26px;font-family:var(--mono);font-style:italic;font-weight:300;font-size:11px;color:var(--slate)}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.qbody:focus{outline:none}
 :focus-visible{outline:2px solid var(--blue-2);outline-offset:3px;border-radius:8px}
 </style>
 </head>
@@ -360,6 +361,7 @@ function shell(q,inner){
   const head=(q.type==='sim'?`<div class="simbadge">your week so far</div><div class="streak">${[0,1,2].map(n=>`<i class="${streak[n]?(streak[n]==='hit'?'done':'empty'):''}"></i>`).join('')}</div>`:'');
   const body=$('#qbody');body.style.animation='none';void body.offsetWidth;body.style.animation='fadeq .4s ease both';
   body.innerHTML=`<div class="qbody">${head}<div class="qkicker">${q.kicker}</div><div class="qtext">${q.text}</div>${inner}</div>`;
+  const qb=body.firstElementChild;if(qb){qb.setAttribute('tabindex','-1');qb.focus({preventScroll:true});}
 }
 function renderQ(){const q=Q[qi];({goal:renderGoal,binary:renderBinary,swipe:renderSwipe,sim:renderBinary})[q.type](q);}
 
