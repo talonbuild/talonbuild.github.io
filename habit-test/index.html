@@ -44,8 +44,44 @@ body{background:var(--base);color:var(--ink);font-family:var(--body);-webkit-fon
 .neb{position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(120px)}
 .neb.a{width:700px;height:700px;top:-200px;left:-150px;background:rgba(59,130,246,.08)}
 .neb.b{width:600px;height:600px;bottom:-200px;right:-150px;background:rgba(99,102,241,.06)}
-.wrap{position:relative;z-index:2;max-width:540px;margin:0 auto;padding:26px var(--pad) 56px;min-height:100dvh;display:flex;flex-direction:column}
-.brandbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:auto;padding-bottom:22px}
+.wrap{position:relative;z-index:2;max-width:540px;margin:0 auto;padding:96px var(--pad) 56px;min-height:100dvh;display:flex;flex-direction:column}
+/* ---- shared site nav ---- */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px clamp(20px,5vw,56px);
+  background:linear-gradient(rgba(4,6,12,.92),rgba(4,6,12,0));
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+}
+.nav-wordmark{
+  font-family:var(--display);font-weight:700;font-size:17px;
+  letter-spacing:.55em;color:var(--slate);text-decoration:none;
+}
+.nav-links{display:flex;align-items:center;gap:clamp(20px,3.4vw,38px)}
+.nav-links a{
+  font-family:var(--mono);font-style:normal;font-weight:400;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--slate);text-decoration:none;padding:6px 0;transition:color .2s;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a.active{color:var(--blue-2)}
+.nav-cta{
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;
+  border:1px solid rgba(96,165,250,.14);border-radius:999px;
+  padding:10px 22px;transition:border-color .25s,background .25s;
+}
+.nav-cta:hover{border-color:var(--blue);background:rgba(59,130,246,.1)}
+@media (max-width:660px){
+  .site-nav{flex-wrap:wrap;row-gap:8px;padding:14px 20px 12px;
+    background:linear-gradient(rgba(4,6,12,.96),rgba(4,6,12,.78) 72%,rgba(4,6,12,0))}
+  .nav-links{order:3;width:100%;justify-content:center;gap:24px}
+  .nav-links a{font-size:10px;letter-spacing:.18em}
+  .nav-cta{font-size:11px;padding:8px 16px}
+  .wrap{padding-top:138px}
+  #dash{padding-top:138px}
+}
+.brandbar{display:flex;align-items:center;justify-content:center;margin-bottom:auto;padding-bottom:22px}
 .wordmark{font-family:var(--display);font-weight:700;letter-spacing:.42em;font-size:13px;color:var(--slate);padding-left:.42em;text-decoration:none}
 .tagm{font-family:var(--mono);font-style:italic;font-weight:300;font-size:11px;color:var(--slate)}
 
@@ -131,7 +167,7 @@ h1 .em{color:var(--blue-2)}
 .rline{font-family:var(--mono);font-style:italic;font-weight:300;font-size:13.5px;color:var(--soft);min-height:20px;margin-top:8px;transition:opacity .3s}
 
 /* dashboard */
-#dash{display:none;position:relative;z-index:2;max-width:540px;margin:0 auto;padding:26px var(--pad) 64px}
+#dash{display:none;position:relative;z-index:2;max-width:540px;margin:0 auto;padding:96px var(--pad) 64px}
 #dash.on{display:block;animation:fade .55s ease both}
 .dhead{text-align:center;margin-bottom:6px}
 .dhead .eyebrow{margin-bottom:8px}
@@ -198,8 +234,18 @@ svg.radar{width:100%;max-width:340px;height:auto;overflow:visible}
 <canvas id="stars"></canvas>
 <div class="neb a"></div><div class="neb b"></div>
 
+<nav class="site-nav">
+  <a class="nav-wordmark" href="https://talonapp.co/">TALON</a>
+  <div class="nav-links">
+    <a href="https://talonapp.co/about.html">About</a>
+    <a href="https://talonapp.co/habit-test/" class="active">Habit Test</a>
+    <a href="https://talonapp.co/privacy-policy.html">Privacy</a>
+  </div>
+  <a class="nav-cta" href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009">Download</a>
+</nav>
+
 <div class="wrap" id="flow">
-  <div class="brandbar"><a class="wordmark" href="https://talonapp.co">TALON</a><div class="tagm">find your habit type</div></div>
+  <div class="brandbar"><div class="tagm">find your habit type</div></div>
 
   <section class="screen on" id="s-landing">
     <div class="orb-wrap"><div class="orb-ring"></div><div class="orb-ring r2"></div><img class="orb" src="https://talonapp.co/assets/talon_new_orb.png?v=2" alt="Talon orb"></div>
@@ -463,7 +509,7 @@ function buildDash(){
   $('#flow').style.display='none';
   const dash=$('#dash');
   dash.innerHTML=`
-  <div class="brandbar"><a class="wordmark" href="https://talonapp.co">TALON</a><div class="tagm">your result</div></div>
+  <div class="brandbar"><div class="tagm">your result</div></div>
   <div class="dhead"><div class="eyebrow">your habit type</div><div class="arche">The <span class="em">${a.em}</span></div><div class="archtag">${a.tag}</div></div>
 
   <div class="card"><div class="ring-wrap">
