@@ -12,7 +12,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #030c20;
+    --bg: #04060c;
     --surface: #0a1628;
     --border: rgba(255, 255, 255, 0.07);
     --text: rgba(255, 255, 255, 0.88);
@@ -58,58 +58,58 @@
     z-index: 1;
   }
 
-  /* NAV */
+  /* NAV — shared site nav */
   nav.top-nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 20;
-    padding: 22px 32px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: linear-gradient(180deg, rgba(3, 12, 32, 0.92) 0%, rgba(3, 12, 32, 0.55) 70%, transparent 100%);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    justify-content: space-between;
+    padding: 20px clamp(20px, 5vw, 56px);
+    background: linear-gradient(rgba(4,6,12,.92), rgba(4,6,12,0));
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
   }
   .wordmark {
     font-family: var(--display);
-    font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.45em;
+    font-size: 17px;
+    letter-spacing: 0.55em;
+    color: #94a3b8;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; align-items: center; gap: clamp(20px, 3.4vw, 38px); list-style: none; }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 6px 0;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-links a.active { color: #60A5FA; }
+  .nav-cta {
+    font-size: 12px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #fff;
     text-decoration: none;
-    text-shadow: 0 0 18px rgba(59, 130, 246, 0.25);
-    transition: text-shadow 0.4s ease;
-    padding-left: 0.45em;
+    border: 1px solid rgba(96,165,250,.14);
+    border-radius: 999px;
+    padding: 10px 22px;
+    transition: border-color 0.25s, background 0.25s;
   }
-  .wordmark:hover { text-shadow: 0 0 24px rgba(59, 130, 246, 0.5); }
-  .nav-links { display: flex; gap: 28px; list-style: none; }
-  .nav-links a {
-    font-family: var(--display);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 6px 0;
-    position: relative;
-    transition: color 0.4s ease;
+  .nav-cta:hover { border-color: var(--accent); background: rgba(59,130,246,.1); }
+  @media (max-width: 660px) {
+    nav.top-nav { flex-wrap: wrap; row-gap: 8px; padding: 14px 20px 12px;
+      background: linear-gradient(rgba(4,6,12,.96), rgba(4,6,12,.78) 72%, rgba(4,6,12,0)); }
+    .nav-links { order: 3; width: 100%; justify-content: center; gap: 24px; }
+    .nav-links a { font-size: 10px; letter-spacing: 0.18em; }
+    .nav-cta { font-size: 11px; padding: 8px 16px; }
   }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 1px;
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent-glow);
-    transition: width 0.4s ease;
-  }
-  .nav-links a:hover, .nav-links a.active { color: #fff; }
-  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
   /* WRAP */
   .wrap {
@@ -347,6 +347,17 @@
     text-align: center;
     border-top: 1px solid var(--border);
   }
+  .footer-links { display: flex; justify-content: center; gap: 26px; flex-wrap: wrap; margin-bottom: 22px; }
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .footer-links a:hover { opacity: 1; color: #60A5FA; }
   .footer-mark {
     font-family: var(--display);
     font-size: 10px;
@@ -358,11 +369,7 @@
 
   /* RESPONSIVE */
   @media (max-width: 640px) {
-    nav.top-nav { padding: 16px 20px; }
-    .nav-links { gap: 18px; }
-    .nav-links a { font-size: 9px; letter-spacing: 0.28em; }
-    .wordmark { font-size: 12px; letter-spacing: 0.42em; }
-    .wrap { padding: 120px 18px 80px; }
+    .wrap { padding: 150px 18px 80px; }
     section.card { padding: 28px 22px; }
     header.page-header { margin-bottom: 48px; }
     .closing { margin-top: 52px; }
@@ -378,11 +385,13 @@
 <canvas id="starfield"></canvas>
 
 <nav class="top-nav">
-  <a href="index.html" class="wordmark">Talon</a>
-  <ul class="nav-links">
-    <li><a href="about.html">About</a></li>
-    <li><a href="privacy-policy.html" class="active">Privacy</a></li>
-  </ul>
+  <a href="https://talonapp.co/" class="wordmark">TALON</a>
+  <div class="nav-links">
+    <a href="https://talonapp.co/about.html">About</a>
+    <a href="https://talonapp.co/habit-test/">Habit Test</a>
+    <a href="https://talonapp.co/privacy-policy.html" class="active">Privacy</a>
+  </div>
+  <a class="nav-cta" href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009">Download</a>
 </nav>
 
 <div class="wrap">
@@ -523,7 +532,12 @@
 </div>
 
 <footer class="site-footer">
-  <p class="footer-mark">&copy; 2026 Talon Build LLC</p>
+  <div class="footer-links">
+    <a href="https://talonapp.co/">Home</a>
+    <a href="https://talonapp.co/about.html">About</a>
+    <a href="https://talonapp.co/habit-test/">Habit Test</a>
+  </div>
+  <p class="footer-mark">TALON — BUILT TO WIN &middot; &copy; 2026 TALON BUILD LLC</p>
 </footer>
 
 <script>
