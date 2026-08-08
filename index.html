@@ -19,7 +19,6 @@
 <meta name="twitter:site" content="@talonhabits">
 <meta name="twitter:title" content="Talon | Habit Builder">
 <meta name="twitter:description" content="You bring the goal. Talon brings the daily plan. Free on the App Store.">
-<meta name="twitter:image" content="https://talonapp.co/assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=IBM+Plex+Mono:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
@@ -263,6 +262,46 @@ footer .meta{font-size:11px;letter-spacing:.18em;color:var(--slate)}
 
 a:focus-visible,.btn-store:focus-visible{outline:2px solid var(--blue-lt);outline-offset:3px}
 
+/* ---------- Instagram / in-app browser fallback sheet ---------- */
+.igf{
+  position:fixed;left:0;right:0;bottom:0;z-index:200;
+  display:flex;justify-content:center;
+  padding:16px 16px calc(16px + env(safe-area-inset-bottom));
+  background:linear-gradient(rgba(4,6,12,0),rgba(4,6,12,.85) 40%,rgba(4,6,12,.96));
+  transform:translateY(120%);transition:transform .35s ease;
+}
+.igf.show{transform:translateY(0)}
+.igf-card{
+  position:relative;width:100%;max-width:440px;
+  background:rgba(10,14,24,.98);
+  border:1px solid var(--line);border-radius:18px;
+  padding:22px 22px 20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+.igf-close{
+  position:absolute;top:10px;right:12px;
+  width:32px;height:32px;line-height:1;
+  background:transparent;border:0;color:var(--slate);
+  font-size:22px;cursor:pointer;
+}
+.igf-close:hover{color:var(--white)}
+.igf-eyebrow{
+  font-size:10px;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--blue-lt);margin-bottom:10px;
+}
+.igf-title{
+  font-family:'Cinzel',serif;font-weight:700;font-size:18px;
+  letter-spacing:.03em;margin-bottom:10px;
+}
+.igf-body{font-size:13px;line-height:1.7;color:#dbe4f5;margin-bottom:16px}
+.igf-body b{color:var(--white)}
+.igf-link{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  background:var(--blue);color:var(--white);text-decoration:none;
+  border-radius:12px;padding:14px 20px;font-size:13px;letter-spacing:.06em;
+}
+.igf-link:active{background:var(--blue-lt)}
+
 @media (max-width:880px){
   .loop{grid-template-columns:1fr}
   .phases{grid-template-columns:repeat(2,1fr)}
@@ -278,6 +317,7 @@ a:focus-visible,.btn-store:focus-visible{outline:2px solid var(--blue-lt);outlin
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
+  .igf{transition:none}
 }
 </style>
 </head>
@@ -295,7 +335,7 @@ a:focus-visible,.btn-store:focus-visible{outline:2px solid var(--blue-lt);outlin
     <a href="https://talonapp.co/habit-test/">Habit Test</a>
     <a href="https://talonapp.co/privacy-policy.html">Privacy</a>
   </div>
-  <a class="nav-cta" href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009">Download</a>
+  <a class="nav-cta" href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009" data-store-cta="nav">Download</a>
 </nav>
 
 <main id="top">
@@ -309,7 +349,7 @@ a:focus-visible,.btn-store:focus-visible{outline:2px solid var(--blue-lt);outlin
     </div>
     <h1 class="display">Discipline.<br>Delivered. <span class="accent">Daily.</span></h1>
     <p class="sub">Talon is an iOS habit app that gives you one small action to do today. Repeat it until the habit sticks.</p>
-    <a class="btn-store" href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009">
+    <a class="btn-store" href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009" data-store-cta="hero">
       <svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
       <span class="lines"><small>Free on the</small>App Store</span>
     </a>
@@ -451,7 +491,7 @@ a:focus-visible,.btn-store:focus-visible{outline:2px solid var(--blue-lt);outlin
       </div>
       <h2 class="display">Start <span class="accent">Building.</span></h2>
       <p>Talon won't promise you the outcome. It builds the system that makes the outcome possible, starting with one action today.</p>
-      <a class="btn-store" href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009">
+      <a class="btn-store" href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009" data-store-cta="final">
         <svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
         <span class="lines"><small>Free on the</small>App Store</span>
       </a>
@@ -475,8 +515,21 @@ a:focus-visible,.btn-store:focus-visible{outline:2px solid var(--blue-lt);outlin
   <div class="meta">TALON · BUILT TO WIN · © 2026 TALON BUILD LLC</div>
 </footer>
 
+<!-- In-app browser fallback (Instagram / Facebook). Hidden until needed. -->
+<div class="igf" id="igFallback" role="dialog" aria-modal="false" aria-labelledby="igfTitle" aria-hidden="true">
+  <div class="igf-card">
+    <button class="igf-close" id="igfClose" type="button" aria-label="Close">&times;</button>
+    <div class="igf-eyebrow">One quick step</div>
+    <p class="igf-title" id="igfTitle">Open in Safari to download</p>
+    <p class="igf-body">Instagram's built-in browser can block the App&nbsp;Store. Tap the <b>•••</b> menu (top-right), choose <b>Open in Safari</b>, then tap Download again.</p>
+    <a class="igf-link" href="https://apps.apple.com/us/app/talon-habit-builder/id6758687009" data-store-cta="fallback">Try the App&nbsp;Store anyway &rarr;</a>
+  </div>
+</div>
+
 <script>
-// Universe V2 seeded star field — 55 stars, seed idx*7919+1, 85% small / 15% large, opacity .3–.9
+/* ============================================================
+   1) Universe V2 seeded star field
+   ============================================================ */
 (function(){
   var u=document.getElementById('universe');
   function rng(s){return function(){s=Math.sin(s)*10000;return s-Math.floor(s);}}
@@ -491,12 +544,125 @@ a:focus-visible,.btn-store:focus-visible{outline:2px solid var(--blue-lt);outlin
     u.appendChild(d);
   }
 })();
-// scroll reveals
+
+/* ============================================================
+   2) Scroll reveals
+   ============================================================ */
 (function(){
   if(!('IntersectionObserver' in window)){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in')});return;}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
   document.querySelectorAll('.reveal').forEach(function(e){io.observe(e)});
 })();
+
+/* ============================================================
+   3) App Store handoff + in-app-browser fallback + analytics
+   ------------------------------------------------------------
+   WHY: apps.apple.com is a Universal Link. iOS only auto-opens
+   the native App Store from it in Safari/real browsers. Inside
+   Instagram's in-app WebView the handoff is unreliable, so we:
+     - leave the normal https anchor intact for Safari/Chrome/desktop
+       (also the graceful fallback if this script fails),
+     - for iOS in-app browsers, attempt itms-apps:// (best chance of
+       a direct native open) and, if we're still on the page, show a
+       "Open in Safari" instruction so the tap never dies silently.
+   ============================================================ */
+(function(){
+  var APP_ID   = '6758687009';
+  var HTTPS_URL= 'https://apps.apple.com/us/app/talon-habit-builder/id' + APP_ID;
+  // itms-apps:// is a documented Apple scheme. In a WebView it is handed
+  // to the OS, which is the most reliable path to the *native* App Store.
+  var ITMS_URL = 'itms-apps://apps.apple.com/us/app/talon-habit-builder/id' + APP_ID;
+
+  var ua = navigator.userAgent || '';
+  var isIOS   = /iP(hone|od|ad)/.test(ua) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // Meta in-app browsers: Instagram + Facebook + Messenger share the same WebView.
+  var isInApp = /Instagram/i.test(ua) || /FBAN|FBAV|FB_IAB|Messenger/i.test(ua);
+
+  /* ---- vendor-agnostic analytics fan-out ----
+     Fires into whatever is present (PostHog / GA4 / GTM / Meta Pixel),
+     always emits a `talon:<event>` DOM event, and logs in dev. */
+  function track(name, props){
+    props = props || {};
+    props.environment = isInApp ? 'in_app_ios' : (isIOS ? 'ios_browser' : 'other');
+    try{ if(window.posthog && posthog.capture) posthog.capture(name, props); }catch(e){}
+    try{ if(typeof window.gtag === 'function') gtag('event', name, props); }catch(e){}
+    try{ if(window.dataLayer && dataLayer.push) dataLayer.push(Object.assign({event:name}, props)); }catch(e){}
+    try{ if(typeof window.fbq === 'function') fbq('trackCustom', name, props); }catch(e){}
+    try{ window.dispatchEvent(new CustomEvent('talon:'+name, {detail:props})); }catch(e){}
+  }
+
+  var sheet = document.getElementById('igFallback');
+  function showFallback(location){
+    if(sheet){
+      sheet.classList.add('show');
+      sheet.setAttribute('aria-hidden','false');
+    }
+    track('inapp_fallback_shown', {location: location || 'unknown'});
+  }
+  function hideFallback(){
+    if(sheet){
+      sheet.classList.remove('show');
+      sheet.setAttribute('aria-hidden','true');
+    }
+  }
+  var closeBtn = document.getElementById('igfClose');
+  if(closeBtn) closeBtn.addEventListener('click', hideFallback);
+
+  function handleStoreTap(e){
+    var el = e.currentTarget;
+    var where = el.getAttribute('data-store-cta') || 'unknown';
+    track('cta_click', {location: where});
+
+    // Safari / Chrome iOS / Android / desktop: let the native anchor work. No change.
+    if(!(isIOS && isInApp)) return;
+
+    // Instagram / Facebook in-app iOS: take control.
+    e.preventDefault();
+    track('store_redirect_attempt', {location: where, method: 'itms-apps'});
+
+    var settled = false;
+    function onLeave(){
+      if(document.visibilityState === 'hidden' && !settled){
+        settled = true;
+        // Heuristic only — the page backgrounded, which USUALLY means the
+        // App Store opened. The browser gives no guaranteed confirmation.
+        track('store_redirect_likely_success', {location: where});
+      }
+    }
+    document.addEventListener('visibilitychange', onLeave);
+    window.addEventListener('pagehide', onLeave);
+
+    // Attempt the direct native open.
+    try{ window.location.href = ITMS_URL; }catch(err){}
+
+    // If we're still here shortly after, the handoff was blocked → show fallback.
+    setTimeout(function(){
+      document.removeEventListener('visibilitychange', onLeave);
+      window.removeEventListener('pagehide', onLeave);
+      if(!settled && document.visibilityState !== 'hidden'){
+        showFallback(where);
+      }
+    }, 1300);
+  }
+
+  var ctas = document.querySelectorAll('[data-store-cta]');
+  for(var i=0;i<ctas.length;i++){
+    ctas[i].addEventListener('click', handleStoreTap);
+  }
+
+  // One-time signal so you can segment Instagram traffic in your analytics.
+  if(isInApp) track('inapp_browser_detected', {});
+})();
+
+/* ============================================================
+   4) OPTIONAL — PostHog (your Talon Build project).
+   phc_ keys are public client keys, safe to ship in front-end code.
+   Uncomment to start capturing the events above automatically.
+   ------------------------------------------------------------
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_CXWQ8729VFcpGS5sft9ch3QaqZ3agoa3oQ2avycTE62Z', {api_host:'https://us.posthog.com'});
+   ============================================================ */
 </script>
 </body>
 </html>
