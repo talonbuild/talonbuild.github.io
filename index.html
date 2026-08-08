@@ -249,7 +249,8 @@
     .hero-grid { grid-template-columns: 1fr; text-align: center; }
     .hero .lede { margin-inline: auto; }
     .cta-row { justify-content: center; }
-    .phone-stage { order: -1; margin-bottom: 10px; }
+    /* the words lead on the phone; the app follows, with room to breathe */
+    .phone-stage { margin-top: clamp(40px, 9vw, 56px); }
     .steps { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
