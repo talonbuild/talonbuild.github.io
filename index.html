@@ -499,11 +499,38 @@
   // shortly after, show the "Open in Safari" sheet — the tap never dies silently.
   (function () {
     var APP_ID = '6758687009';
+    var HTTPS_URL = 'https://apps.apple.com/us/app/talon-habit-builder/id' + APP_ID;
     var ITMS_URL = 'itms-apps://apps.apple.com/us/app/talon-habit-builder/id' + APP_ID;
 
     var ua = navigator.userAgent || '';
     var isIOS = /iP(hone|od|ad)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     var isInApp = /Instagram/i.test(ua) || /FBAN|FBAV|FB_IAB|Messenger/i.test(ua);
+
+    // ── the ⋯ hand-off finisher ──
+    // Tapping Download inside Instagram stamps the URL with ?dl=1. Instagram's
+    // "Open in external browser" reopens that SAME url in Safari — where this
+    // page detects the stamp, skips itself, and goes straight to the App Store.
+    var DL_FLAG = /[?&]dl=1(&|$)/;
+    if (DL_FLAG.test(location.search) && !isInApp) {
+      location.replace(HTTPS_URL);
+      return;
+    }
+    function rememberIntent() {
+      try {
+        if (!DL_FLAG.test(location.search)) {
+          var q = location.search ? location.search + '&dl=1' : '?dl=1';
+          history.replaceState(null, '', location.pathname + q + location.hash);
+        }
+      } catch (e) {}
+    }
+    function forgetIntent() {
+      try {
+        if (DL_FLAG.test(location.search)) {
+          var q = location.search.replace(/([?&])dl=1(&|$)/, '$1').replace(/[?&]$/, '');
+          history.replaceState(null, '', location.pathname + q + location.hash);
+        }
+      } catch (e) {}
+    }
 
     // vendor-agnostic analytics fan-out: fires into whatever is present
     function track(name, props) {
@@ -523,6 +550,7 @@
     var closeBtn = document.getElementById('igfClose');
     if (closeBtn) closeBtn.addEventListener('click', function () {
       sheet.classList.remove('show'); sheet.setAttribute('aria-hidden', 'true');
+      forgetIntent();   // they changed their mind — the ⋯ goes back to normal
     });
 
     function handleStoreTap(e) {
@@ -535,6 +563,7 @@
 
       // Instagram / Facebook in-app iOS: take control.
       e.preventDefault();
+      rememberIntent();   // so a later ⋯ → external browser lands in the App Store
       track('store_redirect_attempt', { location: where, method: 'itms-apps' });
 
       var settled = false;
