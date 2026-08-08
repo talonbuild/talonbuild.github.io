@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Talon · Home</title>
+<style>
+@@FONTS@@
+
+/* ── the REAL app home (DayV4 + TalonTabBar), ported value-for-value ──
+   Day 7 of 20 → phase Consistency → pc #14B8A6. iPhone insets: top 59, bottom 34.
+   Static by design: the only motion is the goal title cycling. */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; }
+body {
+  background: #05070E;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  user-select: none; -webkit-user-select: none;
+}
+#sky { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* the world at the horizon — worldWrap: left W/2-280, bottom -330, 560px round */
+#world {
+  position: absolute; left: calc(50% - 280px); bottom: -330px;
+  width: 560px; height: 560px; border-radius: 50%; overflow: hidden; z-index: 1;
+}
+#world img { width: 100%; height: 100%; object-fit: cover; opacity: 0.75; }
+#world .veil { position: absolute; inset: 0; background: rgba(4,9,20,0.45); }
+
+/* ── header: greet + day label left, glass streak chip right ── */
+#top {
+  position: absolute; left: 22px; right: 22px; top: 0; padding-top: 83px;   /* topGap(24) */
+  display: flex; justify-content: space-between; align-items: flex-start; z-index: 4;
+}
+#greet { font-family: 'Cinzel', serif; font-weight: 700; font-size: 21px; letter-spacing: 1px; color: #fff; }
+#dayLbl { font-family: 'Share Tech Mono', monospace; font-size: 14px; letter-spacing: 2.5px; color: rgba(203,213,225,0.92); margin-top: 5px; }
+#dayLbl b { color: #14B8A6; font-weight: 400; }
+#streak {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 14px; border-radius: 999px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.02)), rgba(15,18,28,0.6);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.35);
+}
+#streak .n { font-family: 'Cinzel Decorative', serif; font-weight: 700; font-size: 18px; color: #fff; }
+#streak .l { font-family: 'Cinzel', serif; font-weight: 700; font-size: 8.5px; letter-spacing: 1.5px; color: rgba(255,255,255,0.72); }
+
+/* ── content column ── */
+#content { position: absolute; left: 0; right: 0; top: 145px; padding: 0 22px; z-index: 3; }
+#goal {
+  text-align: center; font-family: 'Cinzel', serif; font-weight: 700; font-size: 27px;
+  letter-spacing: 2px; line-height: 34px; color: #fff; margin: 14px 0 16px;
+  text-shadow: 0 2px 14px rgba(0,0,0,0.5);
+  min-height: 34px;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+#goal.sw { opacity: 0; transform: translateY(-6px); }
+
+#card {
+  background: rgba(12,14,19,0.6); border: 1px solid rgba(59,130,246,0.16);
+  border-radius: 20px; padding: 16px 16px 20px;
+}
+#card .head { display: flex; align-items: center; justify-content: space-between; }
+#card .lbl { font-family: 'Cinzel', serif; font-weight: 700; font-size: 12.5px; letter-spacing: 2.5px; color: rgba(232,237,245,0.95); }
+#card .chip {
+  border: 1px solid rgba(96,165,250,0.3); border-radius: 999px; padding: 5px 12px;
+  font-family: 'Share Tech Mono', monospace; font-size: 11.5px; letter-spacing: 1.5px; color: #60A5FA;
+}
+#card .line { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 22px; line-height: 34px; color: #fff; margin-top: 12px; }
+
+#cta {
+  margin-top: 18px; height: 56px; border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  background: #14B8A6; border: 1px solid rgba(20,184,166,0.55);
+  box-shadow: 0 0 18px rgba(20,184,166,0.4);
+  font-family: 'Cinzel', serif; font-weight: 700; font-size: 14px; letter-spacing: 3px; color: #fff;
+}
+#skip { margin-top: 16px; text-align: center; font-family: 'Inter', sans-serif; font-size: 13.5px; letter-spacing: 0.3px; color: rgba(203,213,225,0.72); }
+#skip b { color: #14B8A6; font-weight: 400; }
+
+/* ── progress capsule above the horizon ── */
+#hz { position: absolute; left: 40px; right: 40px; bottom: 222px; z-index: 3; }  /* bottomGap(38)+150 */
+#hz .row { display: flex; align-items: baseline; justify-content: space-between; }
+#hz .name { font-family: 'Share Tech Mono', monospace; font-size: 11.5px; letter-spacing: 2.5px; color: rgba(232,237,245,0.92); }
+#hz .pct { font-family: 'Cinzel Decorative', serif; font-weight: 700; font-size: 24px; color: #14B8A6; }
+#hz .bar { margin-top: 10px; height: 12px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.07); }
+#hz .fill { height: 100%; width: 30%; border-radius: 999px; background: linear-gradient(90deg, #3B82F6, #14B8A6); }
+
+/* ── the REAL TalonTabBar: glass pill, puck under HOME, orb as HOME ── */
+#nav { position: absolute; left: 14px; right: 14px; bottom: 44px; z-index: 5; }   /* bottomGap(10) */
+#pill {
+  position: relative; display: flex; align-items: center;
+  height: 66px; border-radius: 999px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(24px) saturate(1.4); -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  box-shadow: 0 14px 22px rgba(0,0,0,0.5);
+}
+#pill::before { content: ''; position: absolute; inset: 0; background: rgba(10,14,22,0.38); }
+#puck {
+  position: absolute; left: 40%; width: 20%; top: 7px; bottom: 7px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.28);
+  background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08));
+  box-shadow: 0 0 16px rgba(191,219,254,0.25);
+}
+.slot { position: relative; flex: 1; height: 66px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+.slot .em { position: relative; width: 27px; height: 27px; display: flex; align-items: center; justify-content: center; }
+.slot .em svg { display: block; }
+.slot .lb { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 1.4px; color: rgba(255,255,255,0.78); }
+.slot.on .lb { color: #FFFFFF; }
+.slot .lock { position: absolute; top: -6px; right: -9px; }
+.slot .orb { width: 34px; height: 34px; border-radius: 17px; object-fit: cover; }
+
+#homeInd { position: absolute; left: 50%; bottom: 8px; width: 134px; height: 5px; margin-left: -67px; border-radius: 999px; background: rgba(255,255,255,0.28); z-index: 6; }
+
+@media (prefers-reduced-motion: reduce) { #goal { transition: none; } }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+
+<div id="world"><img src="@@HOME_PLANET@@" alt="" /><div class="veil"></div></div>
+
+<div id="top">
+  <div>
+    <div id="greet">Hi, Leo</div>
+    <div id="dayLbl">DAY <b>7</b> · TUESDAY</div>
+  </div>
+  <div id="streak">
+    <svg width="13" height="19" viewBox="0 0 20 30"><path d="M10 1C10 1 5 7 5 13C5 17 6.8 20 9 21.5C8.5 19.5 9.2 17.5 10 16C10.8 17.5 11.5 19.5 11 21.5C13.2 20 15 17 15 13C15 7 10 1 10 1Z" fill="#F97316"/></svg>
+    <span class="n">6</span>
+    <span class="l">STREAK</span>
+  </div>
+</div>
+
+<div id="content">
+  <div id="goal">LOSE 10 LBS</div>
+  <div id="card">
+    <div class="head">
+      <span class="lbl">PRIME MY ENVIRONMENT</span>
+      <span class="chip">10 MIN</span>
+    </div>
+    <div class="line">Leo, do a few small setups first. They make today's actions easy.</div>
+  </div>
+  <div id="cta">CHOOSE MY SMALL ACTIONS &rsaquo;</div>
+  <div id="skip">Already set up?&nbsp;&nbsp;<b>Start your action</b></div>
+</div>
+
+<div id="hz">
+  <div class="row"><span class="name">PLANET I</span><span class="pct">30%</span></div>
+  <div class="bar"><div class="fill"></div></div>
+</div>
+
+<nav id="nav">
+  <div id="pill">
+    <div id="puck"></div>
+    <div class="slot">
+      <span class="em"><svg width="27" height="27" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5.2" stroke="rgba(255,255,255,0.78)" stroke-width="1.7"/><path d="M3.2 15.5C1.9 13.9 5.9 10.4 12.6 7.7c6.6-2.6 11-2.9 10.2-1.1-.5 1.2-3.2 3-6.9 4.8" stroke="rgba(255,255,255,0.78)" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+      <span class="lb">UNIVERSE</span>
+    </div>
+    <div class="slot">
+      <span class="em"><svg width="27" height="27" viewBox="0 0 24 24" fill="none"><path d="M5 20V14M10 20V9M15 20V12M20 20V5" stroke="rgba(255,255,255,0.78)" stroke-width="2" stroke-linecap="round"/><path d="M18 7.5L20 5L22.2 6.8" stroke="rgba(255,255,255,0.78)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="lb">STATS</span>
+    </div>
+    <div class="slot on">
+      <span class="em"><img class="orb" src="@@ORB@@" alt="" /></span>
+      <span class="lb">HOME</span>
+    </div>
+    <div class="slot">
+      <span class="em">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none"><path d="M4 8.5L7.5 11.5L12 5.5L16.5 11.5L20 8.5L18.6 17H5.4Z" stroke="rgba(255,255,255,0.78)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/><path d="M6 20H18" stroke="rgba(255,255,255,0.78)" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span class="lock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#EAB308" stroke-width="2.6" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+      </span>
+      <span class="lb">RANKS</span>
+    </div>
+    <div class="slot">
+      <span class="em"><svg width="27" height="27" viewBox="0 0 24 24" fill="none"><path d="M4 7.5H20" stroke="rgba(255,255,255,0.78)" stroke-width="1.9" stroke-linecap="round"/><circle cx="9" cy="7.5" r="2.2" stroke="rgba(255,255,255,0.78)" stroke-width="1.9"/><path d="M4 16.5H20" stroke="rgba(255,255,255,0.78)" stroke-width="1.9" stroke-linecap="round"/><circle cx="15.5" cy="16.5" r="2.2" stroke="rgba(255,255,255,0.78)" stroke-width="1.9"/></svg></span>
+      <span class="lb">SETTINGS</span>
+    </div>
+  </div>
+</nav>
+
+<div id="homeInd"></div>
+
+<script>
+// ── the sky: near-black, stars at three depths, a teal light field ──
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var c = document.getElementById('sky'), ctx = c.getContext('2d');
+  var dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, stars = [];
+  function size() {
+    W = window.innerWidth; H = window.innerHeight;
+    c.width = W * dpr; c.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    stars = [];
+    for (var i = 0; i < 110; i++) stars.push({
+      x: Math.random() * W, y: Math.random() * H,
+      r: [0.5, 0.9, 1.4][i % 3], a: 0.14 + Math.random() * 0.5,
+      tw: 0.006 + Math.random() * 0.018, p: Math.random() * 6.28
+    });
+  }
+  function paint(t) {
+    ctx.clearRect(0, 0, W, H);
+    var g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#070B16'); g.addColorStop(0.5, '#05070E'); g.addColorStop(1, '#04060B');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    var r = ctx.createRadialGradient(W * 0.72, H * 0.06, 10, W * 0.72, H * 0.06, H * 0.62);
+    r.addColorStop(0, 'rgba(20,184,166,0.13)'); r.addColorStop(1, 'rgba(20,184,166,0)');
+    ctx.fillStyle = r; ctx.fillRect(0, 0, W, H);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      var a = reduce ? s.a : s.a + Math.sin(s.p + t * s.tw) * 0.16;
+      ctx.globalAlpha = a < 0 ? 0 : a;
+      ctx.fillStyle = i % 9 === 0 ? '#9ff2e4' : '#dbe6ff';
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.283); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  size(); paint(0);
+  window.addEventListener('resize', function () { size(); paint(0); });
+  if (!reduce) (function loop(t) { paint(t / 16.7); requestAnimationFrame(loop); })(0);
+})();
+
+// ── the only motion: the goal title slowly cycles ──
+(function () {
+  var el = document.getElementById('goal');
+  var goals = ['LOSE 10 LBS', 'SLEEP 8 HOURS', 'SAVE $5,000', 'RUN A 5K', 'READ 12 BOOKS', 'QUIT SUGAR', 'LEARN GUITAR', 'GET STRONGER'];
+  var i = 0;
+  setInterval(function () {
+    i = (i + 1) % goals.length;
+    el.classList.add('sw');
+    setTimeout(function () { el.textContent = goals[i]; el.classList.remove('sw'); }, 450);
+  }, 3000);
+})();
+</script>
+</body>
+</html>
